@@ -1,0 +1,25 @@
+﻿namespace JPGPizza.Models
+{
+    using System.Collections.Generic;
+
+    public class Product
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public decimal Price { get; set; }
+
+        public string Picture { get; set; }
+
+        public ProductType Type { get; set; }
+
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new HashSet<OrderProduct>();
+
+        public virtual ICollection<Ingredient> Ingredients { get; set; } = new HashSet<Ingredient>();
+
+        public virtual ICollection<Feedback> Feedbacks { get; set; } = new HashSet<Feedback>();
+    }
+}
