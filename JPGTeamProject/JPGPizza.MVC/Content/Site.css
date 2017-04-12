@@ -2,13 +2,21 @@
     padding-top: 50px;
     padding-bottom: 20px;
     font-family: 'Roboto', sans-serif;
+    font-size: 15px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    font-size: 15px;
 }
+
+/* Set headings font size */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+}
+
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 

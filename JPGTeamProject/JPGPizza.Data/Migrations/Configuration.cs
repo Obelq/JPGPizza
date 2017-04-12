@@ -94,9 +94,20 @@ namespace JPGPizza.Data.Migrations
             // With Random Chosen Products And Quantity
             if (!context.Orders.Any())
             {
-                InsertOrderWithRandomOrderProductsForUser(context, "yanislav.asenov@gmail.com", 5, 1, 3);
-                InsertOrderWithRandomOrderProductsForUser(context, "petio.vasilev@gmail.com", 15, 1, 5);
-                InsertOrderWithRandomOrderProductsForUser(context, "georgi.georgiev@gmail.com", 7, 1, 6);
+                for (var i = 0; i < 6; i++)
+                {
+                    InsertOrderWithRandomOrderProductsForUser(context, "yanislav.asenov@gmail.com", (int)Math.Ceiling(1 + i / 2.0), 1, 1 + i);
+                }
+
+                for (var i = 0; i < 3; i++)
+                {
+                    InsertOrderWithRandomOrderProductsForUser(context, "petio.vasilev@gmail.com", 3, 1, 1 + i);
+                }
+
+                for (var i = 0; i < 15; i++)
+                {
+                    InsertOrderWithRandomOrderProductsForUser(context, "georgi.georgiev@gmail.com", 1 + i, 1, 1 + i);
+                }
             }
         }
 
@@ -157,12 +168,15 @@ namespace JPGPizza.Data.Migrations
                 return;
             }
 
+            var rnd = new Random();
+
             var feedback = new Feedback()
             {
                 Content = feedbackContent,
                 Customer = user,
                 CustomerId = user.Id,
-                ProductId = targetProduct.Id
+                ProductId = targetProduct.Id,
+                CreatedOn = DateTime.Now.AddDays(rnd.Next(0, 30))
             };
 
             targetProduct.Feedbacks.Add(feedback);
@@ -227,6 +241,8 @@ namespace JPGPizza.Data.Migrations
                 RequireUppercase = false,
             };
 
+            var rnd = new Random();
+
             var user = new ApplicationUser
             {
                 UserName = email,
@@ -234,9 +250,9 @@ namespace JPGPizza.Data.Migrations
                 FirstName = firstName,
                 LastName = lastName,
                 Age = age,
-                Gender = gender
+                Gender = gender,
+                RegisteredOn = DateTime.Now.AddDays(rnd.Next(0, 300))
             };
-
 
             var userCreateResult = userManager.Create(user, password);
             if (!userCreateResult.Succeeded)

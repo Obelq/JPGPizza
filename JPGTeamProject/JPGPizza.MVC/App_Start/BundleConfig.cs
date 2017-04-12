@@ -20,11 +20,17 @@
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/Administrators/index.js",
+                      "~/bower_components/sammy/lib/min/sammy-lastest.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/administrators.css",
+                      "~/Scripts/Administrators/sammy-0.7.6.min.js"));
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
