@@ -1,3 +1,5 @@
+using JPGPizza.Data.Migrations;
+
 namespace JPGPizza.Data
 {
     using JPGPizza.Data.Configurations;
@@ -10,6 +12,8 @@ namespace JPGPizza.Data
         public JPGPizzaDbContext()
             : base("name=JPGPizzaDbContext")
         {
+            Database.SetInitializer(
+                new MigrateDatabaseToLatestVersion<JPGPizzaDbContext, Configuration>());
         }
 
         public virtual DbSet<Product> Products { get; set; }

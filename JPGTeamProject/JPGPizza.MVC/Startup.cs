@@ -1,6 +1,10 @@
-﻿using JPGPizza.MVC;
+﻿using System.Configuration;
+using System.Data.Entity;
+using JPGPizza.Data;
+using JPGPizza.MVC;
 using Microsoft.Owin;
 using Owin;
+using JPGPizza.Data.Migrations;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace JPGPizza.MVC
@@ -9,6 +13,7 @@ namespace JPGPizza.MVC
     {
         public void Configuration(IAppBuilder app)
         {
+            
             ConfigureAuth(app);
         }
     }
