@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-
-namespace JPGPizza.MVC
+﻿namespace JPGPizza.MVC
 {
-    public class MvcApplication : System.Web.HttpApplication
+    using JPGPizza.MVC.Utility;
+    using System.Web;
+    using System.Web.Http;
+    using System.Web.Mvc;
+    using System.Web.Optimization;
+    using System.Web.Routing;
+
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -16,6 +15,9 @@ namespace JPGPizza.MVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+            AutoMapperConfig.RegisterMappings();
+            ValueProviderFactories.Factories.Add(new JsonValueProviderFactory());
         }
     }
 }

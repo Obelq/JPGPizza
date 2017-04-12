@@ -22,7 +22,7 @@
                             {
                                 <li>
                                     <div>
-                                        @user.Name
+                                        @user.UserName
                                     </div>
                                     <div>
                                         Total orders @user.TotalOrders - Total cost @user.TotalCost лв.
@@ -46,7 +46,8 @@
                                 {
                                     <li>
                                         <div>
-                                            @feedback.Customer.FirstName @feedback.Customer.LastName @feedback.CreatedOn
+                                            <span style="font-weight: 900;">@feedback.Customer.UserName</span>
+                                            <span class="pull-right">@feedback.CreatedOn</span>
                                         </div>
                                         <div>
                                             @feedback.Content
@@ -61,6 +62,31 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-5 col-sm-push-2">
+                    <div class="info-list-heading">
+                        Top Selling Products
+                    </div>
+                    <div class="info-list-body">
+                        <ul class="info-list">
+                            @foreach (var product in Model.TopSellingProducts)
+                            {
+                                <li>
+                                    <div>
+                                        @product.Name
+                                    </div>
+                                    <div>
+                                        Total orders: @product.NumberOfOrders
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="info-list-footer">
+
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="footer">
 
@@ -68,82 +94,3 @@
     </div>
 </div>
 
-@section Scripts {
-    @*<script src="~/Scripts/Administrators/sammy-0.7.6.min.js"></script>*@
-}
-
-@*
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>Admin Control Panel</h2>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-4 col-sm-push-3">
-                <div class="info-list-heading">
-                    Top Customers
-                </div>
-                <div class="info-list-body">
-                    <ul class="info-list">
-                        @foreach (var user in Model.TopUsers)
-                        {
-                            <li>
-                                <div>
-                                    @user.Name
-                                </div>
-                                <div>
-                                    Total orders @user.TotalOrders - Total cost @user.TotalCost лв.
-                                </div>
-                            </li>
-                        }
-                    </ul>
-                </div>
-                <div class="info-list-footer">
-                    <button>See more</button>
-                </div>
-            </div>
-            <div class="col-sm-4 col-sm-push-3"">
-                <div class="info-list-container">
-                    <div class="info-list-heading">
-                        Newst Feedbacks
-                    </div>
-                    <div class="info-list-body">
-                        <ul class="info-list">
-                            @foreach (var feedback in Model.Feedbacks)
-                            {
-                                <li>
-                                    <div>
-                                        @feedback.Customer.FirstName @feedback.Customer.LastName @feedback.CreatedOn
-                                    </div>
-                                    <div>
-                                        @feedback.Content
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                    <div class="info-list-footer">
-                        <button>See more</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-sm-pull-9">
-                <ul>
-                    <li>test</li>
-                    <li>test</li>
-                    <li>test</li>
-                    <li>test</li>
-                    <li>test</li>
-                    <li>test</li>
-                    <li>test</li>
-                    <li>test</li>
-                    <li>test</li>
-                    <li>test</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-*@

@@ -14,6 +14,8 @@
 
         public int ProductId { get; set; }
 
+        public int Rate { get; set; }
+
         public virtual ApplicationUser Customer { get; set; }
 
         public virtual Product Product { get; set; }
