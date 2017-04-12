@@ -19,9 +19,9 @@ namespace JPGPizza.Data.Migrations
             // Seed Users
             if (!context.Users.Any())
             {
-                CreateUser(context, "yanislav.asenov@gmail.com", "123", "Yanislav", "Asenov", 5, Gender.Male);
-                CreateUser(context, "petio.vasilev@gmail.com", "123", "Petio", "Vasilev", 6, Gender.Male);
-                CreateUser(context, "georgi.georgiev@gmail.com", "123", "Georgi", "Georgiev", 7, Gender.Male);
+                CreateUser(context, "yani", "yanislav.asenov@gmail.com", "123", "Yanislav", "Asenov", 5, Gender.Male);
+                CreateUser(context, "petio", "petio.vasilev@gmail.com", "123", "Petio", "Vasilev", 6, Gender.Male);
+                CreateUser(context, "joro", "georgi.georgiev@gmail.com", "123", "Georgi", "Georgiev", 7, Gender.Male);
             }
 
             // Seed Roles
@@ -31,9 +31,9 @@ namespace JPGPizza.Data.Migrations
                 CreateRole(context, "User");
 
                 // Seed Roles To Users
-                AddUserToRole(context, "yanislav.asenov@gmail.com", "Administrator");
-                AddUserToRole(context, "petio.vasilev@gmail.com", "Administrator");
-                AddUserToRole(context, "georgi.georgiev@gmail.com", "Administrator");
+                AddUserToRole(context, "yani", "Administrator");
+                AddUserToRole(context, "petio", "Administrator");
+                AddUserToRole(context, "joro", "Administrator");
             }
 
             // Seed Products
@@ -79,34 +79,32 @@ namespace JPGPizza.Data.Migrations
             // Insert Feedback For Product By User
             if (!context.Feedbacks.Any())
             {
-                CreateFeedbackForProduct(context, "Маргарита", "yanislav.asenov@gmail.com", "Беше много вкусна и нямам търпение да си взема пак.");
-                CreateFeedbackForProduct(context, "Маргарита", "petio.vasilev@gmail.com", "Не мислех, че ще ми хареса, но ми хареса #k.");
-                CreateFeedbackForProduct(context, "Пеперони", "petio.vasilev@gmail.com", "Баси яката пица. Поръчайте си поне две!");
-                CreateFeedbackForProduct(context, "Пеперони", "yanislav.asenov@gmail.com", "Пръснах се от ядене. Мега вкусната пица!");
-                CreateFeedbackForProduct(context, "Пеперони", "georgi.georgiev@gmail.com", "Много ми хареса! Няма да сгрешите, ако си я поръчате.");
-                CreateFeedbackForProduct(context, "Гардън", "georgi.georgiev@gmail.com", "Доста вкусна. Поръчвайте!");
-                CreateFeedbackForProduct(context, "Американa", "yanislav.asenov@gmail.com", "Ако не броим лютите чушки, които не лютяха беше доста добра.");
-                CreateFeedbackForProduct(context, "Meat Mania", "petio.vasilev@gmail.com", "Месото беше уникално, но доматения сос беше малко.");
-                CreateFeedbackForProduct(context, "Хавай", "yanislav.asenov@gmail.com", "Очаквах да е по-вкусна отколото беше...");
+                CreateFeedbackForProduct(context, "Маргарита", "yani", "Беше много вкусна и нямам търпение да си взема пак.");
+                CreateFeedbackForProduct(context, "Маргарита", "petio", "Не мислех, че ще ми хареса, но ми хареса #k.");
+                CreateFeedbackForProduct(context, "Пеперони", "petio", "Баси яката пица. Поръчайте си поне две!");
+                CreateFeedbackForProduct(context, "Пеперони", "yani", "Пръснах се от ядене. Мега вкусната пица!");
+                CreateFeedbackForProduct(context, "Пеперони", "joro", "Много ми хареса! Няма да сгрешите, ако си я поръчате.");
+                CreateFeedbackForProduct(context, "Гардън", "joro", "Доста вкусна. Поръчвайте!");
+                CreateFeedbackForProduct(context, "Американa", "yani", "Ако не броим лютите чушки, които не лютяха беше доста добра.");
+                CreateFeedbackForProduct(context, "Meat Mania", "petio", "Месото беше уникално, но доматения сос беше малко.");
+                CreateFeedbackForProduct(context, "Хавай", "yani", "Очаквах да е по-вкусна отколото беше...");
             }
 
             // Insert Orders For Users 
             // With Random Chosen Products And Quantity
             if (!context.Orders.Any())
-            {
-                for (var i = 0; i < 6; i++)
-                {
-                    InsertOrderWithRandomOrderProductsForUser(context, "yanislav.asenov@gmail.com", (int)Math.Ceiling(1 + i / 2.0), 1, 1 + i);
-                }
-
-                for (var i = 0; i < 3; i++)
-                {
-                    InsertOrderWithRandomOrderProductsForUser(context, "petio.vasilev@gmail.com", 3, 1, 1 + i);
-                }
-
+ 
                 for (var i = 0; i < 15; i++)
                 {
-                    InsertOrderWithRandomOrderProductsForUser(context, "georgi.georgiev@gmail.com", 1 + i, 1, 1 + i);
+                    InsertOrderWithRandomOrderProductsForUser(context, "joro", 1 + i, 1, 1 + i);
+                }
+                for (var i = 0; i < 15; i++)
+                {
+                    InsertOrderWithRandomOrderProductsForUser(context, "petio", 1 + i, 1, 1 + i);
+                }
+                for (var i = 0; i < 15; i++)
+                {
+                    InsertOrderWithRandomOrderProductsForUser(context, "yani", 1 + i, 1, 1 + i);
                 }
             }
         }
@@ -228,7 +226,7 @@ namespace JPGPizza.Data.Migrations
             context.SaveChanges();
         }
 
-        private void CreateUser(JPGPizzaDbContext context, string email, string password, string firstName, string lastName, int age, Gender gender)
+        private void CreateUser(JPGPizzaDbContext context, string username,  string email, string password, string firstName, string lastName, int age, Gender gender)
         {
             var userManager = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(context));
@@ -245,7 +243,7 @@ namespace JPGPizza.Data.Migrations
 
             var user = new ApplicationUser
             {
-                UserName = email,
+                UserName = username,
                 Email = email,
                 FirstName = firstName,
                 LastName = lastName,
