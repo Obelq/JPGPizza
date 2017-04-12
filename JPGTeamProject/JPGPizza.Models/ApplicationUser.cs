@@ -21,6 +21,7 @@
 
         public string LastName { get; set; }
 
+        [DataType(DataType.DateTime)]
         public DateTime RegisteredOn { get; set; }
 
         [Range(0, 120)]

@@ -9,6 +9,7 @@
     using Microsoft.Owin.Security;
     using JPGPizza.MVC.ViewModels;
     using JPGPizza.Models;
+    using System;
 
     [Authorize]
     public class AccountController : Controller
@@ -154,7 +155,8 @@
                     UserName = model.UserName,
                     Email = model.Email,
                     FirstName = model.FirstName,
-                    LastName = model.LastName
+                    LastName = model.LastName,
+                    RegisteredOn = DateTime.Now
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

@@ -11,7 +11,7 @@ namespace JPGPizza.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(JPGPizzaDbContext context)
@@ -93,22 +93,21 @@ namespace JPGPizza.Data.Migrations
             // Insert Orders For Users 
             // With Random Chosen Products And Quantity
             if (!context.Orders.Any())
- 
+
                 for (var i = 0; i < 15; i++)
                 {
                     InsertOrderWithRandomOrderProductsForUser(context, "joro", 1 + i, 1, 1 + i);
                 }
-                for (var i = 0; i < 15; i++)
-                {
-                    InsertOrderWithRandomOrderProductsForUser(context, "petio", 1 + i, 1, 1 + i);
-                }
-                for (var i = 0; i < 15; i++)
-                {
-                    InsertOrderWithRandomOrderProductsForUser(context, "yani", 1 + i, 1, 1 + i);
-                }
+            for (var i = 0; i < 15; i++)
+            {
+                InsertOrderWithRandomOrderProductsForUser(context, "petio", 1 + i, 1, 1 + i);
+            }
+            for (var i = 0; i < 15; i++)
+            {
+                InsertOrderWithRandomOrderProductsForUser(context, "yani", 1 + i, 1, 1 + i);
             }
         }
-
+    
         private void InsertOrderWithRandomOrderProductsForUser(JPGPizzaDbContext context, string username, int numberOfOrderProducts, int minQuantity, int maxQuantity)
         {
             var targetUser = context.Users.FirstOrDefault(u => u.UserName == username);
