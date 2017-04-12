@@ -21,7 +21,7 @@
         {
             var users = await _context.Users.Select(u => new TopUserViewModel()
             {
-                Name = u.FirstName + " " + u.LastName,
+                UserName = u.UserName,
                 TotalOrders = u.Orders.Count(),
                 TotalCost = u.Orders.SelectMany(o => o.OrderProducts).Sum(op => op.Quantity * op.Product.Price)
             })
