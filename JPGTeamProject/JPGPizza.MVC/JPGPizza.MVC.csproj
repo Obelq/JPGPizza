@@ -205,11 +205,11 @@
     <Compile Include="Controllers\AdministratorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Dtos\FeedbackForAdminDto.cs" />
     <Compile Include="Dtos\MostUsedIngredientDto.cs" />
     <Compile Include="Dtos\TopSellingProductDto.cs" />
     <Compile Include="Dtos\TopUserDto.cs" />
-    
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
