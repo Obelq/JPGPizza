@@ -1,16 +1,16 @@
 ﻿namespace JPGPizza.MVC.ViewModels.Administrators
 {
-    using JPGPizza.Models;
     using JPGPizza.MVC.Dtos;
     using System.Collections.Generic;
-    using System.Web.Helpers;
 
     public class AdministratorsIndexViewModel
     {
-        public IEnumerable<Feedback> Feedbacks { get; set; } = new HashSet<Feedback>();
-        public IEnumerable<TopUserViewModel> TopUsers { get; set; } = new HashSet<TopUserViewModel>();
-        public int TotalUsersCount { get; set; }
-        public int TotalOrdersCount { get; set; }
-        public IEnumerable<ProductByOrderDto> TopSellingProducts { get; set; } = new HashSet<ProductByOrderDto>();
+        public int TotalCustomers { get; set; }
+        public int TotalOrders { get; set; }
+        public int TotalFeedbacks { get; set; }
+        public IEnumerable<MostUsedIngredientDto> MostUsedIngredients { get; set; } = new HashSet<MostUsedIngredientDto>();
+        public IEnumerable<FeedbackForAdminDto> Feedbacks { get; set; } = new HashSet<FeedbackForAdminDto>();
+        public IEnumerable<TopUserDto> TopUsers { get; set; } = new HashSet<TopUserDto>();
+        public IEnumerable<TopSellingProductDto> TopSellingProducts { get; set; } = new HashSet<TopSellingProductDto>();
     }
 }

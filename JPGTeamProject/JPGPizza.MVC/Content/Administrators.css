@@ -4,11 +4,11 @@
 
 .info-list {
     font-size: 12px;
-    height: 150px;
+    height: 170px;
     overflow-y: scroll;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     list-style: none;
-    padding: 5px 5px; 
+    padding: 5px 5px;
 }
 
 .info-list > li {
@@ -16,12 +16,64 @@
     margin-bottom: 5px;
 }
 
+.info-list-heading {
+    color: #dd2744;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 3px solid #dd2744;
+}
+
+.info-table {
+    font-size: 12px;
+    height: 170px;
+    overflow-y: scroll;
+    /*border: 1px solid black;*/
+    padding: 5px 5px;
+    display: block;
+}
+
+.even-row {
+    background-color: #eee;
+}
+
 .main-content {
     padding-top: 30px;
 }
-/*.admin-panel-content-container {
-    padding-left: 100px;
-}*/
+
+.admin-small-td {
+    width: 10%;
+}
+
+.admin-medium-td {
+    width: 20%;
+}
+
+.admin-large-td {
+    width: 60%;
+}
+
+.total-info-container {
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #dd2744;
+    padding: 20px;
+    font-weight: 900;
+    margin-right: 40px;
+    margin-bottom: 5px;
+}
+
+.info-span {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+/* Bootstrap overriders */
+.row {
+    margin-bottom: 40px;
+}
+
+
 /* SideBar */
 .nav-side-menu {
     overflow: auto;

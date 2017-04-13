@@ -5,31 +5,61 @@
     ViewBag.Title = "Index";
 }
 
-<div class="container-fluid admin-panel-content-container">
+@{ string[] rowBackground = new string[] { "", "even-row" };}
+
+<div class="container-fluid admin-panel-content-container" style="padding-top: 20px;">
     <div id="app">
-        <div class="sidebar">
+        <div class="sidebar hidden-xs">
             @Html.Partial("_AdministratorsSidebar")
         </div>
         <div class="main-content">
+            <div class="row" style="padding-left: 20px;">
+                <div class="col-sm-3 col-sm-push-2 total-info-container">
+                    <span class="glyphicon glyphicon-user info-span"></span> Общо клиенти
+                    <span class="info-span pull-right">@Model.TotalCustomers</span>
+                </div>
+                <div class="col-sm-3 col-sm-push-2 total-info-container">
+                    <span class="glyphicon glyphicon-shopping-cart info-span"></span> Общо поръчки
+                    <span class="info-span pull-right">@Model.TotalOrders</span>
+                </div>
+                <div class="col-sm-3 col-sm-push-2 total-info-container">
+                    <span class="glyphicon glyphicon-comment info-span"></span> Мнения
+                    <span class="info-span pull-right">@Model.TotalFeedbacks</span>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-5 col-sm-push-2">
                     <div class="info-list-heading">
-                        Top Customers
+                        Топ клиенти
                     </div>
                     <div class="info-list-body">
-                        <ul class="info-list">
-                            @foreach (var user in Model.TopUsers)
-                            {
-                                <li>
-                                    <div>
-                                        @user.UserName
-                                    </div>
-                                    <div>
-                                        Total orders @user.TotalOrders - Total cost @user.TotalCost лв.
-                                    </div>
-                                </li>
-                            }
-                        </ul>
+                        <table class="info-table table">
+                            <thead>
+                                <tr>
+                                    <th>Потребителско име</th>
+                                    <th class="text-left">Брой поръчки</th>
+                                    <th class="text-right">Стойност</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int row = 0;}
+                                @foreach (var user in Model.TopUsers)
+                                {
+                                    <tr class="@rowBackground[row % rowBackground.Length]">
+                                        <td  class="admin-large-td">
+                                            <a href="#">@user.UserName</a>
+                                        </td>
+                                        <td class="text-right admin-small-td">
+                                            @user.TotalOrders
+                                        </td>
+                                        <td class="text-right admin-medium-td">
+                                            @user.TotalCost лв.
+                                        </td>
+                                    </tr>
+                                    row++;
+                                }
+                            </tbody>
+                        </table>
                     </div>
                     <div class="info-list-footer">
                         
@@ -38,21 +68,54 @@
                 <div class="col-sm-5  col-sm-push-2">
                     <div class="info-list-container">
                         <div class="info-list-heading">
-                            Newst Feedbacks
+                            Последни мнения
                         </div>
                         <div class="info-list-body">
                             <ul class="info-list">
+                                @{ row = 0; }
                                 @foreach (var feedback in Model.Feedbacks)
                                 {
-                                    <li>
-                                        <div>
-                                            <span style="font-weight: 900;">@feedback.Customer.UserName</span>
-                                            <span class="pull-right">@feedback.CreatedOn</span>
-                                        </div>
-                                        <div>
-                                            @feedback.Content
+                                    <li class="@rowBackground[row % rowBackground.Length]">
+                                        <a href="#">
+                                            <div style="font-size: 15px;font-weight: bold;">
+                                                @feedback.ProductName
+                                            </div>
+                                            <div>
+                                                @feedback.Content
+                                            </div>
+                                        </a>
+                                        <div style="padding-left: 10px;">
+                                            <span class="glyphicon glyphicon-time" style="padding-top: 5px; padding-right: 5px;"></span>преди 
+                                            <span>
+                                                @if (feedback.TimeSpan.TotalSeconds < 0)
+                                                {
+                                                    int totalSeconds = (int)feedback.TimeSpan.TotalSeconds;
+                                                    @totalSeconds<span style="padding-left: 5px;">секунди</span>
+                                                }
+                                                else if (feedback.TimeSpan.TotalMinutes < 60)
+                                                {
+                                                    int totalMinutes = (int)feedback.TimeSpan.TotalMinutes;
+                                                    @totalMinutes <span style="padding-left: 5px;">минути</span>
+                                                }
+                                                else if (feedback.TimeSpan.TotalHours < 24)
+                                                {
+                                                    int totalHours = (int)feedback.TimeSpan.TotalHours;
+                                                    @totalHours <span style="padding-left: 5px;">часа</span>
+                                                }
+                                                else
+                                                {
+                                                    int totalDays = (int)feedback.TimeSpan.TotalDays;
+                                                    @totalDays <span style="padding-left: 5px;">дни</span>
+                                                }
+                                            </span> от 
+                                            <span style="font-weight: 900;">
+                                                <a href="#">
+                                                    @feedback.UserName
+                                                </a>
+                                            </span>
                                         </div>
                                     </li>
+                                    row++;
                                 }
                             </ul>
                         </div>
@@ -65,22 +128,74 @@
             <div class="row">
                 <div class="col-sm-5 col-sm-push-2">
                     <div class="info-list-heading">
-                        Top Selling Products
+                        Най-продавани продукти
                     </div>
                     <div class="info-list-body">
-                        <ul class="info-list">
-                            @foreach (var product in Model.TopSellingProducts)
-                            {
-                                <li>
-                                    <div>
-                                        @product.Name
-                                    </div>
-                                    <div>
-                                        Total orders: @product.NumberOfOrders
-                                    </div>
-                                </li>
-                            }
-                        </ul>
+                        <table class="info-table table">
+                            <thead>
+                                <tr>
+                                    <th>Име на продукт</th>
+                                    <th class="text-right">Рейтинг</th>
+                                    <th class="text-right">Брой поръчки</th>
+                                    <th class="text-right">Цена</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{row = 0;}
+                                @foreach (var product in Model?.TopSellingProducts)
+                                {
+                                    <tr class="@rowBackground[row % rowBackground.Length]">
+                                        <td class="admin-large-td">
+                                            <span>@product.Name</span>
+                                        </td>
+                                        <td class="text-right admin-small-td">
+                                            @product.AverageFeedbacksRate.ToString("F2")
+                                        </td>
+                                        <td class="text-right admin-small-td">
+                                            <span class="pull-right">@product.TotalOrders</span>
+                                        </td>
+                                        <td class="text-right admin-medium-td">
+                                            <span class="pull-right">@product.Price.ToString("F2")</span>
+                                        </td>
+                                    </tr>
+                                    row++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="info-list-footer">
+
+                    </div>
+                </div>
+
+                <div class="col-sm-5 col-sm-push-2">
+                    <div class="info-list-heading">
+                        Най-използвани съставки
+                    </div>
+                    <div class="info-list-body">
+                        <table class="info-table table">
+                            <thead>
+                                <tr>
+                                    <th>Име на съставка</th>
+                                    <th class="text-right">Брой продукти</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{row = 0;}
+                                @foreach (var ingredient in Model.MostUsedIngredients)
+                                {
+                                    <tr class="@rowBackground[row % rowBackground.Length]">
+                                        <td class="admin-large-td">
+                                            <span>@ingredient.Name</span>
+                                        </td>
+                                        <td class="text-right admin-medium-td">
+                                            @ingredient.NumberOfProducts
+                                        </td>
+                                    </tr>
+                                    row++;
+                                }
+                            </tbody>
+                        </table>
                     </div>
                     <div class="info-list-footer">
 

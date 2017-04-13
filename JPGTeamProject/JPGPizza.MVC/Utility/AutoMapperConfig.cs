@@ -10,8 +10,8 @@ namespace JPGPizza.MVC.Utility
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Product, ProductByOrderDto>()
-                    .ForMember(dest => dest.NumberOfOrders,
+                cfg.CreateMap<Product, TopSellingProductDto>()
+                    .ForMember(dest => dest.TotalOrders,
                             y => y.ResolveUsing(src => src.OrderProducts.Count));
             });
         }

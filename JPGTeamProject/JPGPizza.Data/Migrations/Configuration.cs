@@ -22,6 +22,7 @@ namespace JPGPizza.Data.Migrations
                 CreateUser(context, "yani", "yanislav.asenov@gmail.com", "123", "Yanislav", "Asenov", 5, Gender.Male);
                 CreateUser(context, "petio", "petio.vasilev@gmail.com", "123", "Petio", "Vasilev", 6, Gender.Male);
                 CreateUser(context, "joro", "georgi.georgiev@gmail.com", "123", "Georgi", "Georgiev", 7, Gender.Male);
+                CreateUser(context, "pesho", "pesho.pesho@gmail.com", "123", "Pesho", "Pesho", 8, Gender.Male);
             }
 
             // Seed Roles
@@ -34,6 +35,7 @@ namespace JPGPizza.Data.Migrations
                 AddUserToRole(context, "yani", "Administrator");
                 AddUserToRole(context, "petio", "Administrator");
                 AddUserToRole(context, "joro", "Administrator");
+                AddUserToRole(context, "pesho", "User");
             }
 
             // Seed Products
@@ -79,35 +81,46 @@ namespace JPGPizza.Data.Migrations
             // Insert Feedback For Product By User
             if (!context.Feedbacks.Any())
             {
-                CreateFeedbackForProduct(context, "Маргарита", "yani", "Беше много вкусна и нямам търпение да си взема пак.");
-                CreateFeedbackForProduct(context, "Маргарита", "petio", "Не мислех, че ще ми хареса, но ми хареса #k.");
-                CreateFeedbackForProduct(context, "Пеперони", "petio", "Баси яката пица. Поръчайте си поне две!");
-                CreateFeedbackForProduct(context, "Пеперони", "yani", "Пръснах се от ядене. Мега вкусната пица!");
-                CreateFeedbackForProduct(context, "Пеперони", "joro", "Много ми хареса! Няма да сгрешите, ако си я поръчате.");
-                CreateFeedbackForProduct(context, "Гардън", "joro", "Доста вкусна. Поръчвайте!");
-                CreateFeedbackForProduct(context, "Американa", "yani", "Ако не броим лютите чушки, които не лютяха беше доста добра.");
-                CreateFeedbackForProduct(context, "Meat Mania", "petio", "Месото беше уникално, но доматения сос беше малко.");
-                CreateFeedbackForProduct(context, "Хавай", "yani", "Очаквах да е по-вкусна отколото беше...");
+                CreateFeedbackForProduct(context, "Маргарита", "yani", "Беше много вкусна и нямам търпение да си взема пак.", 5);
+                CreateFeedbackForProduct(context, "Маргарита", "petio", "Не мислех, че ще ми хареса, но ми хареса #k.", 3);
+                CreateFeedbackForProduct(context, "Пеперони", "petio", "Баси яката пица. Поръчайте си поне две!", 4);
+                CreateFeedbackForProduct(context, "Пеперони", "yani", "Пръснах се от ядене. Мега вкусната пица!", 2);
+                CreateFeedbackForProduct(context, "Пеперони", "joro", "Много ми хареса! Няма да сгрешите, ако си я поръчате.", 1);
+                CreateFeedbackForProduct(context, "Гардън", "joro", "Доста вкусна. Поръчвайте!", 5);
+                CreateFeedbackForProduct(context, "Американa", "yani", "Ако не броим лютите чушки, които не лютяха беше доста добра.", 5);
+                CreateFeedbackForProduct(context, "Meat Mania", "petio", "Месото беше уникално, но доматения сос беше малко.", 4);
+                CreateFeedbackForProduct(context, "Хавай", "yani", "Очаквах да е по-вкусна отколото беше...", 3);
+                CreateFeedbackForProduct(context, "Meat Mania", "pesho", "Става.", 3);
+                CreateFeedbackForProduct(context, "Хавай", "pesho", "Не става.", 1);
+                CreateFeedbackForProduct(context, "Гардън", "pesho", "Пръснах се.", 5);
             }
 
             // Insert Orders For Users 
             // With Random Chosen Products And Quantity
             if (!context.Orders.Any())
-
-                for (var i = 0; i < 15; i++)
+            {
+                for (var i = 0; i < 2; i++)
                 {
-                    InsertOrderWithRandomOrderProductsForUser(context, "joro", 1 + i, 1, 1 + i);
+                    InsertOrderWithRandomOrderProductsForUser(context, "joro", 1 + i, 1, 2);
                 }
-            for (var i = 0; i < 15; i++)
-            {
-                InsertOrderWithRandomOrderProductsForUser(context, "petio", 1 + i, 1, 1 + i);
-            }
-            for (var i = 0; i < 15; i++)
-            {
-                InsertOrderWithRandomOrderProductsForUser(context, "yani", 1 + i, 1, 1 + i);
+
+                for (var i = 0; i < 3; i++)
+                {
+                    InsertOrderWithRandomOrderProductsForUser(context, "petio", 1 + i, 1, 2);
+                }
+
+                for (var i = 0; i < 4; i++)
+                {
+                    InsertOrderWithRandomOrderProductsForUser(context, "yani", 1 + i, 1, 5);
+                }
+
+                for (var i = 0; i < 5; i++)
+                {
+                    InsertOrderWithRandomOrderProductsForUser(context, "pesho", 1 + i, 1, 3);
+                }
             }
         }
-    
+
         private void InsertOrderWithRandomOrderProductsForUser(JPGPizzaDbContext context, string username, int numberOfOrderProducts, int minQuantity, int maxQuantity)
         {
             var targetUser = context.Users.FirstOrDefault(u => u.UserName == username);
@@ -117,9 +130,16 @@ namespace JPGPizza.Data.Migrations
                 return;
             }
 
+            var orderDateRandom = new Random();
+
+            for (var i = 0; i < username.Length * username.Length / 2 + 3; i++)
+            {
+                int mix = orderDateRandom.Next();
+            }
+
             var order = new Order()
             {
-                Date = DateTime.Now
+                Date = DateTime.Now.AddDays(orderDateRandom.Next(-50, 0)).AddMinutes(orderDateRandom.Next(-800, 0))
             };
 
             var rnd = new Random();
@@ -149,7 +169,7 @@ namespace JPGPizza.Data.Migrations
             context.SaveChanges();
         }
 
-        private void CreateFeedbackForProduct(JPGPizzaDbContext context, string productName, string username, string feedbackContent)
+        private void CreateFeedbackForProduct(JPGPizzaDbContext context, string productName, string username, string feedbackContent, int rate)
         {
             var user = context.Users.FirstOrDefault(u => u.UserName == username);
 
@@ -167,13 +187,19 @@ namespace JPGPizza.Data.Migrations
 
             var rnd = new Random();
 
+            for (var i = 0; i < targetProduct.Name.Length * username.Length / 2; i++)
+            {
+                int mix = rnd.Next();
+            }
+
             var feedback = new Feedback()
             {
                 Content = feedbackContent,
                 Customer = user,
                 CustomerId = user.Id,
                 ProductId = targetProduct.Id,
-                CreatedOn = DateTime.Now.AddDays(rnd.Next(0, 30))
+                CreatedOn = DateTime.Now.AddDays(rnd.Next(-10, 0)).AddMinutes(rnd.Next(-300, 0)),
+                Rate = rate
             };
 
             targetProduct.Feedbacks.Add(feedback);
@@ -225,7 +251,7 @@ namespace JPGPizza.Data.Migrations
             context.SaveChanges();
         }
 
-        private void CreateUser(JPGPizzaDbContext context, string username,  string email, string password, string firstName, string lastName, int age, Gender gender)
+        private void CreateUser(JPGPizzaDbContext context, string username, string email, string password, string firstName, string lastName, int age, Gender gender)
         {
             var userManager = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(context));
@@ -271,7 +297,13 @@ namespace JPGPizza.Data.Migrations
 
         private void AddUserToRole(JPGPizzaDbContext context, string userName, string roleName)
         {
-            var user = context.Users.First(u => u.UserName == userName);
+            var user = context.Users.FirstOrDefault(u => u.UserName == userName);
+
+            if (user == null)
+            {
+                return;
+            }
+
             var userManager = new UserManager<ApplicationUser>(
                 new UserStore<ApplicationUser>(context));
             var addAdminRoleResult = userManager.AddToRole(user.Id, roleName);

@@ -1,6 +1,6 @@
-﻿namespace JPGPizza.MVC.ViewModels.Administrators
+﻿namespace JPGPizza.MVC.Dtos
 {
-    public class TopUserViewModel
+    public class TopUserDto
     {
         public string UserName { get; set; }
         public decimal TotalCost { get; set; }

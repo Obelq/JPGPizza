@@ -1,6 +1,7 @@
 ﻿namespace JPGPizza.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     public class Feedback
     {
@@ -14,6 +15,7 @@
 
         public int ProductId { get; set; }
 
+        [Range(1, 5)]
         public int Rate { get; set; }
 
         public virtual ApplicationUser Customer { get; set; }
