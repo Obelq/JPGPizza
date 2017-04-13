@@ -1,7 +1,17 @@
-﻿(function () {
-    let app = Sammy.apps.body;
+﻿$(document).ready(() => {
+    let app = Sammy('#app', function () {
+        this.get('#/', function (context) {
+            console.log(context.verb);
+        });
 
-    app.get('#/', function (context) {
-        console.log("You're in the Main route");
+        this.get('#/pizzas', function (context) {
+            console.log('Pizzas');
+        });
+
+        this.get('#/pizzas/:id', function (context) {
+            console.log(context.params.id);
+        });
     });
-})();
+
+    app.run('#/');
+});

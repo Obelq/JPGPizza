@@ -48,6 +48,11 @@ textarea {
 /* 
     Navbar styles
 */
+
+.navbar-inverse {
+    border-color: #222222;
+}
+
 .navbar-inverse a {
     color: #fff;
 }
