@@ -1,0 +1,16 @@
+﻿
+
+<div class="container-fluid admin-panel-content-container" style="padding-top: 20px;">
+
+    <div class="sidebar hidden-xs">
+        @Html.Partial("_AdministratorsSidebar")
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-sm-push-8">
+            <form action="/" method="post">
+                <input type="text" name="product-name" value="" placeholder="Търси..." class="form-control form-control-custom" />
+                <button type="submit" class="btn-custom-secondary">Търси</button>
+            </form>
+        </div>
+    </div>
+</div>
