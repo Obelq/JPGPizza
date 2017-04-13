@@ -1,0 +1,26 @@
+﻿@model List<JPGPizza.Models.ProductType>
+@{
+    ViewBag.Title = "Categories";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Categories</title>
+</head>
+<body>
+<div class="container">
+    @foreach (var category in Model)
+    {
+        <article>
+            <h1>
+                @Html.ActionLink(category.ToString(),"List","Product",new {category}, null)
+            </h1>
+        </article>
+    }
+</div>
+</body>
+</html>
+
+

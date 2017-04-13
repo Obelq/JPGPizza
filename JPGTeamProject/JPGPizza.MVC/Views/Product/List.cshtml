@@ -1,0 +1,34 @@
+﻿@model List<JPGPizza.Models.Product>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@Model.FirstOrDefault()?.Type</title>
+</head>
+<body>
+    <div class="container">
+        @foreach (var product in Model)
+        {
+            <article>
+                <h1>
+                    @product.Name
+                </h1>
+                <p>
+                    @product.Description
+                </p>
+                <p>
+                    @product.Price
+                </p>
+                <p>
+                    -- @string.Join(", ", product.Ingredients.Select(i => i.Name))
+                </p>
+            </article>
+        }
+    </div>
+</body>
+</html>
