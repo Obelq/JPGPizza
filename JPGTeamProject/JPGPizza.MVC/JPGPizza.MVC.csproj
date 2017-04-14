@@ -216,6 +216,7 @@
     <Compile Include="Services\AdministratorsRepository.cs" />
     <Compile Include="Services\ProductsRepository.cs" />
     <Compile Include="Utility\AutoMapperConfig.cs" />
+    <Compile Include="Utility\ProductTypeHelper.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsIndexViewModel.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsProductsViewModel.cs" />
@@ -289,6 +290,7 @@
     <Content Include="Views\Product\Categories.cshtml" />
     <Content Include="Views\Product\List.cshtml" />
     <Content Include="Views\Administrators\Products.cshtml" />
+    <Content Include="Views\Shared\_Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

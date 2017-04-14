@@ -38,7 +38,10 @@
         {
             var viewModel = new AdministratorsProductsViewModel()
             {
-                Products = await _productsRepository.GetAll().ToListAsync()
+                Products = await _productsRepository
+                    .GetAll()
+                    .Include(p => p.Ingredients)
+                    .ToListAsync()
             };
 
             return View(viewModel);
