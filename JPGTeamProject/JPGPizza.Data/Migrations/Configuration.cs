@@ -81,18 +81,18 @@ namespace JPGPizza.Data.Migrations
             // Insert Feedback For Product By User
             if (!context.Feedbacks.Any())
             {
-                CreateFeedbackForProduct(context, "Маргарита", "yani", "Беше много вкусна и нямам търпение да си взема пак.", 5);
-                CreateFeedbackForProduct(context, "Маргарита", "petio", "Не мислех, че ще ми хареса, но ми хареса #k.", 3);
-                CreateFeedbackForProduct(context, "Пеперони", "petio", "Баси яката пица. Поръчайте си поне две!", 4);
-                CreateFeedbackForProduct(context, "Пеперони", "yani", "Пръснах се от ядене. Мега вкусната пица!", 2);
-                CreateFeedbackForProduct(context, "Пеперони", "joro", "Много ми хареса! Няма да сгрешите, ако си я поръчате.", 1);
-                CreateFeedbackForProduct(context, "Гардън", "joro", "Доста вкусна. Поръчвайте!", 5);
-                CreateFeedbackForProduct(context, "Американa", "yani", "Ако не броим лютите чушки, които не лютяха беше доста добра.", 5);
-                CreateFeedbackForProduct(context, "Meat Mania", "petio", "Месото беше уникално, но доматения сос беше малко.", 4);
-                CreateFeedbackForProduct(context, "Хавай", "yani", "Очаквах да е по-вкусна отколото беше...", 3);
-                CreateFeedbackForProduct(context, "Meat Mania", "pesho", "Става.", 3);
-                CreateFeedbackForProduct(context, "Хавай", "pesho", "Не става.", 1);
-                CreateFeedbackForProduct(context, "Гардън", "pesho", "Пръснах се.", 5);
+                CreateFeedbackForProduct(context, "Маргарита", "yani", "Беше много вкусна и нямам търпение да си взема пак.");
+                CreateFeedbackForProduct(context, "Маргарита", "petio", "Не мислех, че ще ми хареса, но ми хареса #k.");
+                CreateFeedbackForProduct(context, "Пеперони", "petio", "Баси яката пица. Поръчайте си поне две!");
+                CreateFeedbackForProduct(context, "Пеперони", "yani", "Пръснах се от ядене. Мега вкусната пица!");
+                CreateFeedbackForProduct(context, "Пеперони", "joro", "Много ми хареса! Няма да сгрешите, ако си я поръчате.");
+                CreateFeedbackForProduct(context, "Гардън", "joro", "Доста вкусна. Поръчвайте!");
+                CreateFeedbackForProduct(context, "Американa", "yani", "Ако не броим лютите чушки, които не лютяха беше доста добра.");
+                CreateFeedbackForProduct(context, "Meat Mania", "petio", "Месото беше уникално, но доматения сос беше малко.");
+                CreateFeedbackForProduct(context, "Хавай", "yani", "Очаквах да е по-вкусна отколото беше...");
+                CreateFeedbackForProduct(context, "Meat Mania", "pesho", "Става.");
+                CreateFeedbackForProduct(context, "Хавай", "pesho", "Не става.");
+                CreateFeedbackForProduct(context, "Гардън", "pesho", "Пръснах се.");
             }
 
             // Insert Orders For Users 
@@ -169,7 +169,7 @@ namespace JPGPizza.Data.Migrations
             context.SaveChanges();
         }
 
-        private void CreateFeedbackForProduct(JPGPizzaDbContext context, string productName, string username, string feedbackContent, int rate)
+        private void CreateFeedbackForProduct(JPGPizzaDbContext context, string productName, string username, string feedbackContent)
         {
             var user = context.Users.FirstOrDefault(u => u.UserName == username);
 
@@ -198,8 +198,7 @@ namespace JPGPizza.Data.Migrations
                 Customer = user,
                 CustomerId = user.Id,
                 ProductId = targetProduct.Id,
-                CreatedOn = DateTime.Now.AddDays(rnd.Next(-10, 0)).AddMinutes(rnd.Next(-300, 0)),
-                Rate = rate
+                CreatedOn = DateTime.Now.AddDays(rnd.Next(-10, 0)).AddMinutes(rnd.Next(-300, 0))
             };
 
             targetProduct.Feedbacks.Add(feedback);

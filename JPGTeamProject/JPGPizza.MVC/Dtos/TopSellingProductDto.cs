@@ -17,7 +17,5 @@
                 this.totalOrders = value;
             }
         }
-
-        public double AverageFeedbacksRate { get; set; }
     }
 }

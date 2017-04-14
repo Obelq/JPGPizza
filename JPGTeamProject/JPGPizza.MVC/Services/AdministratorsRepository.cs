@@ -58,11 +58,9 @@
                 {
                     Name = p.Name,
                     Price = p.Price,
-                    TotalOrders = p.OrderProducts.Select(op => op.Order.Id).Distinct().Count(),
-                    AverageFeedbacksRate = p.Feedbacks.Average(f => f.Rate)
+                    TotalOrders = p.OrderProducts.Select(op => op.Order.Id).Distinct().Count()
                 })
                 .OrderByDescending(p => p.TotalOrders)
-                .ThenByDescending(p => p.AverageFeedbacksRate)
                 .Take(10);
 
             return products;
