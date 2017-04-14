@@ -41,12 +41,22 @@ namespace JPGPizza.Data.Migrations
             // Seed Products
             if (!context.Products.Any())
             {
-                CreateProduct(context, "Маргарита", "", 9.50m, "http://westport.tarrylodge.com/wp-content/uploads/sites/17/2015/08/Babbo_Boston_Food_703-740x380.jpg");
-                CreateProduct(context, "Пеперони", "", 13m, "http://balkan-pizza-doner.de/wp-content/uploads/2015/08/Pepperoni_1.jpg");
-                CreateProduct(context, "Гардън", "", 11m, "https://cdn.media.yp.ca/8621438/pcc-5649004053842719950-IMG-0072_r.JPG");
-                CreateProduct(context, "Американa", "", 12m, "http://www.silviocicchi.com/pizzachef/wp-content/uploads/2015/02/a-evid-672x372.jpg");
-                CreateProduct(context, "Meat Mania", "", 14.50m, "http://68.media.tumblr.com/3413204e7b24a9a690085326cab23e41/tumblr_o6ijpa8Vjx1tg05wco1_1280.jpg");
-                CreateProduct(context, "Хавай", "", 11m, "https://s3.amazonaws.com/ODNUploads/53c7197f0d5d1hawaiian.jpg");
+                // Insert pizzas
+                CreateProduct(context, "Маргарита", "", 9.50m, "http://westport.tarrylodge.com/wp-content/uploads/sites/17/2015/08/Babbo_Boston_Food_703-740x380.jpg", ProductType.Pizza);
+                CreateProduct(context, "Пеперони", "", 13m, "http://balkan-pizza-doner.de/wp-content/uploads/2015/08/Pepperoni_1.jpg", ProductType.Pizza);
+                CreateProduct(context, "Гардън", "", 11m, "https://cdn.media.yp.ca/8621438/pcc-5649004053842719950-IMG-0072_r.JPG", ProductType.Pizza);
+                CreateProduct(context, "Американa", "", 12m, "http://www.silviocicchi.com/pizzachef/wp-content/uploads/2015/02/a-evid-672x372.jpg", ProductType.Pizza);
+                CreateProduct(context, "Meat Mania", "", 14.50m, "http://68.media.tumblr.com/3413204e7b24a9a690085326cab23e41/tumblr_o6ijpa8Vjx1tg05wco1_1280.jpg", ProductType.Pizza);
+                CreateProduct(context, "Хавай", "", 11m, "https://s3.amazonaws.com/ODNUploads/53c7197f0d5d1hawaiian.jpg", ProductType.Pizza);
+
+                // Insert drinks
+                CreateProduct(context, "Coca Cola", "", 1.50m, "https://lh3.googleusercontent.com/-hC_vFNFAy2w/Vp5H1cct9AI/AAAAAAAADGc/Hfz2esqbQkYJ8cLMioumS1GatHfJ4EmwgCJoC/w610-h610/CokeRedDisc.JPG", ProductType.Drink);
+                CreateProduct(context, "Coca Cola Zero", "", 1.50m, "http://www.coca-colaproductfacts.com/content/dam/productfacts/us/productDetails/BrandLogos/BL_CokeZero.png", ProductType.Drink);
+                CreateProduct(context, "Fanta", "", 1.50m, "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Fanta_logo_global.svg/1200px-Fanta_logo_global.svg.png", ProductType.Drink);
+                CreateProduct(context, "Минерална вода", "", 1m, "http://www.bankia.bg/content/dam/GO/bonaqua/bulgaria/brand-logos/Bankia_Logo.jpg", ProductType.Drink);
+                CreateProduct(context, "Nestea", "", 2m, "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Nestea_logo.svg/1200px-Nestea_logo.svg.png", ProductType.Drink);
+                CreateProduct(context, "Sprite", "", 2m, "https://www.sprite.com/content/dam/sprite2016/sprite_logo_green2.png", ProductType.Drink);
+                CreateProduct(context, "Загорка", "", 2m, "http://zagorkacompany.bg/uploads/portfolio/zagorkalogowhite.jpg", ProductType.Drink);
             }
 
             // Seed Ingredients
@@ -236,14 +246,15 @@ namespace JPGPizza.Data.Migrations
             context.SaveChanges();
         }
 
-        private void CreateProduct(JPGPizzaDbContext context, string name, string description, decimal price, string picture)
+        private void CreateProduct(JPGPizzaDbContext context, string name, string description, decimal price, string picture, ProductType type)
         {
             var product = new Product()
             {
                 Name = name,
                 Description = description,
                 Price = price,
-                Picture = picture
+                Picture = picture,
+                Type = type
             };
 
             context.Products.Add(product);

@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="row">
-        @{ var productsByType = Model.Products.GroupBy(p => p.Type); }
+        @{ var productsByType = Model.Products.OrderBy(p => p.Type).GroupBy(p => p.Type); }
         <div class="col-sm-9 col-sm-push-2 acp-nav-tabs acp-nav-tabs-container">
             <ul class="nav nav-tabs acp-tabs">
                 @{int rowCounter = 0; }
@@ -27,16 +27,18 @@
                     <li class="@tabClass acp-tab-li">
                         <a href="#@kvp.Key" data-toggle="tab">@ProductTypeHelper.GetName(kvp.Key)</a>
                     </li>
+                    rowCounter++;
                 }
             </ul>
         </div>
     </div>
     <div class="row">
         @{rowCounter = 0; }
-        @foreach (var kvp in productsByType)
-        {
-            string tabClass = rowCounter == 0 ? "active" : "";
-            <div class="tab-content">
+        <div class="tab-content">
+            @foreach (var kvp in productsByType)
+            {
+                string tabClass = rowCounter == 0 ? "active" : "";
+
                 <div class="tab-pane @tabClass" id="@kvp.Key">
                     @foreach (var product in kvp)
                     {
@@ -45,8 +47,9 @@
                         </div>
                     }
                 </div>
-            </div>
-            rowCounter++;
-        }
+
+                rowCounter++;
+            }
+        </div>
     </div>
 </div>

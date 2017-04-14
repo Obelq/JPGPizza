@@ -18,3 +18,17 @@
         <a href="#" class="btn btn-default">Изтрий</a>
     </div>
 }
+else if (Model.Type == ProductType.Drink)
+{
+    <div class="acp-product-img-container">
+        <img class="img-responsive acp-product-img drink-img" src="@Model.Picture" alt="@Model.Name" />
+    </div>
+    <div class="acp-product-name">
+        @Model.Name
+    </div>
+    <div class="acp-product-actions">
+        <a href="#" class="btn btn-default">Детайли</a>
+        <a href="#" class="btn btn-default">Промени</a>
+        <a href="#" class="btn btn-default">Изтрий</a>
+    </div>
+}
