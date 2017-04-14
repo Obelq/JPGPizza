@@ -1,7 +1,7 @@
 ﻿@model List<JPGPizza.Models.Product>
 
 @{
-    Layout = null;
+    ViewBag.Title = "Products";
 }
 
 <!DOCTYPE html>
@@ -14,20 +14,22 @@
     <div class="container">
         @foreach (var product in Model)
         {
-            <article>
+            <div>
                 <h1>
                     @product.Name
                 </h1>
                 <p>
+                    Описание: 
                     @product.Description
                 </p>
                 <p>
+                    Цена:
                     @product.Price
                 </p>
                 <p>
-                    -- @string.Join(", ", product.Ingredients.Select(i => i.Name))
+                    Съставки: @string.Join(", ", product.Ingredients.Select(i => i.Name))
                 </p>
-            </article>
+            </div>
         }
     </div>
 </body>

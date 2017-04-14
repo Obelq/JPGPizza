@@ -6,7 +6,7 @@
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Имейл")]
         public string Email { get; set; }
     }
 
@@ -29,11 +29,11 @@
         public string Provider { get; set; }
 
         [Required]
-        [Display(Name = "Code")]
+        [Display(Name = "Код")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "Запомняне на браузъра?")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -42,22 +42,22 @@
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Имейл")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "UserName")]
+        [Display(Name = "Потребителско име")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Парола")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Запомняне?")]
         public bool RememberMe { get; set; }
     }
 
@@ -65,32 +65,32 @@
     {
         [Required]
         [StringLength(25)]
-        [Display(Name = "Username")]
+        [Display(Name = "Потребителско име")]
         public string UserName { get; set; }
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Имейл")]
         public string Email { get; set; }
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "First Name")]
+        [Display(Name = "Име")]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Last Name")]
+        [Display(Name = "Фамилия")]
         public string LastName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Парола")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Потвърдете паролата")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
@@ -99,18 +99,18 @@
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Имейл")]
         public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Парола")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Потвърдете паролата")]
+        [Compare("Password", ErrorMessage = "Паролите не съвпадат!")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
@@ -120,7 +120,7 @@
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Имейл")]
         public string Email { get; set; }
     }
 }
