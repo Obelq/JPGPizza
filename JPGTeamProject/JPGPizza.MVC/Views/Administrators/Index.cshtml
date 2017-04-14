@@ -135,7 +135,6 @@
                             <thead>
                                 <tr>
                                     <th>Име на продукт</th>
-                                    <th class="text-right">Рейтинг</th>
                                     <th class="text-right">Брой поръчки</th>
                                     <th class="text-right">Цена</th>
                                 </tr>
@@ -148,14 +147,11 @@
                                         <td class="admin-large-td">
                                             <span>@product.Name</span>
                                         </td>
-                                        <td class="text-right admin-small-td">
-                                            @product.AverageFeedbacksRate.ToString("F2")
-                                        </td>
-                                        <td class="text-right admin-small-td">
+                                        <td class="text-right admin-medium-td">
                                             <span class="pull-right">@product.TotalOrders</span>
                                         </td>
                                         <td class="text-right admin-medium-td">
-                                            <span class="pull-right">@product.Price.ToString("F2")</span>
+                                            <span class="pull-right">@product.Price.ToString("F2") лв.</span>
                                         </td>
                                     </tr>
                                     row++;
