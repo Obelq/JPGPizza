@@ -13,7 +13,7 @@
             @Html.Partial("_AdministratorsSidebar")
         </div>
         <div class="main-content">
-            <div class="row" style="padding-left: 20px;">
+            <div class="row">
                 <div class="col-sm-3 col-sm-push-2 total-info-container">
                     <span class="glyphicon glyphicon-user info-span"></span> Общо клиенти
                     <span class="info-span pull-right">@Model.TotalCustomers</span>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-5 col-sm-push-2">
+                <div class="col-sm-5 col-sm-push-2 box-shadow-container">
                     <div class="info-list-heading">
                         Топ клиенти
                     </div>
@@ -36,9 +36,9 @@
                         <table class="info-table table">
                             <thead>
                                 <tr>
-                                    <th>Потребителско име</th>
-                                    <th class="text-left">Брой поръчки</th>
-                                    <th class="text-right">Стойност</th>
+                                    <th class="admin-large-td text-center">Потребителско име</th>
+                                    <th class="admin-medium-td text-center">Брой поръчки</th>
+                                    <th class="admin-medium-td text-center">Стойност</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,7 +49,7 @@
                                         <td  class="admin-large-td">
                                             <a href="#">@user.UserName</a>
                                         </td>
-                                        <td class="text-right admin-small-td">
+                                        <td class="text-right admin-medium-td">
                                             @user.TotalOrders
                                         </td>
                                         <td class="text-right admin-medium-td">
@@ -65,7 +65,7 @@
                         
                     </div>
                 </div>
-                <div class="col-sm-5  col-sm-push-2">
+                <div class="col-sm-5  col-sm-push-2 box-shadow-container">
                     <div class="info-list-container">
                         <div class="info-list-heading">
                             Последни мнения
@@ -126,7 +126,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-5 col-sm-push-2">
+                <div class="col-sm-5 col-sm-push-2 box-shadow-container">
                     <div class="info-list-heading">
                         Най-продавани продукти
                     </div>
@@ -164,7 +164,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-5 col-sm-push-2">
+                <div class="col-sm-5 col-sm-push-2 box-shadow-container">
                     <div class="info-list-heading">
                         Най-използвани съставки
                     </div>
@@ -172,8 +172,8 @@
                         <table class="info-table table">
                             <thead>
                                 <tr>
-                                    <th>Име на съставка</th>
-                                    <th class="text-right">Брой продукти</th>
+                                    <th class="admin-giga-large-td">Име на съставка</th>
+                                    <th class="text-right admin-giga-medium-td">Брой продукти</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -181,10 +181,10 @@
                                 @foreach (var ingredient in Model.MostUsedIngredients)
                                 {
                                     <tr class="@rowBackground[row % rowBackground.Length]">
-                                        <td class="admin-large-td">
+                                        <td class="admin-giga-large-td">
                                             <span>@ingredient.Name</span>
                                         </td>
-                                        <td class="text-right admin-medium-td">
+                                        <td class="text-right admin-giga-medium-td" style="width: 180px;">
                                             @ingredient.NumberOfProducts
                                         </td>
                                     </tr>

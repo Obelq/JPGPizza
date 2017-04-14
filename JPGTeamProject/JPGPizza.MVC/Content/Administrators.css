@@ -4,7 +4,7 @@
 
 .info-list {
     font-size: 12px;
-    height: 200px;
+    height: 210px;
     overflow-y: scroll;
     /*border: 1px solid black;*/
     list-style: none;
@@ -12,7 +12,7 @@
 }
 
 .info-list > li {
-    padding: 5px;
+    padding: 10px;
     margin-bottom: 5px;
 }
 
@@ -41,16 +41,31 @@
 }
 
 .admin-small-td {
-    width: 10%;
+    min-width: 25%;
+    width: 30%;
 }
 
 .admin-medium-td {
-    width: 20%;
+    min-width: 25%;
+    width: 30%;
+}
+
+.admin-giga-medium-td {
+    min-width: 40%;
+    width: 40%;
 }
 
 .admin-large-td {
+    min-width: 35%;
+    width: 70%;
+    text-align: left;
+}
+
+.admin-giga-large-td  {
+    min-width: 60%;
     width: 60%;
 }
+
 
 .total-info-container {
     text-transform: uppercase;
@@ -58,7 +73,7 @@
     background-color: #dd2744;
     padding: 20px;
     font-weight: 900;
-    margin-right: 40px;
+    margin-right: 55px;
     margin-bottom: 5px;
 }
 
@@ -128,6 +143,13 @@
     color: #d80a2b;
 }
 
+.box-shadow-container {
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-right: 20px;
+    padding-top: 10px;
+}
 
 /* Bootstrap overriders */
 .row {
