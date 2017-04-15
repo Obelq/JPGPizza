@@ -73,3 +73,7 @@ textarea {
 .action-no-decoration {
     text-decoration: none;
 }
+
+.btn {
+    margin-top: 8px;
+}

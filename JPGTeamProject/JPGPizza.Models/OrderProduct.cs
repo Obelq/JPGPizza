@@ -1,5 +1,11 @@
 ﻿namespace JPGPizza.Models
-{
+{   
+    public enum OrderType
+    {
+        Delivery,
+        CarryOut
+    }
+
     public class OrderProduct
     {
         public int Quantity { get; set; }
@@ -11,5 +17,9 @@
         public virtual Product Product { get; set; }
 
         public virtual Order Order { get; set; }
+
+        public OrderType Type { get; set; }
+
+        public string Adress { get; set; }
     }
 }

@@ -1,0 +1,55 @@
+﻿@using JPGPizza.MVC.ViewModels.Orders
+@model OrderProductsViewModel
+@{
+    ViewBag.Title = "CarryOut";
+}
+
+<h2>CarryOut</h2>
+<ul class="nav nav-tabs">
+    @foreach (var type in Model.Types)
+    {
+
+
+        <li><a data-toggle="tab" href="#@type">@type</a></li>
+
+
+    }
+</ul>
+
+<div class="tab-content">
+    <div id="Pizza" class="tab-pane fade in active">        
+        @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Pizza))
+        {
+            <div class="col-sm-3 col-sm-push-2 acp-product-container">
+                <div class="acp-product-img-container">
+                    
+                    <img class="img-responsive acp-product-img" src="@product.Picture" alt="Гардън">
+                </div>
+                <div class="acp-product-name">
+                    @product.Name
+                </div>
+                <div class="acp-product-ingredients">
+                    @string.Join(", ", product.Ingredients.Select(i => i.Name))
+                </div>
+                <div class="acp-product-actions">
+                    <a href="#" class="btn btn-default">Добави</a>
+                </div>
+
+            </div>
+        }       
+    </div>
+    <div id="Drink" class="tab-pane fade">
+        <h3>DRINKSS</h3>
+        <p>Some content in menu 1.</p>
+    </div>
+    <div id="Salad" class="tab-pane fade">
+        <h3>SALADS</h3>
+        <p>Some content in menu 2.</p>
+    </div>
+    <div id="Sandwich" class="tab-pane fade">
+        <h3>SANDWICHES</h3>
+        <p>Some content in menu 2.</p>
+    </div>
+</div>
+
+
