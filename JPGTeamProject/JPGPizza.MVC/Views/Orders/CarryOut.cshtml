@@ -20,7 +20,7 @@
     <div id="Pizza" class="tab-pane fade in active">        
         @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Pizza))
         {
-            <div class="col-sm-3 col-sm-push-2 acp-product-container">
+            <div class="col-sm-3 col-sm-push-1 acp-product-container">
                 <div class="acp-product-img-container">
                     
                     <img class="img-responsive acp-product-img" src="@product.Picture" alt="Гардън">
@@ -32,7 +32,7 @@
                     @string.Join(", ", product.Ingredients.Select(i => i.Name))
                 </div>
                 <div class="acp-product-actions">
-                    <a href="#" class="btn btn-default">Добави</a>
+                    <a href="#"  class="btn btn-lg">Добави</a>
                 </div>
 
             </div>
