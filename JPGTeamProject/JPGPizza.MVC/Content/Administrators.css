@@ -122,12 +122,11 @@
 
 .acp-product-actions {
     padding-bottom: 10px;
-    padding-left: 8px;
 }
 
     .acp-product-actions a {
         font-size: 12px;
-        width: 32.2%;
+        width: 32.3%;
     }
 
 .acp-tab-li > a.active {
@@ -156,6 +155,18 @@
 .drink-img {
     
 }
+
+/*.acp-add-product-btn {
+    text-transform: uppercase;
+}*/
+
+.grow {
+    transition: all .2s ease-in-out;
+}
+
+    .grow:hover {
+        transform: scale(1.05);
+    }
 
 /* Bootstrap overriders */
 .row {

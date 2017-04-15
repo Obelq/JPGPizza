@@ -20,7 +20,7 @@
     <div id="Pizza" class="tab-pane fade in active">        
         @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Pizza))
         {
-            <div class="col-sm-3 col-sm-push-1 acp-product-container">
+            <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
                 @{Html.RenderPartial("_Product", product);}
             </div>
         }       
