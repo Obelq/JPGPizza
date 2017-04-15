@@ -106,25 +106,26 @@
     border-bottom: 3px solid #dd2744;
     text-align: center;
     padding: 10px;
+    height: 60px;
 }
 
 .acp-product-ingredients {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     color: #2e353d;
     text-transform: lowercase;
     text-align: center;
-    padding: 15px;
+    padding: 10px;
     height: 100px;
     border-bottom: 3px solid #dd2744;
 }
 
 .acp-product-actions {
     padding: 15px 0;
+    padding-left: 8px;
 }
 
     .acp-product-actions a {
-        margin-right: 1px;
         font-size: 12px;
     }
 

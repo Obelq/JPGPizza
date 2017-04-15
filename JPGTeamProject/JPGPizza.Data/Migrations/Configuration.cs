@@ -57,40 +57,60 @@ namespace JPGPizza.Data.Migrations
                 CreateProduct(context, "Nestea", "", 2m, "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Nestea_logo.svg/1200px-Nestea_logo.svg.png", ProductType.Drink);
                 CreateProduct(context, "Sprite", "", 2m, "https://www.sprite.com/content/dam/sprite2016/sprite_logo_green2.png", ProductType.Drink);
                 CreateProduct(context, "Загорка", "", 2m, "http://zagorkacompany.bg/uploads/portfolio/zagorkalogowhite.jpg", ProductType.Drink);
+
+                // Insert salads
+                CreateProduct(context, "Салата риба тон", "", 4.50m, "http://www.az-jenata.bg/media/az-jenata/files/articles/528x396/5466ce477114fe649d9f5be129fe601a.jpg", ProductType.Salad);
+                CreateProduct(context, "Салата цезар с пиле", "", 5.50m, "http://recipes.dahapna.co.uk/wp-content/uploads/2016/01/%D0%A1%D0%B0%D0%BB%D0%B0%D1%82%D0%B0-%E2%80%9C%D0%A6%D0%B5%D0%B7%D0%B0%D1%80%E2%80%9D-%D1%81-%D0%BF%D0%B8%D0%BB%D0%B5.png", ProductType.Salad);
+                CreateProduct(context, "Салата цезар с бекон", "", 5.50m, "http://tago.bg/wp-content/uploads/2016/03/%D0%A1%D0%B0%D0%BB%D0%B0%D1%82%D0%B0-%D0%A6%D0%B5%D0%B7%D0%B0%D1%80-1-1280x852.jpg", ProductType.Salad);
+                CreateProduct(context, "Зелева салата за ракия", "", 4.50m, "http://recepti.gotvach.bg/files/lib/600x350/salata-mayo-corn-cabbage.jpg", ProductType.Salad);
+                CreateProduct(context, "Свежа салата с рукола и цвекло", "", 3.50m, "http://recepti.gotvach.bg/files/lib/600x350/salata-rukula-cveklo1.jpg", ProductType.Salad);
+                CreateProduct(context, "Салата пролет", "", 4.00m, "http://recepti.gotvach.bg/files/lib/600x350/salata-prolet.jpg", ProductType.Salad);
+                CreateProduct(context, "Многослойна салата", "", 5.00m, "http://recepti.gotvach.bg/files/lib/600x350/mnogosloina-salata.JPG", ProductType.Salad);
+
+                // Insert sandwiches
+                CreateProduct(context, "Сандвич с овче сирене, спанак и пилешко", "", 4.00m, "http://recepti.gotvach.bg/files/lib/600x350/sanvich-pile-spanak2.jpg", ProductType.Sandwich);
+                CreateProduct(context, "Вегетариански бургери с бял боб", "", 3.00m, "http://recepti.gotvach.bg/files/lib/600x350/vegan-mushroom-burger.jpg", ProductType.Sandwich);
+                CreateProduct(context, "Мексикански бургер с боб", "", 4.00m, "http://recepti.gotvach.bg/files/lib/600x350/mexico-burger-bob.jpg", ProductType.Sandwich);
+                CreateProduct(context, "Буритос с картофи и авокадо", "", 5.00m, "http://recepti.gotvach.bg/files/lib/600x350/guacamole-burrito-chicken.jpg", ProductType.Sandwich);
+                CreateProduct(context, "Пълнозърнести студени сандвичи", "", 2.50m, "http://recepti.gotvach.bg/files/lib/600x350/sandvichi-salam.jpg", ProductType.Sandwich);
+                CreateProduct(context, "Тостерни филийки с кашкавал", "", 1.50m, "http://recepti.gotvach.bg/files/lib/600x350/tosterni-filii-kashkaval.jpg", ProductType.Sandwich);
+                CreateProduct(context, "Парти сандвичи", "", 3.50m, "http://recepti.gotvach.bg/files/lib/600x350/parti-sandvichi2456.jpg", ProductType.Sandwich);
             }
 
             // Seed Ingredients
             if (!context.Ingredinets.Any())
             {
-                CreateIngredient(context, "Доматен сос", "");
-                CreateIngredient(context, "Моцарела", "");
-                CreateIngredient(context, "Пушена шунка", "");
-                CreateIngredient(context, "Ананас", "");
-                CreateIngredient(context, "Пеперони", "");
-                CreateIngredient(context, "Люти чушки", "");
-                CreateIngredient(context, "Лук", "");
-                CreateIngredient(context, "Зелени чушки", "");
-                CreateIngredient(context, "Домати", "");
-                CreateIngredient(context, "Черни маслини", "");
-                CreateIngredient(context, "Гъби", "");
-                CreateIngredient(context, "Пушен бекон", "");
-                CreateIngredient(context, "Пиле", "");
-                CreateIngredient(context, "Пушена шунка", "");
-                CreateIngredient(context, "Чоризо", "");
-                CreateIngredient(context, "Пикантно телешко", "");
-
-                // Seed Ingredients To Products
+                // Add ingredients to pizzas
                 AddIngretientsToProduct(context, "Маргарита", "Доматен сос", "Моцарела");
                 AddIngretientsToProduct(context, "Пеперони", "Доматен сос", "Моцарела", "Пеперони");
                 AddIngretientsToProduct(context, "Гардън", "Доматен сос", "Моцарела", "Лук", "Зелени чушки", "Домати", "Черни маслини", "Гъби");
                 AddIngretientsToProduct(context, "Американa", "Доматен сос", "Моцарела", "Пеперони", "Люти чушки", "Лук");
                 AddIngretientsToProduct(context, "Meat Mania", "Доматен сос", "Моцарела", "Чоризо", "Пикантно телешко", "Пушен бекон", "Пиле", "Пушена шунка");
                 AddIngretientsToProduct(context, "Хавай", "Доматен сос", "Моцарела", "Пушена шунка", "Ананас");
+
+                // Add ingredients to salads
+                AddIngretientsToProduct(context, "Салата риба тон", "Айсберг", "Риба тон", "Царевица", "Маслини", "Лимон", "Зехтин");
+                AddIngretientsToProduct(context, "Салата цезар с пиле", "Айсберг", "Пиле", "Царевица", "Крутони", "Пармезан", "Цезар сос");
+                AddIngretientsToProduct(context, "Салата цезар с бекон", "Айсберг", "Бекон", "Царевица", "Крутони", "Пармезан", "Цезар сос");
+                AddIngretientsToProduct(context, "Зелева салата за ракия", "Зеле", "Морков", "Краставица", "Царевица", "Майонеза");
+                AddIngretientsToProduct(context, "Свежа салата с рукола и цвекло", "Рукола", "Цвекло", "Морков", "Зехтин", "Лимон");
+                AddIngretientsToProduct(context, "Салата пролет", "Домати", "Краставица", "Листни зеленчуци", "Ленено семе", "Чушка", "Семена от чия", "Зелен лук", "Зелени маслини", "Маслини", "Сирене", "Зехтин", "Оцет");
+                AddIngretientsToProduct(context, "Многослойна салата", "Яйца", "Домати", "Грах", "Царевица", "Маслини", "Майонеза", "Кисело мляко", "Кашкавал");
+
+                // Add ingredients to sandwiches
+                AddIngretientsToProduct(context, "Сандвич с овче сирене, спанак и пилешко", "Пълнозърнест хляб", "Яйца", "Масло", "Чесън", "Мащерка", "Спанак", "Маруля", "Овче сирене", "Пилешко филе", "Пресен лук", "Черен пипер");
+                AddIngretientsToProduct(context, "Вегетариански бургери с бял боб", "Зехтин", "Лук", "Моркови", "Доматено пюре", "Боб", "Галета", "Чадър", "Магданоз", "Черен пипер");
+                AddIngretientsToProduct(context, "Мексикански бургер с боб", "Боб", "Кайма", "Кимион", "Риган", "Чесън", "Сирене", "Лук", "Масло", "Домат", "Пържени картофи", "Олио");
+                AddIngretientsToProduct(context, "Буритос с картофи и авокадо", "Картофи", "Бекон", "Авокадо", "Маруля", "Майонеза", "Кашкавал", "Тортия", "Олио", "Черен пипер", "Кориандър");
+                AddIngretientsToProduct(context, "Пълнозърнести студени сандвичи", "Салам", "Кашкавал", "Крема сирене", "Маруля", "Краставици");
+                AddIngretientsToProduct(context, "Тостерни филийки с кашкавал", "Кашкавал", "Масло");
+                AddIngretientsToProduct(context, "Парти сандвичи", "Крема сирене", "Шунка", "Маруля", "Домат", "Маслини");
             }
 
-            // Insert Feedback For Product By User
+            // Insert feedback for product by user
             if (!context.Feedbacks.Any())
             {
+                // Add feedbacks for pizzas.
                 CreateFeedbackForProduct(context, "Маргарита", "yani", "Беше много вкусна и нямам търпение да си взема пак.");
                 CreateFeedbackForProduct(context, "Маргарита", "petio", "Не мислех, че ще ми хареса, но ми хареса #k.");
                 CreateFeedbackForProduct(context, "Пеперони", "petio", "Баси яката пица. Поръчайте си поне две!");
@@ -103,10 +123,14 @@ namespace JPGPizza.Data.Migrations
                 CreateFeedbackForProduct(context, "Meat Mania", "pesho", "Става.");
                 CreateFeedbackForProduct(context, "Хавай", "pesho", "Не става.");
                 CreateFeedbackForProduct(context, "Гардън", "pesho", "Пръснах се.");
+
+                // Add feedbacks for salads.
+                CreateFeedbackForProduct(context, "Салата риба тон", "yani", "Униканлна!!!");
+                CreateFeedbackForProduct(context, "Салата цезар с пиле", "petio", "Баси яката. здр кп :)");
             }
 
-            // Insert Orders For Users 
-            // With Random Chosen Products And Quantity
+            // Insert orders for users 
+            // With random chosen products and quantity
             if (!context.Orders.Any())
             {
                 for (var i = 0; i < 2; i++)
@@ -224,12 +248,28 @@ namespace JPGPizza.Data.Migrations
                 return;
             }
 
-            var ingredients = context.Ingredinets.Where(i => ingredientNames.Contains(i.Name)).ToList();
-
-            foreach (var ingredient in ingredients)
+            foreach (var ingredientName in ingredientNames)
             {
-                targetProduct.Ingredients.Add(ingredient);
+                var targetIngredient = context.Ingredinets.FirstOrDefault(i => i.Name == ingredientName);
+
+                if (targetIngredient == null)
+                {
+                    targetIngredient = new Ingredient()
+                    {
+                        Name = ingredientName,
+                        Description = string.Empty
+                    };
+                }
+
+                targetProduct.Ingredients.Add(targetIngredient);
             }
+
+            //var ingredients = context.Ingredinets.Where(i => ingredientNames.Contains(i.Name)).ToList();
+
+            //foreach (var ingredient in ingredients)
+            //{
+            //    targetProduct.Ingredients.Add(ingredient);
+            //}
 
             context.SaveChanges();
         }

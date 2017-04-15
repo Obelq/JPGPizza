@@ -38,6 +38,7 @@
             @foreach (var kvp in productsByType)
             {
                 string tabClass = rowCounter == 0 ? "active" : "";
+                int productCounter = 0;
 
                 <div class="tab-pane @tabClass" id="@kvp.Key">
                     @foreach (var product in kvp)
@@ -46,6 +47,8 @@
                             @{Html.RenderPartial("_Product", product);}
                         </div>
                     }
+
+                    @rowCounter++
                 </div>
 
                 rowCounter++;
