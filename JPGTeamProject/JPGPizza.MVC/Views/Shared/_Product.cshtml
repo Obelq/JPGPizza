@@ -1,7 +1,7 @@
 ﻿@using JPGPizza.Models
 @model Product
 
-@if (Model.Type == ProductType.Pizza)
+@if (Model.Type == ProductType.Pizza || Model.Type == ProductType.Salad || Model.Type == ProductType.Sandwich)
 {
     <div class="acp-product-img-container">
         <img class="img-responsive acp-product-img" src="@Model.Picture" alt="@Model.Name" />
@@ -27,8 +27,11 @@ else if (Model.Type == ProductType.Drink)
         @Model.Name
     </div>
     <div class="acp-product-actions">
-        <a href="#" class="btn btn-default">Детайли</a>
-        <a href="#" class="btn btn-default">Промени</a>
-        <a href="#" class="btn btn-default">Изтрий</a>
+        @if (User.IsInRole("Administrator"))
+        {
+            <a href="#" class="btn btn-default">Детайли</a>
+            <a href="#" class="btn btn-default">Промени</a>
+            <a href="#" class="btn btn-default">Изтрий</a>
+        }
     </div>
 }
