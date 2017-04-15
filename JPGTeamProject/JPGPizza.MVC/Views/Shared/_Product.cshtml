@@ -13,9 +13,16 @@
         @string.Join(", ", Model.Ingredients.Select(i => i.Name))
     </div>
     <div class="acp-product-actions">
-        <a href="#" class="btn btn-default">Детайли</a>
-        <a href="#" class="btn btn-default">Промени</a>
-        <a href="#" class="btn btn-default">Изтрий</a>
+        @if (User.IsInRole("Administrator"))
+        {
+            <a href="#" class="btn btn-default">Детайли</a>
+            <a href="#" class="btn btn-default">Промени</a>
+            <a href="#" class="btn btn-default">Изтрий</a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-default add-to-cart-btn">Добави</a>
+        }
     </div>
 }
 else if (Model.Type == ProductType.Drink)
@@ -32,6 +39,10 @@ else if (Model.Type == ProductType.Drink)
             <a href="#" class="btn btn-default">Детайли</a>
             <a href="#" class="btn btn-default">Промени</a>
             <a href="#" class="btn btn-default">Изтрий</a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-default add-to-cart-btn">Добави</a>
         }
     </div>
 }

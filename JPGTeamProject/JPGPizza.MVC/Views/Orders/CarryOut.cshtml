@@ -21,20 +21,7 @@
         @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Pizza))
         {
             <div class="col-sm-3 col-sm-push-1 acp-product-container">
-                <div class="acp-product-img-container">
-                    
-                    <img class="img-responsive acp-product-img" src="@product.Picture" alt="Гардън">
-                </div>
-                <div class="acp-product-name">
-                    @product.Name
-                </div>
-                <div class="acp-product-ingredients">
-                    @string.Join(", ", product.Ingredients.Select(i => i.Name))
-                </div>
-                <div class="acp-product-actions">
-                    <a href="#"  class="btn btn-lg">Добави</a>
-                </div>
-
+                @{Html.RenderPartial("_Product", product);}
             </div>
         }       
     </div>
