@@ -40,3 +40,19 @@
 </div>
 
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.add-to-cart-btn').click((ev) => {
+
+                ev.preventDefault();
+                let evTarget = $(ev.currentTarget);
+                let targetClass = ev.currentTarget.getAttribute('data-product-id-value');               
+
+                console.log(targetClass)
+            });
+
+        });
+    </script>
+
+}
