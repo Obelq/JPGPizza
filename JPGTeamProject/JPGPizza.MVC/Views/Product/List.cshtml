@@ -14,21 +14,8 @@
     <div class="container">
         @foreach (var product in Model)
         {
-            <div>
-                <h1>
-                    @product.Name
-                </h1>
-                <p>
-                    Описание: 
-                    @product.Description
-                </p>
-                <p>
-                    Цена:
-                    @product.Price
-                </p>
-                <p>
-                    Съставки: @string.Join(", ", product.Ingredients.Select(i => i.Name))
-                </p>
+            <div class="col-sm-3 col-sm-push-2 acp-product-container grow">
+                @{Html.RenderPartial("_Product", product);}
             </div>
         }
     </div>
