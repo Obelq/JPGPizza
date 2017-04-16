@@ -17,26 +17,62 @@
 </ul>
 
 <div class="tab-content">
-    <div id="Pizza" class="tab-pane fade in active">        
+    <div id="Pizza" class="tab-pane fade in active">
         @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Pizza))
         {
             <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
                 @{Html.RenderPartial("_Product", product);}
             </div>
-        }       
+        }
     </div>
     <div id="Drink" class="tab-pane fade">
-        <h3>DRINKSS</h3>
-        <p>Some content in menu 1.</p>
+        @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Drink))
+        {
+            <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
+                @{Html.RenderPartial("_Product", product);}
+            </div>
+        }
     </div>
     <div id="Salad" class="tab-pane fade">
-        <h3>SALADS</h3>
-        <p>Some content in menu 2.</p>
+       @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Salad))
+       {
+        <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
+            @{Html.RenderPartial("_Product", product);}
+        </div>
+                }
     </div>
     <div id="Sandwich" class="tab-pane fade">
-        <h3>SANDWICHES</h3>
-        <p>Some content in menu 2.</p>
+       @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Sandwich))
+       {
+        <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
+            @{Html.RenderPartial("_Product", product);}
+        </div>
+                }
     </div>
 </div>
 
 
+@section Scripts {
+    <script>
+
+        var shoppingCart = []; 
+
+        $(document).ready(function () {
+            $('.add-to-cart-btn').click((ev) => {
+                
+                ev.preventDefault();
+                let evTarget = $(ev.currentTarget);
+                let targetClass = ev.currentTarget.getAttribute('data-product-id-value');
+                shoppingCart += targetClass + ", ";
+                console.log(shoppingCart)
+                //TODO 
+                $('.badge').text(shoppingCart.length);
+            });
+           
+
+        });
+
+        
+    </script>
+
+}

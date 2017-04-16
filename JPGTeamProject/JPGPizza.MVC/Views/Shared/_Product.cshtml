@@ -16,7 +16,7 @@
         @if (User.IsInRole("Administrator"))
         {
             <div>
-                <a href="#" class="btn btn-default add-to-cart-btn">Добави</a>
+                <a data-product-id-value="@Model.Id" class="btn btn-default add-to-cart-btn">Добави</a>
             </div>
             <div>
                 <a href="#" class="btn btn-default">Детайли</a>
@@ -26,7 +26,7 @@
         }
         else
         {
-            <a href="#" class="btn btn-default add-to-cart-btn">Добави</a>
+            <a data-product-id-value="@Model.Id" class="btn btn-default add-to-cart-btn">Добави</a>
         }
     </div>
 }
@@ -56,3 +56,5 @@ else if (Model.Type == ProductType.Drink)
         }
     </div>
 }
+
+
