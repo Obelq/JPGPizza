@@ -10,16 +10,19 @@
     <title>Categories</title>
 </head>
 <body>
-<div class="container">
-    @foreach (var category in Model)
-    {
-        <article>
-            <h1>
-                @Html.ActionLink(category.ToString(),"List","Products",new {category}, null)
-            </h1>
-        </article>
-    }
-</div>
+    <div class="container" style="padding-top: 30px;">
+
+        @foreach (var category in Model)
+        {
+            <div class="col-sm-4 col-sm-push-2 acp-product-container grow">
+                <a href='@Url.Action("List", "Products", new {category})'>
+                    <img src='http://balkan-pizza-doner.de/wp-content/uploads/2015/08/Pepperoni_1.jpg' class="img-responsive" />
+                    <p><br />@category</p>
+                </a>
+            </div>
+        }
+
+    </div>
 </body>
 </html>
 
