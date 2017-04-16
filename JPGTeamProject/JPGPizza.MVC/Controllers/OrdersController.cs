@@ -39,6 +39,16 @@ namespace JPGPizza.MVC.Controllers
 
             return View("CarryOut", model);
         }
+
+        [HttpPost]
+        public ActionResult ShopingCartList(int[] productsId)
+        {
+            Console.WriteLine(productsId);
+            Console.WriteLine();
+            return null;
+        }
+
+
         // GET: Orders/Details/5
         public ActionResult Details(int? id)
         {

@@ -16,7 +16,7 @@
         @if (User.IsInRole("Administrator"))
         {
             <div>
-                <a data-product-id-value="@Model.Id" class="btn btn-default add-to-cart-btn">Добави</a>
+                <a data-product-id-value="@Model.Id" class="btn btn-default add-to-cart-btn">Избери</a>
             </div>
             <div>
                 <a href="#" class="btn btn-default">Детайли</a>
@@ -26,7 +26,7 @@
         }
         else
         {
-            <a data-product-id-value="@Model.Id" class="btn btn-default add-to-cart-btn">Добави</a>
+            <a data-product-id-value="@Model.Id" class="btn btn-default add-to-cart-btn">Избери</a>
         }
     </div>
 }
@@ -42,7 +42,7 @@ else if (Model.Type == ProductType.Drink)
         @if (User.IsInRole("Administrator"))
         {
             <div>
-                <a href="#" class="btn btn-default add-to-cart-btn">Добави</a>
+                <a href="#" class="btn btn-default add-to-cart-btn">Избери</a>
             </div>
             <div>
                 <a href="#" class="btn btn-default">Детайли</a>
@@ -52,7 +52,7 @@ else if (Model.Type == ProductType.Drink)
         }
         else
         {
-            <a href="#" class="btn btn-default add-to-cart-btn">Добави</a>
+            <a href="#" class="btn btn-default add-to-cart-btn">Избери</a>
         }
     </div>
 }

@@ -23,7 +23,7 @@
             <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
                 @{Html.RenderPartial("_Product", product);}
             </div>
-        }
+                    }
     </div>
     <div id="Drink" class="tab-pane fade">
         @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Drink))
@@ -31,23 +31,23 @@
             <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
                 @{Html.RenderPartial("_Product", product);}
             </div>
-        }
+                    }
     </div>
     <div id="Salad" class="tab-pane fade">
-       @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Salad))
-       {
-        <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
-            @{Html.RenderPartial("_Product", product);}
-        </div>
-                }
+        @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Salad))
+        {
+            <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
+                @{Html.RenderPartial("_Product", product);}
+            </div>
+                    }
     </div>
     <div id="Sandwich" class="tab-pane fade">
-       @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Sandwich))
-       {
-        <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
-            @{Html.RenderPartial("_Product", product);}
-        </div>
-                }
+        @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Sandwich))
+        {
+            <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
+                @{Html.RenderPartial("_Product", product);}
+            </div>
+                    }
     </div>
 </div>
 
@@ -55,24 +55,81 @@
 @section Scripts {
     <script>
 
-        var shoppingCart = []; 
+        var shoppingCart = []; // { productId: 5, quantity: 5 }
 
         $(document).ready(function () {
             $('.add-to-cart-btn').click((ev) => {
-                
+
                 ev.preventDefault();
                 let evTarget = $(ev.currentTarget);
-                let targetClass = ev.currentTarget.getAttribute('data-product-id-value');
-                shoppingCart += targetClass;
-                console.log(shoppingCart)
-                //TODO 
-                $('.badge').text(shoppingCart.length);
-            });
-           
+                let productId = ev.currentTarget.getAttribute('data-product-id-value');
+                let orderProduct = {
+                    productId: productId,
+                    quantity: 1
+                };
 
+                addOrderProductToCart(orderProduct);
+
+                shoppingCart.push(parseInt(productId));
+            });
+
+            $('.shopping-cart').click((ev) => {
+                
+                orderList();
+            });
         });
 
-        
+        function addOrderProductToCart(orderProduct) {
+            let shoppingCart = sessionStorage.getItem('shoppingCart');
+
+            if (!shoppingCart) {
+                sessionStorage.setItem('shoppingCart', JSON.stringify([]));
+                shoppingCart = sessionStorage.getItem('shoppingCart');
+            }
+
+            shoppingCart = JSON.parse(shoppingCart);
+            shoppingCart.push(orderProduct);
+
+            sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+        }
+
+        function removeOrderProductByProductId(productId) {
+            let shoppingCart = JSON.parse(sessionStorage.getItem('shoppingCart'));
+
+            let orderProductToRemoveIndex;
+            for (let i = 0; i < shoppingCart.length; i++) {
+                if (shoppingCart[i].productId === productId) {
+                    orderProductToRemoveIndex = i;
+                    break;
+                }
+            }
+
+            shoppingCart.splice(orderProductToRemoveIndex, 1);
+            sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+        }
+
+        function increaseOrderProductQuantity() {
+
+        }
+
+        function orderList() {
+            
+            let list = JSON.stringify(shoppingCart)
+            var controllerUrl = "@Url.Action("ShopingCartList", "Orders")"
+            console.log(shoppingCart)
+            $.ajax({
+                type: "POST",
+                url: controllerUrl,
+                data: list,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    alert(msg);
+                }
+            });
+            $('.shopping-cart-list').empty;
+            $('.shopping-cart-list').text(shoppingCart.join(', '));
+        }
     </script>
 
 }
