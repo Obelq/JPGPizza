@@ -4,7 +4,7 @@
 @if (Model.Type == ProductType.Pizza || Model.Type == ProductType.Salad || Model.Type == ProductType.Sandwich)
 {
     <div class="acp-product-img-container">
-        <img class="img-responsive acp-product-img" src="@Model.Picture" alt="@Model.Name" />
+        <img class="img-responsive acp-product-img" src="@Model.ImageUrl" alt="@Model.Name" />
     </div>
     <div class="acp-product-name">
         @Model.Name
@@ -33,7 +33,7 @@
 else if (Model.Type == ProductType.Drink)
 {
     <div class="acp-product-img-container">
-        <img class="img-responsive acp-product-img drink-img" src="@Model.Picture" alt="@Model.Name" />
+        <img class="img-responsive acp-product-img drink-img" src="@Model.ImageUrl" alt="@Model.Name" />
     </div>
     <div class="acp-product-name">
         @Model.Name

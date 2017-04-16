@@ -97,6 +97,7 @@
 
 .acp-product-img {
     height: 200px;
+    width: 100%;
 }
 
 .acp-product-name {
@@ -152,14 +153,45 @@
     padding-top: 10px;
 }
 
-.drink-img {
-    
+input {
+    margin-top: 8px;
 }
+
+.remove-ingredient-btn {
+    color: #d80a2b;
+    display: inline-block;
+    font-size: 20px;
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.added-ingredient-container {
+    position: relative;
+}
+
+.ingredient-name-input {
+    width: 88%;
+    display: inline-block;
+}
+
+.ingredient-action-btn {
+    font-size: 12px;
+    display: inline-block;
+    padding: 7px 10px;
+}
+
+.sticky {
+    position: sticky;
+    top: 70px;
+    float: right;
+}
+
 
 /*.acp-add-product-btn {
     text-transform: uppercase;
 }*/
-
 .grow {
     transition: all .2s ease-in-out;
 }
@@ -215,12 +247,12 @@
 .nav-side-menu {
     overflow: auto;
     font-size: 15px;
-    font-weight: 200;
+    font-weight: 700;
     background-color: #222222;
     position: fixed;
     top: 51px;
     left: 0;
-    width: 300px;
+    width: 200px;
     height: 100%;
     color: #e1ffff;
 }
@@ -373,4 +405,9 @@
     .nav-side-menu .menu-list .menu-content {
         display: block;
     }
+}
+
+.active-menu-link {
+    border-left: 3px solid #dd2744;
+    background-color: #4f5b69;
 }

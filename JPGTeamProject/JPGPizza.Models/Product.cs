@@ -8,13 +8,13 @@
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
-
         public decimal Price { get; set; }
 
-        public string Picture { get; set; }
+        public string ImageUrl { get; set; }
 
         public ProductType Type { get; set; }
+
+        public byte[] Image { get; set; }
 
         public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new HashSet<OrderProduct>();
 

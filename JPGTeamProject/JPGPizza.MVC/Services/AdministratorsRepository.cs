@@ -11,9 +11,9 @@
     {
         private readonly JPGPizzaDbContext _context;
 
-        public AdministratorsRepository()
+        public AdministratorsRepository(JPGPizzaDbContext context)
         {
-            this._context = new JPGPizzaDbContext();
+            this._context = context;
         }
 
         public IEnumerable<TopUserDto> GetTopCustomers()
