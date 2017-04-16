@@ -11,6 +11,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using System.Collections.Generic;
+using JPGPizza.MVC.Utility;
 
 namespace JPGPizza.MVC.Controllers
 {
@@ -63,8 +64,15 @@ namespace JPGPizza.MVC.Controllers
                 Type = viewModel.Type
             };
 
-            productEntity.Image = GetImageAsByteArray(viewModel.Picture);
-            productEntity.ImageUrl = GetImageUrl(productEntity.Image);
+            productEntity.Image = ImageHelper.GetBytesFromFile(viewModel.Picture);
+
+            if (productEntity.Image == null)
+            {
+                ModelState.AddModelError("Невалиден файл", "Невалиден файл: Може да качите само файлове от тип: jpg, jpeg, png, gif");
+                return View(viewModel);
+            }
+
+            productEntity.ImageUrl = ImageHelper.GetImageUrl(productEntity.Image);
 
             AddIngredientsToProduct(productEntity, viewModel.Ingredients);
 
@@ -72,18 +80,6 @@ namespace JPGPizza.MVC.Controllers
             _productsRepository.SaveChanges();
 
             return RedirectToAction("Products", "Administrators");
-        }
-
-        public byte[] GetImageAsByteArray(HttpPostedFileBase image)
-        {
-            MemoryStream memoryStream = new MemoryStream();
-            image.InputStream.CopyTo(memoryStream);
-            return memoryStream.ToArray();
-        }
-
-        public string GetImageUrl(byte[] imageAsByteArray)
-        {
-            return "data:image/jpeg;base64," + Convert.ToBase64String(imageAsByteArray);
         }
 
         public void AddIngredientsToProduct(Product product, IEnumerable<Ingredient> ingredients)

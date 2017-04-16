@@ -45,7 +45,7 @@ textarea {
 
 
 .form-control:focus {
-    border: 2px solid #dd2744;
+    border: 2px solid #d80a2b;
     outline: 0;
     -webkit-box-shadow: none;
     box-shadow: none;

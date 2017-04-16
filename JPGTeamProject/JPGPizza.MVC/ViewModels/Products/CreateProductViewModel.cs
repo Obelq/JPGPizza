@@ -17,9 +17,11 @@
         [DisplayName("Цена")]
         public decimal Price { get; set; }
 
+        [Required]
         [DisplayName("Тип")]
         public ProductType Type { get; set; }
 
+        [Required]
         [DisplayName("Снимка")]
         public HttpPostedFileBase Picture { get; set; }
 

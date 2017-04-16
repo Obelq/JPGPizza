@@ -17,10 +17,10 @@
 }
 
 .info-list-heading {
-    color: #dd2744;
+    color: #d80a2b;
     font-weight: 700;
     text-transform: uppercase;
-    border-bottom: 3px solid #dd2744;
+    border-bottom: 3px solid #d80a2b;
 }
 
 .info-table {
@@ -70,7 +70,7 @@
 .total-info-container {
     text-transform: uppercase;
     color: #fff;
-    background-color: #dd2744;
+    background-color: #d80a2b;
     padding: 20px;
     font-weight: 900;
     margin-right: 55px;
@@ -103,9 +103,9 @@
 
 .acp-product-name {
     text-transform: uppercase;
-    color: #dd2744;
+    color: #d80a2b;
     font-weight: 900;
-    border-bottom: 3px solid #dd2744;
+    border-bottom: 3px solid #d80a2b;
     text-align: center;
     padding: 10px;
     height: 60px;
@@ -119,7 +119,7 @@
     text-align: center;
     padding: 10px;
     height: 100px;
-    border-bottom: 3px solid #dd2744;
+    border-bottom: 3px solid #d80a2b;
 }
 
 .acp-product-actions {
@@ -132,7 +132,7 @@
     }
 
 .acp-tab-li > a.active {
-    border: 2px solid #dd2744;
+    border: 2px solid #d80a2b;
 }
 
 .acp-tabs {
@@ -186,7 +186,8 @@ input {
 .sticky {
     position: sticky;
     top: 70px;
-    float: right;
+
+    left: 900px;
 }
 
 .acp-product-price-container {
@@ -267,7 +268,7 @@ input {
 
 .nav-tabs {
     margin-bottom: 25px;
-    border-bottom: 2px solid #dd2744;
+    border-bottom: 2px solid #d80a2b;
 }
 
 
@@ -336,18 +337,18 @@ input {
 
         .nav-side-menu ul .active,
         .nav-side-menu li .active {
-            border-left: 3px solid #dd2744;
+            border-left: 3px solid #d80a2b;
             background-color: #4f5b69;
         }
 
         .nav-side-menu ul .sub-menu li.active,
         .nav-side-menu li .sub-menu li.active {
-            color: #dd2744;
+            color: #d80a2b;
         }
 
             .nav-side-menu ul .sub-menu li.active a,
             .nav-side-menu li .sub-menu li.active a {
-                color: #dd2744;
+                color: #d80a2b;
             }
 
         .nav-side-menu ul .sub-menu li,
@@ -392,7 +393,7 @@ input {
             }
 
         .nav-side-menu li:hover {
-            border-left: 3px solid #dd2744;
+            border-left: 3px solid #d80a2b;
             background-color: #4f5b69;
             -webkit-transition: all 1s ease;
             -moz-transition: all 1s ease;
@@ -437,6 +438,6 @@ input {
 }
 
 .active-menu-link {
-    border-left: 3px solid #dd2744;
+    border-left: 3px solid #d80a2b;
     background-color: #4f5b69;
 }

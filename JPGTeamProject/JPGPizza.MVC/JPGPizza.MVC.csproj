@@ -220,6 +220,7 @@
     <Compile Include="Services\IngredientsRepository.cs" />
     <Compile Include="Services\ProductsRepository.cs" />
     <Compile Include="Utility\AutoMapperConfig.cs" />
+    <Compile Include="Utility\ImageHelper.cs" />
     <Compile Include="Utility\ProductTypeHelper.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsIndexViewModel.cs" />
@@ -241,9 +242,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Administrators\create-product.js" />
     <Content Include="Scripts\Administrators\index.js" />
-    <Content Include="Scripts\Administrators\sales-chart.js" />
-    <Content Include="Scripts\Administrators\sammy-0.7.6.min.js" />
+    <Content Include="Scripts\Administrators\productFilePreview.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
