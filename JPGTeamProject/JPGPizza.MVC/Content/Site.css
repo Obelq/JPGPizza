@@ -81,3 +81,7 @@ textarea {
 .add-to-cart-btn {
     width: 100%!important;
 }
+
+.shopping-cart {
+    font-size: 22px;    
+}
