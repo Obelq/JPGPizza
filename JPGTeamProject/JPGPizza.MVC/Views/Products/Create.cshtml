@@ -1,0 +1,292 @@
+﻿@model JPGPizza.MVC.ViewModels.Products.CreateProductViewModel
+
+@{
+    ViewBag.Title = "Създаване на продукт";
+}
+
+@{Html.RenderPartial("_AdministratorsSidebar");}
+
+<div class="row" style="padding-top: 50px;">
+    <div class="col-sm-4 col-sm-push-2 box-shadow-container">
+        
+        @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-sm-12" style="font-size: 20px; font-weight: 700; text-transform: uppercase;color: #d80a2b">
+                    Създаване на продукт
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label" })
+                    @Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                   @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+                   @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Picture, new { @class = "form-control", type = "file", id = "fileupload" })
+                    @Html.ValidationMessageFor(model => model.Picture, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    @Html.LabelFor(model => model.Ingredients, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Ingredients, new { @class = "form-control" })
+                    <div class="added-ingredients-container" id="added-ingredients">
+
+                    </div>
+                    <div class="add-ingredient-container">
+                        <input class="form-control ingredient-name-input" type="text" name="new-ingredient-name" value="" id="new-ingredient-name" />
+                        <button class="btn btn-default ingredient-action-btn" id="add-ingredient-btn" type="button">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Ingredients, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="/administrators/products" class="btn btn-default">Назад</a>
+                    <input type="submit" value="Create" class="btn btn-default pull-right" />
+                </div>
+            </div>
+        }
+    </div>
+
+
+    @* Pizza, Sandwich, Salad preview container *@
+    <div class="col-sm-3 col-sm-push-3 box-shadow-container sticky" id="pss-preview-container" hidden>
+        <div class="row">
+            <div class="col-sm-12" style="font-size: 20px; font-weight: 700; text-transform: uppercase;color: #d80a2b">
+                Преглед
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="acp-product-img-container dvPreview">
+                    <img class="img-responsive acp-product-img" src="~/Content/Images/default_product.png"  alt="Снимка на продукта" />
+                </div>
+                <div class="acp-product-name">
+
+                </div>
+                <div class="acp-product-ingredients">
+
+                </div>  
+                <div class="acp-product-actions">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* Drink preview container *@
+    <div class="col-sm-3 col-sm-push-3 box-shadow-container sticky" id="drink-preview-container" hidden>
+        <div class="row">
+            <div class="col-sm-12" style="font-size: 20px; font-weight: 700; text-transform: uppercase;color: #d80a2b">
+                Преглед
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="acp-product-img-container dvPreview">
+                    <img class="img-responsive acp-product-img" src="~/Content/Images/default_product.png" alt="Снимка на продукта" />
+                </div>
+                <div class="acp-product-name">
+
+                </div>
+                <div class="acp-product-actions">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script language="javascript" type="text/javascript">
+    let ingredinetCount = 0;
+    let addedIngredientNames = [];
+    let addIngredientBtn;
+    let newIngredientNameTextbox;
+    let addedIngredientsContainer;
+
+    $(document).ready(() => {
+        let createProductForm = new CreateProductForm();
+        addIngredientBtn = $('#add-ingredient-btn');
+        newIngredientNameTextbox = $('#new-ingredient-name');
+        addedIngredientsContainer = $('#added-ingredients');
+    });
+
+    class CreateProductForm {
+        constructor() {
+            this._productTypeSelectlist = $('select');
+            this._productNameTextbox = $('#Name');
+            this._productPriceTextbox = $('#Price');
+            this._pictureInput = $('#Picutre');
+            this._previewProductNameContainer = $('.acp-product-name');
+            this._previewProductIngredientsContainer = $('.acp-product-ingredients');
+            this._pssPreviewContainer = $('#pss-preview-container');
+            this._drinkPreviewContainer = $('#drink-preview-container');
+            this._addIngredientBtn = $('#add-ingredient-btn');
+            this._addedIngredientsContainer = $('#added-ingredients');
+            this._addedIngredients = [];
+
+            this.attachEvents();
+            this.setupSelectlist();
+        }
+
+        attachEvents() {
+            this._productTypeSelectlist.change((ev) => {
+                let type = $(ev.currentTarget).find(":selected").text();
+
+                if (type === 'Пици' || type === 'Сандвичи' || type === 'Салати') {
+                    this._pssPreviewContainer.show();
+                    this._drinkPreviewContainer.hide();
+                } else if (type === 'Напитки') {
+                    this._drinkPreviewContainer.show();
+                    this._pssPreviewContainer.hide();
+                } else {
+                    this.drinkPreviewContainer.hide();
+                    this.pssPreviewContainer.hide();
+                }
+            });
+
+            this._productNameTextbox.keyup((ev) => {
+                let value = ev.currentTarget.value;
+                this._previewProductNameContainer.text(value);
+            });
+
+            this._addIngredientBtn.click((ev) => {
+                let ingredientName = newIngredientNameTextbox.val().trim();
+
+                if (!ingredientName) {
+                    return;
+                }
+
+                addedIngredientNames.push(ingredientName);
+                this._previewProductIngredientsContainer.text(addedIngredientNames.join(', '));
+
+                let ingredientToAdd = $(`<div class="added-ingredient-container" data-ingredient-num-val="${ingredinetCount}">
+                            <input class="form-control
+                                          ingredient-name-input"
+                                          type="text"
+                                          name="Ingredients[${ingredinetCount}].Name"
+                                          value="${ingredientName}"
+                                          readonly />
+                            <span class="glyphicon glyphicon-remove remove-ingredient-btn"
+                                         type="button"
+                                         data-ingredient-name="${ingredientName}"></span></div>`);
+
+
+                ingredientToAdd.find('.remove-ingredient-btn').click((ev) => {
+                    let btn = $(ev.currentTarget);
+                    let ingredietnNameToRemove = btn.attr('data-ingredient-name');
+                    addedIngredientNames = addedIngredientNames.filter(x => x !== ingredietnNameToRemove);
+                    this._previewProductIngredientsContainer.text(addedIngredientNames.join(', '));
+
+                    let parent = btn.parent();
+                    parent.hide();
+                    parent.empty().append(`<input name="Ingredients[${parent.attr('data-ingredient-num-val')}]" value="" />`);
+                });
+
+                addedIngredientsContainer.append(ingredientToAdd);
+
+                newIngredientNameTextbox.val('');
+                newIngredientNameTextbox.focus();
+                ingredinetCount++;
+            });
+        }
+
+        setupSelectlist() {
+            this._productTypeSelectlist.prepend('<option value="-1" disabled></option>');
+            this._productTypeSelectlist.val('-1');
+        }
+    }
+
+    // Add image and show to preview container
+    $(function () {
+        $("#fileupload").change(function () {
+            $(".dvPreview").html("");
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+            if (regex.test($(this).val().toLowerCase())) {
+                if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
+                    $(".dvPreview").show();
+                    $(".dvPreview")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
+                }
+                else {
+                    if (typeof (FileReader) != "undefined") {
+                        $(".dvPreview").show();
+                        $(".dvPreview").append('<img class="img-responsive acp-product-img" />');
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $(".dvPreview img").attr("src", e.target.result);
+                        }
+                        reader.readAsDataURL($(this)[0].files[0]);
+                    } else {
+                        alert("This browser does not support FileReader.");
+                    }
+                }
+            } else {
+                alert("Please upload a valid image file.");
+            }
+        });
+    });
+</script>
+
+    @*<script language="javascript" type="text/javascript">
+        $(function () {
+            $("#Picture").change(function () {
+                $("#dvPreview").html("");
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                if (regex.test($(this).val().toLowerCase())) {
+                    if ($.browser.msie && parseFloat(jQuery.browser.version) <= 9.0) {
+                        $("#dvPreview").show();
+                        $("#dvPreview")[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = $(this).val();
+                    }
+                    else {
+                        if (typeof (FileReader) != "undefined") {
+                            $("#dvPreview").show();
+                            $("#dvPreview").empty().append("<img />");
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                $("#product-image").attr("src", e.target.result);
+                            }
+                            reader.readAsDataURL($(this)[0].files[0]);
+                        } else {
+                            alert("This browser does not support FileReader.");
+                        }
+                    }
+                } else {
+                    alert("Please upload a valid image file.");
+                }
+            });
+        });
+   </script>*@
+}

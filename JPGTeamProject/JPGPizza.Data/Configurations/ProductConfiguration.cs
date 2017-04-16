@@ -11,12 +11,11 @@
         {
             // Set fields length.
             this.Property(p => p.Name).HasMaxLength(50);
-            this.Property(p => p.Description).HasMaxLength(255);
 
             // Set required fields.
             this.Property(p => p.Name).IsRequired();
             this.Property(p => p.Type).IsRequired();
-            this.Property(p => p.Picture).IsRequired();
+            this.Property(p => p.ImageUrl).IsRequired();
 
             // Set indeces.
             this.Property(p => p.Name)

@@ -5,23 +5,31 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class ProductsRepository
+    public class IngredientsRepository
     {
         private readonly JPGPizzaDbContext _context;
 
-        public ProductsRepository(JPGPizzaDbContext context)
+        public IngredientsRepository(JPGPizzaDbContext context)
         {
             _context = context;
         }
 
-        public IQueryable<Product> GetAll()
+        public IEnumerable<Ingredient> GetAll()
         {
-            return _context.Products.OrderBy(p => p.Name);
+            return _context.Ingredinets;
         }
 
-        public void Add(Product product)
+        public Ingredient  GetByName(string name)
         {
-            _context.Products.Add(product);
+            return _context.Ingredinets.FirstOrDefault(i => i.Name == name);
+        }
+
+        public Ingredient AddByName(string name)
+        {
+            var ingredient = new Ingredient() { Name = name };
+            _context.Ingredinets.Add(ingredient);
+
+            return ingredient;
         }
 
         public bool SaveChanges()

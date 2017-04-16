@@ -204,10 +204,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministratorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IngredientsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Dtos\FeedbackForAdminDto.cs" />
+    <Compile Include="Dtos\IngredientDto.cs" />
     <Compile Include="Dtos\MostUsedIngredientDto.cs" />
     <Compile Include="Dtos\TopSellingProductDto.cs" />
     <Compile Include="Dtos\TopUserDto.cs" />
@@ -215,6 +217,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Services\AdministratorsRepository.cs" />
+    <Compile Include="Services\IngredientsRepository.cs" />
     <Compile Include="Services\ProductsRepository.cs" />
     <Compile Include="Utility\AutoMapperConfig.cs" />
     <Compile Include="Utility\ProductTypeHelper.cs" />
@@ -225,11 +228,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Orders\OrderProductsViewModel.cs" />
+    <Compile Include="ViewModels\Products\CreateProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Administrators.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\default_product.png" />
     <Content Include="Content\Images\delivery.png" />
     <Content Include="Content\Images\shop.png" />
     <Content Include="favicon.ico" />
@@ -291,8 +296,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Administrators\Index.cshtml" />
     <Content Include="Views\Shared\_AdministratorsSidebar.cshtml" />
-    <Content Include="Views\Product\Categories.cshtml" />
-    <Content Include="Views\Product\List.cshtml" />
+    <Content Include="Views\Products\Categories.cshtml" />
+    <Content Include="Views\Products\List.cshtml" />
     <Content Include="Views\Administrators\Products.cshtml" />
     <Content Include="Views\Shared\_Product.cshtml" />
     <Content Include="Views\Orders\Create.cshtml" />
@@ -301,9 +306,11 @@
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\CarryOut.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Ingredients\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

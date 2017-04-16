@@ -256,8 +256,7 @@ namespace JPGPizza.Data.Migrations
                 {
                     targetIngredient = new Ingredient()
                     {
-                        Name = ingredientName,
-                        Description = string.Empty
+                        Name = ingredientName
                     };
                 }
 
@@ -278,8 +277,7 @@ namespace JPGPizza.Data.Migrations
         {
             var ingredient = new Ingredient()
             {
-                Name = name,
-                Description = description
+                Name = name
             };
 
             context.Ingredinets.Add(ingredient);
@@ -291,9 +289,8 @@ namespace JPGPizza.Data.Migrations
             var product = new Product()
             {
                 Name = name,
-                Description = description,
                 Price = price,
-                Picture = picture,
+                ImageUrl = picture,
                 Type = type
             };
 

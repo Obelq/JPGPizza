@@ -6,16 +6,19 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Data.Entity;
+    using JPGPizza.Data;
 
     public class AdministratorsController : Controller
     {
+        private readonly JPGPizzaDbContext _context;
         private readonly AdministratorsRepository _administratorsRepository;
         private readonly ProductsRepository _productsRepository;
 
         public AdministratorsController()
         {
-            _administratorsRepository = new AdministratorsRepository();
-            _productsRepository = new ProductsRepository();
+            _context = new JPGPizzaDbContext();
+            _administratorsRepository = new AdministratorsRepository(_context);
+            _productsRepository = new ProductsRepository(_context);
         }
 
         public async Task<ActionResult> Index()

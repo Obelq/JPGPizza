@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\ApplicationUserConfiguration.cs" />
+    <Compile Include="Configurations\IngredientConfiguration.cs" />
     <Compile Include="Configurations\OrderProductConfiguration.cs" />
     <Compile Include="Configurations\ProductConfiguration.cs" />
     <Compile Include="JPGPizzaDbContext.cs" />
@@ -83,6 +84,18 @@
     <Compile Include="Migrations\201704141742411_AddAdressAndTypeToOrder.Designer.cs">
       <DependentUpon>201704141742411_AddAdressAndTypeToOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704152051105_MadeIingredientsNamePropertyUqinue.cs" />
+    <Compile Include="Migrations\201704152051105_MadeIingredientsNamePropertyUqinue.Designer.cs">
+      <DependentUpon>201704152051105_MadeIingredientsNamePropertyUqinue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704152313031_AddImageToProduct.cs" />
+    <Compile Include="Migrations\201704152313031_AddImageToProduct.Designer.cs">
+      <DependentUpon>201704152313031_AddImageToProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704161210403_AddImageFieldToProductAndImageUrl.cs" />
+    <Compile Include="Migrations\201704161210403_AddImageFieldToProductAndImageUrl.Designer.cs">
+      <DependentUpon>201704161210403_AddImageFieldToProductAndImageUrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -105,6 +118,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704141742411_AddAdressAndTypeToOrder.resx">
       <DependentUpon>201704141742411_AddAdressAndTypeToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704152051105_MadeIingredientsNamePropertyUqinue.resx">
+      <DependentUpon>201704152051105_MadeIingredientsNamePropertyUqinue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704152313031_AddImageToProduct.resx">
+      <DependentUpon>201704152313031_AddImageToProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704161210403_AddImageFieldToProductAndImageUrl.resx">
+      <DependentUpon>201704161210403_AddImageFieldToProductAndImageUrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

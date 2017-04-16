@@ -27,6 +27,7 @@ namespace JPGPizza.Data
             modelBuilder.Configurations.Add(new OrderProductConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
             modelBuilder.Configurations.Add(new ApplicationUserConfiguration());
+            modelBuilder.Configurations.Add(new IngredientConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
