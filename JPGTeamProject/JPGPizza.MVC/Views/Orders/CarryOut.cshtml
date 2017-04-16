@@ -63,7 +63,7 @@
                 ev.preventDefault();
                 let evTarget = $(ev.currentTarget);
                 let targetClass = ev.currentTarget.getAttribute('data-product-id-value');
-                shoppingCart += targetClass + ", ";
+                shoppingCart += targetClass;
                 console.log(shoppingCart)
                 //TODO 
                 $('.badge').text(shoppingCart.length);
