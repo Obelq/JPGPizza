@@ -29,8 +29,7 @@ namespace JPGPizza.MVC.Controllers
 
         public ActionResult Categories()
         {
-            var categories = Enum.GetValues(typeof(ProductType)).Cast<ProductType>().ToList();
-            return View(categories);
+            return View();
         }
 
         public ActionResult List(ProductType category)
