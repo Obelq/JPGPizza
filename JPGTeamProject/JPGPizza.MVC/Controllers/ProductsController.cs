@@ -1,20 +1,16 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using System.Web.Mvc;
-using JPGPizza.Data;
-using JPGPizza.Models;
-using JPGPizza.MVC.Services;
-using JPGPizza.MVC.ViewModels.Products;
-using System.Net;
-using System.IO;
-using System.Threading.Tasks;
-using System.Web;
-using System.Collections.Generic;
-using JPGPizza.MVC.Utility;
-
-namespace JPGPizza.MVC.Controllers
+﻿namespace JPGPizza.MVC.Controllers
 {
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web.Mvc;
+    using JPGPizza.Data;
+    using JPGPizza.Models;
+    using JPGPizza.MVC.Services;
+    using JPGPizza.MVC.ViewModels.Products;
+    using System.Net;
+    using System.Collections.Generic;
+    using JPGPizza.MVC.Utility;
+
     public class ProductsController : Controller
     {
         private readonly JPGPizzaDbContext _context;
@@ -77,6 +73,78 @@ namespace JPGPizza.MVC.Controllers
 
             _productsRepository.Add(productEntity);
             _productsRepository.SaveChanges();
+
+            return RedirectToAction("Products", "Administrators");
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var product = _productsRepository.GetById((int)id);
+
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new EditProductViewModel()
+            {
+                ProductId = product.Id,
+                Name = product.Name,
+                ImageUrl = product.ImageUrl,
+                Ingredients = product.Ingredients.ToList(),
+                Price = product.Price,
+                Type = product.Type
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditProductViewModel viewModel)
+        {
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (viewModel.ProductId == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var productEntity = _productsRepository.GetById(viewModel.ProductId);
+
+            if (productEntity == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            productEntity.Name = viewModel.Name;
+            productEntity.Price = viewModel.Price;
+            productEntity.Type = viewModel.Type;
+
+            if (viewModel.Image != null)
+            {
+                productEntity.Image = ImageHelper.GetBytesFromFile(viewModel.Image);
+                productEntity.ImageUrl = ImageHelper.GetImageUrl(productEntity.Image);
+            }
+
+            viewModel.Ingredients = viewModel.Ingredients.Where(i => i != null).ToList();
+            var productIngredientNamesToAdd = viewModel.Ingredients.Select(i => i.Name);
+            productEntity.Ingredients = productEntity.Ingredients
+                .Where(i => productIngredientNamesToAdd.Contains(i.Name)).ToList();
+
+            var productExistingIngredients = productEntity.Ingredients.Select(i => i.Name);
+            viewModel.Ingredients = viewModel.Ingredients.Where(i => i != null).Where(i => !productExistingIngredients.Contains(i.Name)).ToList();
+
+            AddIngredientsToProduct(productEntity, viewModel.Ingredients);
+            _context.Entry(productEntity).State = EntityState.Modified;
+            _context.SaveChanges();
 
             return RedirectToAction("Products", "Administrators");
         }

@@ -134,4 +134,20 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="~/Scripts/Administrators/create-product.js"></script>
     <script type="text/javascript" src="~/Scripts/Administrators/productFilePreview.js"></script>
+    <script>
+        let ingredinetCount = 0;
+        let addedIngredientNames = [];
+        let addIngredientBtn;
+        let newIngredientNameTextbox;
+        let addedIngredientsContainer;
+        let ingredientsContainer;
+
+        $(document).ready(() => {
+            let createProductForm = new CreateProductForm();
+            addIngredientBtn = $('#add-ingredient-btn');
+            newIngredientNameTextbox = $('#new-ingredient-name');
+            addedIngredientsContainer = $('#added-ingredients');
+            ingredientsContainer = $('#ingredients-container');
+        });
+    </script>
 }

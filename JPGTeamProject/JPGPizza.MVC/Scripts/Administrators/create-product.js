@@ -1,20 +1,5 @@
-﻿let ingredinetCount = 0;
-let addedIngredientNames = [];
-let addIngredientBtn;
-let newIngredientNameTextbox;
-let addedIngredientsContainer;
-let ingredientsContainer;
-
-$(document).ready(() => {
-    let createProductForm = new CreateProductForm();
-    addIngredientBtn = $('#add-ingredient-btn');
-    newIngredientNameTextbox = $('#new-ingredient-name');
-    addedIngredientsContainer = $('#added-ingredients');
-    ingredientsContainer = $('#ingredients-container');
-});
-
-class CreateProductForm {
-    constructor() {
+﻿class CreateProductForm {
+    constructor(isInEdit) {
         this._productTypeSelectlist = $('select');
         this._productNameTextbox = $('#Name');
         this._productPriceTextbox = $('#Price');
@@ -27,9 +12,14 @@ class CreateProductForm {
         this._addIngredientBtn = $('#add-ingredient-btn');
         this._addedIngredientsContainer = $('#added-ingredients');
         this._addedIngredients = [];
+        this._isInEdit = isInEdit;
 
         this.attachEvents();
-        this.setupSelectlist();
+        this.attachRemoveIngredientEvents();
+
+        if (!this._isInEdit) {
+            this.setupSelectlist();
+        }
     }
 
     attachEvents() {
@@ -89,14 +79,7 @@ class CreateProductForm {
 
 
             ingredientToAdd.find('.remove-ingredient-btn').click((ev) => {
-                let btn = $(ev.currentTarget);
-                let ingredietnNameToRemove = btn.attr('data-ingredient-name');
-                addedIngredientNames = addedIngredientNames.filter(x => x !== ingredietnNameToRemove);
-                this._previewProductIngredientsContainer.text(addedIngredientNames.join(', '));
-
-                let parent = btn.parent();
-                parent.hide();
-                parent.empty().append(`<input name="Ingredients[${parent.attr('data-ingredient-num-val')}]" value="" />`);
+                this.removeIngredient(ev);
             });
 
             addedIngredientsContainer.append(ingredientToAdd);
@@ -105,6 +88,23 @@ class CreateProductForm {
             newIngredientNameTextbox.focus();
             ingredinetCount++;
         });
+    }
+
+    attachRemoveIngredientEvents() {
+        $('.remove-ingredient-btn').click((ev) => {
+            this.removeIngredient(ev);
+        });
+    }
+
+    removeIngredient(ev) {
+        let btn = $(ev.currentTarget);
+        let ingredietnNameToRemove = btn.attr('data-ingredient-name');
+        addedIngredientNames = addedIngredientNames.filter(x => x !== ingredietnNameToRemove);
+        this._previewProductIngredientsContainer.text(addedIngredientNames.join(', '));
+
+        let parent = btn.parent();
+        parent.hide();
+        parent.empty().append(`<input name="Ingredients[${parent.attr('data-ingredient-num-val')}]" value="" />`);
     }
 
     setupSelectlist() {
