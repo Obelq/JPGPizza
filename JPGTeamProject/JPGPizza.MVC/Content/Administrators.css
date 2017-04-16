@@ -93,6 +93,7 @@
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
 }
 
 .acp-product-img {
@@ -188,10 +189,33 @@ input {
     float: right;
 }
 
+.acp-product-price-container {
+    position: absolute;
+    -webkit-transform: rotate(-45deg); /* to support Safari and Android browser */
+    -ms-transform: rotate(-45deg); /* to support IE 9 */
+    transform: rotate(-45deg);
+    padding: 5px;
+    width: 9em;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+    top: 14px;
+    left: -35px;
+    border-bottom: 30px solid #d80a2b;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    height: 0;
+}
 
-/*.acp-add-product-btn {
-    text-transform: uppercase;
-}*/
+.product-price {
+    position: absolute;
+    color: #fff;
+    top: 14px;
+    width: 100px;
+    left: -8px;
+    font-weight: 700;
+}
+
 .grow {
     transition: all .2s ease-in-out;
 }
@@ -199,6 +223,11 @@ input {
     .grow:hover {
         transform: scale(1.05);
     }
+
+.img-responsive {
+    border-radius: 10px;
+}
+
 
 /* Bootstrap overriders */
 .row {
