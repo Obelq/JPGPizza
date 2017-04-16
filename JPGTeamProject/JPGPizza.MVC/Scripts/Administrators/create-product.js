@@ -11,6 +11,7 @@
         this._drinkPreviewContainer = $('#drink-preview-container');
         this._addIngredientBtn = $('#add-ingredient-btn');
         this._addedIngredientsContainer = $('#added-ingredients');
+        this._newIngredientNameTextbox = $('#new-ingredient-name');
         this._addedIngredients = [];
         this._isInEdit = isInEdit;
 
@@ -54,6 +55,13 @@
             }
 
             this._previewProductPrice.text(value.toFixed(2) + ' лв.');
+        });
+
+        this._newIngredientNameTextbox.keyup((ev) => {
+            let code = (ev.keyCode ? ev.keyCode : ev.which);
+            if (code == 13) { //Enter keycode
+                this._addIngredientBtn.click();
+            }
         });
 
         this._addIngredientBtn.click((ev) => {
@@ -112,3 +120,12 @@
         this._productTypeSelectlist.val('-1');
     }
 }
+
+$(document).ready(function () {
+    $(window).keydown(function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+        }
+    });
+});
