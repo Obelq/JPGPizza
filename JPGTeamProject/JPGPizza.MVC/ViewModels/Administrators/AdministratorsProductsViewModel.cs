@@ -5,6 +5,7 @@
 
     public class AdministratorsProductsViewModel
     {
+        public string SearchText { get; set; }
         public IEnumerable<Product> Products { get; set; } = new HashSet<Product>();
     }
 }
