@@ -65,28 +65,49 @@
 
         var shoppingCart = []; // { productId: 5, quantity: 5 }
 
-        $(document).ready(function () {
-            $('.add-to-cart-btn').click((ev) => {
-                
-                ev.preventDefault();
-                let evTarget = $(ev.currentTarget);
-                let productId = ev.currentTarget.getAttribute('data-product-id-value');
-                let orderProduct = {
-                    productId: productId,
-                    quantity: 1
-                };
+        //$(document).ready(function () {
+        //    $('.add-to-cart-btn').click((ev) => {
 
-                addOrderProductToCart(orderProduct);
-               
-                shoppingCart.push(parseInt(productId));
-                $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
-            });
-
-            $('.shopping-cart').click((ev) => {
+        //        ev.preventDefault();
+        //        let evTarget = $(ev.currentTarget);
+        //        let productId = ev.currentTarget.getAttribute('data-product-id-value');
+        //        //let orderProduct = {
+        //        //    productId: productId,
+        //        //    quantity: 1
+        //        //};
+        //        console.log(productId)
                 
-                orderList();
+
+        //        //addOrderProductToCart(orderProduct);
+
+        //        //shoppingCart.push(parseInt(productId));
+        //        //$('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
+        //    });
+
+        //    $('.shopping-cart').click((ev) => {
+
+        //        orderList();
+        //    });
+        //});
+
+        function productDetails(productId) {
+            let id = [];
+            id.push(productId);
+            var controllerUrl = "@Url.Action("Details", "Orders")"
+            //console.log(shoppingCart)
+           
+            $.ajax({
+                type: "POST",
+                url: controllerUrl,
+                data: JSON.stringify(id),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    alert(msg);
+                }
             });
-        });
+            
+        }
 
         function addOrderProductToCart(orderProduct) {
             let shoppingCart = sessionStorage.getItem('shoppingCart');
@@ -122,7 +143,7 @@
         }
 
         function orderList() {
-            
+
             let list = JSON.stringify(shoppingCart)
             var controllerUrl = "@Url.Action("ShopingCartList", "Orders")"
             console.log(shoppingCart)
@@ -136,7 +157,7 @@
                     alert(msg);
                 }
             });
-           
+
         }
     </script>
 

@@ -1,0 +1,83 @@
+﻿@model JPGPizza.Models.OrderProduct
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="row" style="margin-top: 80px;">
+
+    <div class="col-md-4 col-sm-push-2 box-shadow-container">
+        <img class="img-responsive acp-product-img" src="@Model.Product.ImageUrl" alt="@Model.Product.Name">
+        <h4>
+            <a href="#">@Model.Product.Name</a>
+        </h4>
+        <p class="pd-ingredients">@string.Join(", ", Model.Product.Ingredients.Select(i => i.Name))</p>
+        <div class="row" style="padding-top: 20px;">
+            <div class="col-sm-3">
+                <span class="quantity-text">Брой</span>
+            </div>
+            <div class="col-sm-5" style="padding-left: 20px;">
+                <span class="glyphicon glyphicon-minus-sign  quantity-btn noselect" data-product-price-value="@Model.Product.Price"></span>
+                <span class="quantity quantity-value noselect">1</span>
+                <span class="glyphicon glyphicon-plus-sign quantity-btn noselect" data-product-price-value="@Model.Product.Price"></span>
+            </div>
+            <div class="col-sm-4">                
+                    <span class="pull-right product-order-price" >@Model.Product.Price лв.</span>          
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="#" class="btn btn-default btn-secondary">Назад</a>
+                <a href="#" class="btn btn-default pull-right">Добави към количката</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-push-2 box-shadow-container">
+        <h1>Мнения</h1>
+        @foreach (var feedback in Model.Product.Feedbacks)
+        {
+            <p>@feedback.Customer.FirstName</p>
+            <p>@feedback.CreatedOn</p>
+            <p>@feedback.Content</p>
+        }
+        
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.glyphicon-plus-sign').click((ev) => {
+                let price = $('.product-order-price');
+                let evTarget = $(ev.currentTarget);
+                let productPrice = ev.currentTarget.getAttribute('data-product-price-value');
+
+                console.log(productPrice)
+                let quantity = parseFloat($('.quantity-value').text());
+                quantity++;
+
+                $('.quantity-value').text(quantity);
+
+                let newPrice = productPrice * quantity;
+                $('.product-order-price').text(newPrice.toFixed(2) + " лв.");
+
+            })
+
+            $('.glyphicon-minus-sign').click((ev) => {
+
+                let evTarget = $(ev.currentTarget);
+                let productPrice = ev.currentTarget.getAttribute('data-product-price-value');
+
+                let quantity = parseFloat($('.quantity-value').text());
+                if (quantity > 1)
+                {
+                    quantity--;
+                    console.log(productPrice)
+                    $('.quantity-value').text(quantity)
+
+                    let newPrice = productPrice * quantity;
+                    $('.product-order-price').text(newPrice.toFixed(2) + " лв.");
+                }               
+            })
+        })
+    </script>
+}
