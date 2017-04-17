@@ -1,4 +1,5 @@
 ﻿@using JPGPizza.MVC.ViewModels.Orders
+@using JPGPizza.MVC.Utility
 @model OrderProductsViewModel
 @{
     ViewBag.Title = "CarryOut";
@@ -23,7 +24,8 @@
             <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
                 @{Html.RenderPartial("_Product", product);}
             </div>
-                    }
+            
+        }
     </div>
     <div id="Drink" class="tab-pane fade">
         @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Drink))
@@ -39,38 +41,24 @@
             <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
                 @{Html.RenderPartial("_Product", product);}
             </div>
-                    }
+        }
     </div>
     <div id="Sandwich" class="tab-pane fade">
         @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Sandwich))
         {
             <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
                 @{Html.RenderPartial("_Product", product);}
+                
             </div>
-                    }
+                
+
+         }
     </div>
 </div>
 
-<div class="modal fade" id="ChooseProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                <div class="shopping-cart-list">
-                    
-                 </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Затвори</button>
-                <button type="button" class="btn btn-primary">Завърши поръчката</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 
 @section Scripts {
     <script>
@@ -79,7 +67,7 @@
 
         $(document).ready(function () {
             $('.add-to-cart-btn').click((ev) => {
-
+                
                 ev.preventDefault();
                 let evTarget = $(ev.currentTarget);
                 let productId = ev.currentTarget.getAttribute('data-product-id-value');
@@ -89,8 +77,9 @@
                 };
 
                 addOrderProductToCart(orderProduct);
-
+               
                 shoppingCart.push(parseInt(productId));
+                $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
             });
 
             $('.shopping-cart').click((ev) => {
@@ -147,8 +136,7 @@
                     alert(msg);
                 }
             });
-            $('.shopping-cart-list').empty;
-            $('.shopping-cart-list').text(shoppingCart.join(', '));
+           
         }
     </script>
 
