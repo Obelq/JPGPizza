@@ -10,6 +10,7 @@
     using System.Net;
     using System.Collections.Generic;
     using JPGPizza.MVC.Utility;
+    using JPGPizza.MVC.Extensions;
 
     public class ProductsController : Controller
     {
@@ -31,11 +32,8 @@
 
         public ActionResult List(ProductType category)
         {
-            using (var context = new JPGPizzaDbContext())
-            {
-                var items = context.Products.Where(p => p.Type == category).Include("Ingredients").ToList();
-                return View(items);
-            }
+            var items = _context.Products.Where(p => p.Type == category).Include("Ingredients").ToList();
+            return View(items);
         }
 
         [Authorize(Roles = "Administrator")]
@@ -65,7 +63,7 @@
 
             if (productEntity.Image == null)
             {
-                ModelState.AddModelError("Невалиден файл", "Невалиден файл: Може да качите само файлове от тип: jpg, jpeg, png, gif");
+                this.AddNotification("Невалиден файл: Може да качите само файлове от тип: jpg, jpeg, png, gif", NotificationType.ERROR);
                 return View(viewModel);
             }
 
@@ -76,6 +74,7 @@
             _productsRepository.Add(productEntity);
             _productsRepository.SaveChanges();
 
+            this.AddNotification("Продуктът е създаден успешно.", NotificationType.SUCCESS);
             return RedirectToAction("Products", "Administrators");
         }
 
@@ -119,13 +118,15 @@
 
             if (viewModel.ProductId == 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                this.AddNotification("Грешка при промяна на продуктът. Пордуктът не беше намерен.", NotificationType.ERROR);
+                return View(viewModel);
             }
 
             var productEntity = _productsRepository.GetById(viewModel.ProductId);
 
             if (productEntity == null)
             {
+                this.AddNotification("Грешка при промяна на продуктът. Пордуктът не беше намерен.", NotificationType.ERROR);
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
@@ -145,12 +146,16 @@
                 .Where(i => productIngredientNamesToAdd.Contains(i.Name)).ToList();
 
             var productExistingIngredients = productEntity.Ingredients.Select(i => i.Name);
-            viewModel.Ingredients = viewModel.Ingredients.Where(i => i != null).Where(i => !productExistingIngredients.Contains(i.Name)).ToList();
+            viewModel.Ingredients = viewModel.Ingredients
+                .Where(i => i != null)
+                .Where(i => !productExistingIngredients.Contains(i.Name))
+                .ToList();
 
             AddIngredientsToProduct(productEntity, viewModel.Ingredients);
             _context.Entry(productEntity).State = EntityState.Modified;
             _context.SaveChanges();
 
+            this.AddNotification("Продуктът е променен успешно.", NotificationType.SUCCESS);
             return RedirectToAction("Products", "Administrators");
         }
 
@@ -203,9 +208,21 @@
 
             if (!_productsRepository.SaveChanges())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var viewModel = new DeleteProductViewModel()
+                {
+                    Id = product.Id,
+                    ImageUrl = product.ImageUrl,
+                    Ingredients = product.Ingredients.ToList(),
+                    Name = product.Name,
+                    Price = product.Price,
+                    Type = product.Type
+                };
+
+                this.AddNotification("Грешка при опти за изтриване. Продуктът не беше намерен.", NotificationType.ERROR);
+                return View(viewModel);
             }
 
+            this.AddNotification("Продуктът е изтрит успешно.", NotificationType.SUCCESS);
             return RedirectToAction("Products", "Administrators");
         }
 

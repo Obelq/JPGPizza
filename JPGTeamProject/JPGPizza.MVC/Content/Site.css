@@ -51,6 +51,29 @@ textarea {
     box-shadow: none;
 }
 
+.alert {
+    padding: 15px;
+    margin-top: 7px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 18px;
+    border-top: 10px solid;
+}
+
+.alert-success {
+    color: green;
+    background-color: lightgreen;
+    border-color: #23a723;
+}
+
+.alert-dismissable .close {
+    position: relative;
+    top: -2px;
+    right: 0px;
+    color: inherit;
+}
+
 /**********************
  *Bootstrap overrides *
  *********************/
