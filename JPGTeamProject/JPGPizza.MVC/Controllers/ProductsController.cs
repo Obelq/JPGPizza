@@ -38,11 +38,13 @@
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateProductViewModel viewModel)
@@ -77,6 +79,7 @@
             return RedirectToAction("Products", "Administrators");
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -105,6 +108,8 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(EditProductViewModel viewModel)
         {
             if (viewModel == null)
@@ -145,6 +150,61 @@
             AddIngredientsToProduct(productEntity, viewModel.Ingredients);
             _context.Entry(productEntity).State = EntityState.Modified;
             _context.SaveChanges();
+
+            return RedirectToAction("Products", "Administrators");
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var product = _productsRepository.GetById((int)id);
+
+            if (product == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var viewModel = new DeleteProductViewModel()
+            {
+                Id = product.Id,
+                ImageUrl = product.ImageUrl,
+                Ingredients = product.Ingredients.ToList(),
+                Name = product.Name,
+                Price = product.Price,
+                Type = product.Type
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult DeleteConfirmed(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var product = _productsRepository.GetById((int)id);
+
+            if (product == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            _productsRepository.Remove(product);
+
+            if (!_productsRepository.SaveChanges())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
             return RedirectToAction("Products", "Administrators");
         }

@@ -94,6 +94,7 @@
 
             newIngredientNameTextbox.val('');
             newIngredientNameTextbox.focus();
+            this._addIngredientBtn.scroll();
             ingredinetCount++;
         });
     }

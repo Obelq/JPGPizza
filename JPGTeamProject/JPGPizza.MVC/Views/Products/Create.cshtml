@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-md-12">
                     @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label" })
-                    @Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })
+                    @Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control", autofocus = "true" })
                     @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-md-12">
                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
-                   @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                   @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01" } })
                 @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -67,8 +67,8 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="/administrators/products" class="btn btn-default">Назад</a>
-                    <input type="submit" value="Create" class="btn btn-default pull-right" />
+                    <a href="/administrators/products" class="btn btn-default btn-secondary">Назад</a>
+                    <input type="submit" value="Създай" class="btn btn-default pull-right" />
                 </div>
             </div>
         }

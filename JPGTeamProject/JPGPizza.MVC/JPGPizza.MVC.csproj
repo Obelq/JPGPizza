@@ -230,6 +230,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Orders\OrderProductsViewModel.cs" />
     <Compile Include="ViewModels\Products\CreateProductViewModel.cs" />
+    <Compile Include="ViewModels\Products\DeleteProductViewModel.cs" />
     <Compile Include="ViewModels\Products\EditProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +311,7 @@
     <Content Include="Views\Orders\CarryOut.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

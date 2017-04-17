@@ -94,6 +94,7 @@
     background-color: #fff;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     position: relative;
+    cursor: pointer;
 }
 
 .acp-product-img {
@@ -200,7 +201,7 @@ input {
     height: 30px;
     cursor: pointer;
     text-align: center;
-    top: 14px;
+    top: 14.5px;
     left: -35px;
     border-bottom: 30px solid #d80a2b;
     border-left: 30px solid transparent;
@@ -254,6 +255,12 @@ input {
         color: #fff;
     }
 
+.btn-secondary {
+    border-color: #d80a2b;
+    color: #d80a2b;
+    background-color: #fff;
+}
+
 .form-control-custom {
     display: inline-block;
 }
@@ -280,9 +287,9 @@ input {
     font-weight: 700;
     background-color: #222222;
     position: fixed;
-    top: 51px;
+    top: 57px;
     left: 0;
-    width: 200px;
+    width: 20%;
     height: 100%;
     color: #e1ffff;
 }

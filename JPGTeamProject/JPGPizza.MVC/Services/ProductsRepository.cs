@@ -30,6 +30,11 @@
             return _context.Products.Include(p => p.Ingredients).FirstOrDefault(p => p.Id == productId);
         }
 
+        public void Remove(Product product)
+        {
+            _context.Products.Remove(product);
+        }
+
         public bool SaveChanges()
         {
             try
