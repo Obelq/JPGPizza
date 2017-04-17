@@ -1,4 +1,5 @@
 ﻿@using JPGPizza.MVC.ViewModels.Orders
+@using JPGPizza.MVC.Utility
 @model OrderProductsViewModel
 @{
     ViewBag.Title = "CarryOut";
@@ -23,7 +24,8 @@
             <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
                 @{Html.RenderPartial("_Product", product);}
             </div>
-                    }
+            
+        }
     </div>
     <div id="Drink" class="tab-pane fade">
         @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Drink))
@@ -39,17 +41,23 @@
             <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
                 @{Html.RenderPartial("_Product", product);}
             </div>
-                    }
+        }
     </div>
     <div id="Sandwich" class="tab-pane fade">
         @foreach (var product in Model.Products.Where(p => p.Type == JPGPizza.Models.ProductType.Sandwich))
         {
             <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
                 @{Html.RenderPartial("_Product", product);}
+                
             </div>
-                    }
+                
+
+         }
     </div>
 </div>
+
+
+
 
 
 @section Scripts {
@@ -59,7 +67,7 @@
 
         $(document).ready(function () {
             $('.add-to-cart-btn').click((ev) => {
-
+                
                 ev.preventDefault();
                 let evTarget = $(ev.currentTarget);
                 let productId = ev.currentTarget.getAttribute('data-product-id-value');
@@ -69,8 +77,9 @@
                 };
 
                 addOrderProductToCart(orderProduct);
-
+               
                 shoppingCart.push(parseInt(productId));
+                $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
             });
 
             $('.shopping-cart').click((ev) => {
@@ -127,8 +136,7 @@
                     alert(msg);
                 }
             });
-            $('.shopping-cart-list').empty;
-            $('.shopping-cart-list').text(shoppingCart.join(', '));
+           
         }
     </script>
 
