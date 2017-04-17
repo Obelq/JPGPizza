@@ -3,6 +3,7 @@
     using JPGPizza.Data;
     using JPGPizza.Models;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
 
     public class ProductsRepository
@@ -22,6 +23,16 @@
         public void Add(Product product)
         {
             _context.Products.Add(product);
+        }
+
+        public Product GetById(int productId)
+        {
+            return _context.Products.Include(p => p.Ingredients).FirstOrDefault(p => p.Id == productId);
+        }
+
+        public void Remove(Product product)
+        {
+            _context.Products.Remove(product);
         }
 
         public bool SaveChanges()

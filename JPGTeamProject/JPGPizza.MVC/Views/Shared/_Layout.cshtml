@@ -50,6 +50,7 @@
         </div>
     </div>
     <div class="container body-content">
+        @{ Html.RenderPartial("_Notifications"); }
         @RenderBody()
     </div>
 
@@ -128,6 +129,9 @@
     <script>
         $(document).ready(() => {
             $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
+            $('#logout-btn').click((ev) => {
+                sessionStorage.setItem('shoppingCart', JSON.stringify([]));
+            });
         });
     </script>
 

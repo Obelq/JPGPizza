@@ -213,6 +213,7 @@
     <Compile Include="Dtos\MostUsedIngredientDto.cs" />
     <Compile Include="Dtos\TopSellingProductDto.cs" />
     <Compile Include="Dtos\TopUserDto.cs" />
+    <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -220,6 +221,7 @@
     <Compile Include="Services\IngredientsRepository.cs" />
     <Compile Include="Services\ProductsRepository.cs" />
     <Compile Include="Utility\AutoMapperConfig.cs" />
+    <Compile Include="Utility\ImageHelper.cs" />
     <Compile Include="Utility\ProductTypeHelper.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsIndexViewModel.cs" />
@@ -229,6 +231,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Orders\OrderProductsViewModel.cs" />
     <Compile Include="ViewModels\Products\CreateProductViewModel.cs" />
+    <Compile Include="ViewModels\Products\DeleteProductViewModel.cs" />
+    <Compile Include="ViewModels\Products\EditProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Administrators.css" />
@@ -241,9 +245,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Administrators\create-product.js" />
     <Content Include="Scripts\Administrators\index.js" />
-    <Content Include="Scripts\Administrators\sales-chart.js" />
-    <Content Include="Scripts\Administrators\sammy-0.7.6.min.js" />
+    <Content Include="Scripts\Administrators\productFilePreview.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -307,6 +311,9 @@
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\CarryOut.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Shared\_Notifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

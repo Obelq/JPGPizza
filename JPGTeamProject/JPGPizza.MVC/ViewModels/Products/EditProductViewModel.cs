@@ -5,9 +5,17 @@
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
+    using System.Web.Mvc;
 
-    public class CreateProductViewModel
+
+    public class EditProductViewModel
     {
+        public EditProductViewModel()
+        {
+        }
+
+        public int ProductId { get; set; }
+
         [Required]
         [DisplayName("Име")]
         [MaxLength(50, ErrorMessage = "Името на продукта може да бъде по-малко или равно на 50 символа.")]
@@ -23,9 +31,11 @@
 
         [Required]
         [DisplayName("Снимка")]
-        public HttpPostedFileBase Picture { get; set; }
+        public HttpPostedFileBase Image { get; set; }
+
+        public string ImageUrl { get; set; }
 
         [DisplayName("Съставки")]
-        public ICollection<Ingredient> Ingredients { get; set; } = new HashSet<Ingredient>();
+        public List<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
     }
 }

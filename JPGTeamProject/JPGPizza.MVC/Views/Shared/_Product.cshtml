@@ -15,21 +15,23 @@
     <div class="acp-product-ingredients">
         @string.Join(", ", Model.Ingredients.Select(i => i.Name))
     </div>
-    <div class="acp-product-actions">
+    <div class="acp-product-actions" style="position: relative;">
         @if (User.IsInRole("Administrator"))
         {
             <div>
-                <a data-product-id-value="@Model.Id" class="btn btn-default add-to-cart-btn">Избери</a>
+                <a class="btn btn-default add-to-cart-btn choose-btn" data-product-id-value="@Model.Id">
+                    Избери
+                </a>
             </div>
             <div>
                 <a href="#" class="btn btn-default">Детайли</a>
-                <a href="#" class="btn btn-default">Промени</a>
-                <a href="#" class="btn btn-default">Изтрий</a>
+                <a href="/products/edit/@Model.Id" class="btn btn-default">Промени</a>
+                <a href="/products/delete/@Model.Id" class="btn btn-default">Изтрий</a>
             </div>
         }
         else
         {
-            <a data-product-id-value="@Model.Id" class="btn btn-default add-to-cart-btn">Избери</a>
+            <a class="btn btn-default add-to-cart-btn">Избери</a>
         }
     </div>
 }
@@ -52,8 +54,8 @@ else if (Model.Type == ProductType.Drink)
             </div>
             <div>
                 <a href="#" class="btn btn-default">Детайли</a>
-                <a href="#" class="btn btn-default">Промени</a>
-                <a href="#" class="btn btn-default">Изтрий</a>
+                <a href="/products/edit/@Model.Id" class="btn btn-default">Промени</a>
+                <a href="/products/delete/@Model.Id" class="btn btn-default">Изтрий</a>
             </div>
         }
         else

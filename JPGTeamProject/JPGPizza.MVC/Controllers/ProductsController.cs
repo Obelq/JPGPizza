@@ -1,19 +1,17 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using System.Web.Mvc;
-using JPGPizza.Data;
-using JPGPizza.Models;
-using JPGPizza.MVC.Services;
-using JPGPizza.MVC.ViewModels.Products;
-using System.Net;
-using System.IO;
-using System.Threading.Tasks;
-using System.Web;
-using System.Collections.Generic;
-
-namespace JPGPizza.MVC.Controllers
+﻿namespace JPGPizza.MVC.Controllers
 {
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web.Mvc;
+    using JPGPizza.Data;
+    using JPGPizza.Models;
+    using JPGPizza.MVC.Services;
+    using JPGPizza.MVC.ViewModels.Products;
+    using System.Net;
+    using System.Collections.Generic;
+    using JPGPizza.MVC.Utility;
+    using JPGPizza.MVC.Extensions;
+
     public class ProductsController : Controller
     {
         private readonly JPGPizzaDbContext _context;
@@ -29,24 +27,22 @@ namespace JPGPizza.MVC.Controllers
 
         public ActionResult Categories()
         {
-            var categories = Enum.GetValues(typeof(ProductType)).Cast<ProductType>().ToList();
-            return View(categories);
+            return View();
         }
 
         public ActionResult List(ProductType category)
         {
-            using (var context = new JPGPizzaDbContext())
-            {
-                var items = context.Products.Where(p => p.Type == category).Include("Ingredients").ToList();
-                return View(items);
-            }
+            var items = _context.Products.Where(p => p.Type == category).Include("Ingredients").ToList();
+            return View(items);
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateProductViewModel viewModel)
@@ -63,27 +59,171 @@ namespace JPGPizza.MVC.Controllers
                 Type = viewModel.Type
             };
 
-            productEntity.Image = GetImageAsByteArray(viewModel.Picture);
-            productEntity.ImageUrl = GetImageUrl(productEntity.Image);
+            productEntity.Image = ImageHelper.GetBytesFromFile(viewModel.Picture);
+
+            if (productEntity.Image == null)
+            {
+                this.AddNotification("Невалиден файл: Може да качите само файлове от тип: jpg, jpeg, png, gif", NotificationType.ERROR);
+                return View(viewModel);
+            }
+
+            productEntity.ImageUrl = ImageHelper.GetImageUrl(productEntity.Image);
 
             AddIngredientsToProduct(productEntity, viewModel.Ingredients);
 
             _productsRepository.Add(productEntity);
             _productsRepository.SaveChanges();
 
+            this.AddNotification("Продуктът е създаден успешно.", NotificationType.SUCCESS);
             return RedirectToAction("Products", "Administrators");
         }
 
-        public byte[] GetImageAsByteArray(HttpPostedFileBase image)
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Edit(int? id)
         {
-            MemoryStream memoryStream = new MemoryStream();
-            image.InputStream.CopyTo(memoryStream);
-            return memoryStream.ToArray();
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var product = _productsRepository.GetById((int)id);
+
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new EditProductViewModel()
+            {
+                ProductId = product.Id,
+                Name = product.Name,
+                ImageUrl = product.ImageUrl,
+                Ingredients = product.Ingredients.ToList(),
+                Price = product.Price,
+                Type = product.Type
+            };
+
+            return View(viewModel);
         }
 
-        public string GetImageUrl(byte[] imageAsByteArray)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Edit(EditProductViewModel viewModel)
         {
-            return "data:image/jpeg;base64," + Convert.ToBase64String(imageAsByteArray);
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (viewModel.ProductId == 0)
+            {
+                this.AddNotification("Грешка при промяна на продуктът. Пордуктът не беше намерен.", NotificationType.ERROR);
+                return View(viewModel);
+            }
+
+            var productEntity = _productsRepository.GetById(viewModel.ProductId);
+
+            if (productEntity == null)
+            {
+                this.AddNotification("Грешка при промяна на продуктът. Пордуктът не беше намерен.", NotificationType.ERROR);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            productEntity.Name = viewModel.Name;
+            productEntity.Price = viewModel.Price;
+            productEntity.Type = viewModel.Type;
+
+            if (viewModel.Image != null)
+            {
+                productEntity.Image = ImageHelper.GetBytesFromFile(viewModel.Image);
+                productEntity.ImageUrl = ImageHelper.GetImageUrl(productEntity.Image);
+            }
+
+            viewModel.Ingredients = viewModel.Ingredients.Where(i => i != null).ToList();
+            var productIngredientNamesToAdd = viewModel.Ingredients.Select(i => i.Name);
+            productEntity.Ingredients = productEntity.Ingredients
+                .Where(i => productIngredientNamesToAdd.Contains(i.Name)).ToList();
+
+            var productExistingIngredients = productEntity.Ingredients.Select(i => i.Name);
+            viewModel.Ingredients = viewModel.Ingredients
+                .Where(i => i != null)
+                .Where(i => !productExistingIngredients.Contains(i.Name))
+                .ToList();
+
+            AddIngredientsToProduct(productEntity, viewModel.Ingredients);
+            _context.Entry(productEntity).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            this.AddNotification("Продуктът е променен успешно.", NotificationType.SUCCESS);
+            return RedirectToAction("Products", "Administrators");
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var product = _productsRepository.GetById((int)id);
+
+            if (product == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var viewModel = new DeleteProductViewModel()
+            {
+                Id = product.Id,
+                ImageUrl = product.ImageUrl,
+                Ingredients = product.Ingredients.ToList(),
+                Name = product.Name,
+                Price = product.Price,
+                Type = product.Type
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult DeleteConfirmed(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var product = _productsRepository.GetById((int)id);
+
+            if (product == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            _productsRepository.Remove(product);
+
+            if (!_productsRepository.SaveChanges())
+            {
+                var viewModel = new DeleteProductViewModel()
+                {
+                    Id = product.Id,
+                    ImageUrl = product.ImageUrl,
+                    Ingredients = product.Ingredients.ToList(),
+                    Name = product.Name,
+                    Price = product.Price,
+                    Type = product.Type
+                };
+
+                this.AddNotification("Грешка при опти за изтриване. Продуктът не беше намерен.", NotificationType.ERROR);
+                return View(viewModel);
+            }
+
+            this.AddNotification("Продуктът е изтрит успешно.", NotificationType.SUCCESS);
+            return RedirectToAction("Products", "Administrators");
         }
 
         public void AddIngredientsToProduct(Product product, IEnumerable<Ingredient> ingredients)
