@@ -35,24 +35,24 @@
                     <div class="info-list-body">
                         <table class="info-table table">
                             <thead>
-                                <tr>
-                                    <th class="admin-large-td text-center">Потребителско име</th>
-                                    <th class="admin-medium-td text-center">Брой поръчки</th>
-                                    <th class="admin-medium-td text-center">Стойност</th>
+                                <tr class="row">
+                                    <th class="col-sm-6">Потребителско име</th>
+                                    <th class="text-center col-sm-2">Брой поръчки</th>
+                                    <th class="text-right col-sm-4">Стойност</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{ int row = 0;}
                                 @foreach (var user in Model.TopUsers)
                                 {
-                                    <tr class="@rowBackground[row % rowBackground.Length]">
-                                        <td  class="admin-large-td">
+                                    <tr class="@rowBackground[row % rowBackground.Length] row">
+                                        <td  class="col-sm-6">
                                             <a href="#">@user.UserName</a>
                                         </td>
-                                        <td class="text-right admin-medium-td">
+                                        <td class="col-sm-2 text-center">
                                             @user.TotalOrders
                                         </td>
-                                        <td class="text-right admin-medium-td">
+                                        <td class="col-sm-4 text-right">
                                             @user.TotalCost лв.
                                         </td>
                                     </tr>
@@ -133,25 +133,25 @@
                     <div class="info-list-body">
                         <table class="info-table table">
                             <thead>
-                                <tr>
-                                    <th>Име на продукт</th>
-                                    <th class="text-right">Брой поръчки</th>
-                                    <th class="text-right">Цена</th>
+                                <tr class="row">
+                                    <th class="col-sm-5">Име на продукт</th>
+                                    <th class="text-center col-sm-2">Брой поръчки</th>
+                                    <th class="text-right col-sm-4">Цена</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{row = 0;}
                                 @foreach (var product in Model?.TopSellingProducts)
                                 {
-                                    <tr class="@rowBackground[row % rowBackground.Length]">
-                                        <td class="admin-large-td">
+                                    <tr class="@rowBackground[row % rowBackground.Length] row">
+                                        <td class="col-sm-6">
                                             <span>@product.Name</span>
                                         </td>
-                                        <td class="text-right admin-medium-td">
-                                            <span class="pull-right">@product.TotalOrders</span>
+                                        <td class="text-center col-sm-2">
+                                            @product.TotalOrders
                                         </td>
-                                        <td class="text-right admin-medium-td">
-                                            <span class="pull-right">@product.Price.ToString("F2") лв.</span>
+                                        <td class="text-right col-sm-4">
+                                            @product.Price.ToString("F2") лв.
                                         </td>
                                     </tr>
                                     row++;
@@ -171,20 +171,20 @@
                     <div class="info-list-body">
                         <table class="info-table table">
                             <thead>
-                                <tr>
-                                    <th class="admin-giga-large-td">Име на съставка</th>
-                                    <th class="text-right admin-giga-medium-td">Брой продукти</th>
+                                <tr class="row">
+                                    <th class="col-sm-9">Име на съставка</th>
+                                    <th class="col-sm-3 text-center">Брой продукти</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{row = 0;}
                                 @foreach (var ingredient in Model.MostUsedIngredients)
                                 {
-                                    <tr class="@rowBackground[row % rowBackground.Length]">
-                                        <td class="admin-giga-large-td">
+                                    <tr class="@rowBackground[row % rowBackground.Length] row">
+                                        <td class="col-sm-10">
                                             <span>@ingredient.Name</span>
                                         </td>
-                                        <td class="text-right admin-giga-medium-td" style="width: 180px;">
+                                        <td class="col-sm-2 text-center">
                                             @ingredient.NumberOfProducts
                                         </td>
                                     </tr>

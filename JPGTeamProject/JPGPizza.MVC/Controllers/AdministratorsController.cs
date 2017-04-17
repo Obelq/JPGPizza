@@ -7,6 +7,8 @@
     using System.Web.Mvc;
     using System.Data.Entity;
     using JPGPizza.Data;
+    using System.Collections.Generic;
+    using JPGPizza.Models;
 
     public class AdministratorsController : Controller
     {
@@ -21,6 +23,7 @@
             _productsRepository = new ProductsRepository(_context);
         }
 
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Index()
         {
             var viewModel = new AdministratorsIndexViewModel()
@@ -37,14 +40,32 @@
             return View(viewModel);
         }
 
-        public async Task<ActionResult> Products()
+
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult> Products(string searchText)
         {
-            var viewModel = new AdministratorsProductsViewModel()
+            var products = new List<Product>();
+
+            if (!string.IsNullOrEmpty(searchText))
             {
-                Products = await _productsRepository
+                products = await _productsRepository
                     .GetAll()
                     .Include(p => p.Ingredients)
-                    .ToListAsync()
+                    .Where(p => p.Name.Contains(searchText))
+                    .ToListAsync();
+            }
+            else
+            {
+                products = await _productsRepository
+                    .GetAll()
+                    .Include(p => p.Ingredients)
+                    .ToListAsync();
+            }
+
+            var viewModel = new AdministratorsProductsViewModel()
+            {
+                Products = products,
+                SearchText = searchText
             };
 
             return View(viewModel);
