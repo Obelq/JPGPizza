@@ -129,6 +129,9 @@
     <script>
         $(document).ready(() => {
             $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
+            $('#logout-btn').click((ev) => {
+                sessionStorage.setItem('shoppingCart', JSON.stringify([]));
+            });
         });
     </script>
 
