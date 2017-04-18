@@ -32,7 +32,7 @@
             return ingredient;
         }
 
-        public bool SaveChanges()
+        public bool Save()
         {
             try
             {

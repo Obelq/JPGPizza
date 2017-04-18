@@ -32,7 +32,8 @@
 
         public ActionResult List(ProductType category)
         {
-            var items = _context.Products.Where(p => p.Type == category).Include("Ingredients").ToList();
+            var items = _productsRepository.GetByType(category);
+
             return View(items);
         }
 
@@ -72,7 +73,7 @@
             AddIngredientsToProduct(productEntity, viewModel.Ingredients);
 
             _productsRepository.Add(productEntity);
-            _productsRepository.SaveChanges();
+            _productsRepository.Save();
 
             this.AddNotification("Продуктът е създаден успешно.", NotificationType.SUCCESS);
             return RedirectToAction("Products", "Administrators");
@@ -229,7 +230,7 @@
 
             product.IsDeleted = true;
 
-            if (!_productsRepository.SaveChanges())
+            if (!_productsRepository.Save())
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

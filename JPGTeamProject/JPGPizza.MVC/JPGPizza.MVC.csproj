@@ -219,6 +219,7 @@
     </Compile>
     <Compile Include="Services\AdministratorsRepository.cs" />
     <Compile Include="Services\IngredientsRepository.cs" />
+    <Compile Include="Services\OrdersRepository.cs" />
     <Compile Include="Services\ProductsRepository.cs" />
     <Compile Include="Utility\AutoMapperConfig.cs" />
     <Compile Include="Utility\ImageHelper.cs" />
@@ -315,10 +316,10 @@
     <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Shared\_Notifications.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Ingredients\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Ingredients\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
