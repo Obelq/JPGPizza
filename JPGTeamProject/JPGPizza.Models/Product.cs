@@ -16,6 +16,8 @@
 
         public byte[] Image { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new HashSet<OrderProduct>();
 
         public virtual ICollection<Ingredient> Ingredients { get; set; } = new HashSet<Ingredient>();

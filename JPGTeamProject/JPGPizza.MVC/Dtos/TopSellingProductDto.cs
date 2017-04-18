@@ -5,6 +5,7 @@
         private int? totalOrders;
         public decimal Price { get; set; }
         public string Name { get; set; }
+        public bool IsDeleted { get; set; }
         public int? TotalOrders
         {
             get

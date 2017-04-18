@@ -59,14 +59,7 @@
 							@Model.Name
 						</div>
 						<div class="acp-product-ingredients">
-							@for (int i = 0; i < Model.Ingredients.Count; i++)
-							{
-								@Model.Ingredients[i].Name
-								if (i > 0 && i < Model.Ingredients.Count - 1)
-								{
-									<span>, </span>
-								}
-							}
+							@string.Join(", ", Model.Ingredients.Select(i => i.Name))
 						</div>
 						<div class="acp-product-actions">
 							<a href="/administrators/products" class="btn btn-default btn-secondary">Отказ</a>

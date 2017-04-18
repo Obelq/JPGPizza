@@ -2,7 +2,6 @@
 {
     using JPGPizza.Data;
     using JPGPizza.Models;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
 
@@ -17,7 +16,7 @@
 
         public IQueryable<Product> GetAll()
         {
-            return _context.Products.OrderBy(p => p.Name);
+            return _context.Products.Where(p => p.IsDeleted == false).OrderBy(p => p.Name);
         }
 
         public void Add(Product product)
@@ -27,7 +26,10 @@
 
         public Product GetById(int productId)
         {
-            return _context.Products.Include(p => p.Ingredients).FirstOrDefault(p => p.Id == productId);
+            return _context.Products
+                .Include(p => p.Ingredients)
+                .FirstOrDefault(p => p.Id == productId && 
+                                p.IsDeleted  == false);
         }
 
         public void Remove(Product product)

@@ -204,22 +204,11 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            _productsRepository.Remove(product);
+            product.IsDeleted = true;
 
             if (!_productsRepository.SaveChanges())
             {
-                var viewModel = new DeleteProductViewModel()
-                {
-                    Id = product.Id,
-                    ImageUrl = product.ImageUrl,
-                    Ingredients = product.Ingredients.ToList(),
-                    Name = product.Name,
-                    Price = product.Price,
-                    Type = product.Type
-                };
-
-                this.AddNotification("Грешка при опти за изтриване. Продуктът не беше намерен.", NotificationType.ERROR);
-                return View(viewModel);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             this.AddNotification("Продуктът е изтрит успешно.", NotificationType.SUCCESS);
