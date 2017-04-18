@@ -67,7 +67,7 @@
                 <div class="modal-body">
                     <div id="shopping-cart-list">
                         <span>
-                            MODAL SHOPPING CART TEXT
+                            Количката е празна.
                         </span>
 
                     </div>
@@ -136,23 +136,44 @@
             let productsInCart = ``
             if (shoppingCart.length > 0) {
                 $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
-                             
+                let total = 0;
+                productsInCart += `<div class="row">
+                            <div class="col-sm-2">
+                                <span>`+ "Продукт" + `</span>
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 20px;">`
+                    + "Количество" +
+                    `</div>
+                             <div class="col-sm-5">`
+                    + "Цена" +
+                    `</div>
+                        </div>
+                        <hr/>`
                 for (let orderProduct of shoppingCart) {
+                    total += orderProduct.price;
                     productsInCart += 
 
                         `<div class="row">
                             <div class="col-sm-3">
-                                <span class="quantity-text">`+orderProduct.name+`</span>
+                                <span>`+orderProduct.name+`</span>
                             </div>
-                            <div class="col-sm-5" style="padding-left: 20px;">`
-                                        + orderProduct.quantity +
+                            <div class="col-sm-3" style="padding-left: 20px;">`
+                                        + orderProduct.quantity + " бр." +
                             `</div>
-                             <div class="col-sm-4">`
-                             + orderProduct.price +
+                             <div class="col-sm-5">`
+                             + orderProduct.price.toFixed(2) + " лв." +
                              `</div>
-                        </div>` 
+                        </div>
+                            <hr/>`
+                    console.log(total)
 
                 }
+                productsInCart += `<div class="row">
+                                     <span class="col-sm-5">`+"Общо: "+`</span>
+                                     <span class="col-sm-5">`+ total.toFixed(2)+ " лв." +`</span>
+                                   </div>`
+
+                $('#shopping-cart-list span').empty();
                 $('#shopping-cart-list span').append(productsInCart);
 
 
