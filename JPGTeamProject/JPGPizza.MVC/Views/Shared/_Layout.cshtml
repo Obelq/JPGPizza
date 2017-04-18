@@ -65,10 +65,13 @@
                     <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="shopping-cart-list">
-                        MODAL SHOPPING CART TEXT
+                    <div id="shopping-cart-list">
+                        <span>
+                            Количката е празна.
+                        </span>
+
                     </div>
-                   
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Затвори</button>
@@ -126,12 +129,64 @@
 
     <script>
         //TODO
-        //$(document).ready(() => {
-        //    $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
-        //    $('#logout-btn').click((ev) => {
-        //        sessionStorage.setItem('shoppingCart', JSON.stringify([]));
-        //    });
-        //});
+        $(document).ready(() => {
+            let shoppingCart = JSON.parse(sessionStorage.getItem('shoppingCart'));
+            let productsInCart = ``
+            if (shoppingCart.length > 0) {
+                $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
+                let total = 0;
+                productsInCart += `<div class="row">
+                            <div class="col-sm-2">
+                                <span>`+ "Продукт" + `</span>
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 20px;">`
+                    + "Количество" +
+                    `</div>
+                             <div class="col-sm-5">`
+                    + "Цена" +
+                    `</div>
+                        </div>
+                        <hr/>`
+                for (let orderProduct of shoppingCart) {
+                    total += orderProduct.price;
+                    productsInCart += 
+
+                        `<div class="row">
+                            <div class="col-sm-3">
+                                <span>`+orderProduct.name+`</span>
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 20px;">`
+                                        + orderProduct.quantity + " бр." +
+                            `</div>
+                             <div class="col-sm-5">`
+                             + orderProduct.price.toFixed(2) + " лв." +
+                             `</div>
+                        </div>
+                            <hr/>`
+                    console.log(total)
+
+                }
+                productsInCart += `<div class="row">
+                                     <span class="col-sm-5">`+"Общо: "+`</span>
+                                     <span class="col-sm-5">`+ total.toFixed(2)+ " лв." +`</span>
+                                   </div>`
+
+                $('#shopping-cart-list span').empty();
+                $('#shopping-cart-list span').append(productsInCart);
+
+
+
+            }
+
+            $('#logout-btn').click((ev) => {
+                sessionStorage.setItem('shoppingCart', JSON.stringify([]));
+            });
+            
+            
+            
+
+        });
+
     </script>
 
 </body>

@@ -15,19 +15,19 @@
             <div class="col-sm-3">
                 <span class="quantity-text">Брой</span>
             </div>
-            <div class="col-sm-5" style="padding-left: 20px;">
-                <span class="glyphicon glyphicon-minus-sign  quantity-btn noselect" data-product-price-value="@Model.Product.Price"></span>
+            <div class="col-sm-5" style="padding-left: 20px;">                
+                <span class="glyphicon glyphicon-minus-sign  quantity-btn noselect" data-product-price-value="@Model.Product.Price"></span>              
                 <span class="quantity quantity-value noselect">1</span>
                 <span class="glyphicon glyphicon-plus-sign quantity-btn noselect" data-product-price-value="@Model.Product.Price"></span>
             </div>
             <div class="col-sm-4">                
-                    <span class="pull-right product-order-price" >@Model.Product.Price лв.</span>          
+                    <span class="pull-right product-order-price noselect">@Model.Product.Price лв.</span>          
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <a href="#" class="btn btn-default btn-secondary">Назад</a>
-                <a href="#" class="btn btn-default pull-right">Добави към количката</a>
+                <a href="../../orders/carryout" class="btn btn-default btn-secondary">Назад</a>
+                <a href="#" class="btn btn-default pull-right" id="add-to-cart" data-product-price-value="@Model.Product.Price" data-product-id-value="@Model.ProductId" data-product-name-value="@Model.Product.Name">Добави към количката</a>
             </div>
         </div>
     </div>
@@ -46,38 +46,117 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('.glyphicon-plus-sign').click((ev) => {
-                let price = $('.product-order-price');
-                let evTarget = $(ev.currentTarget);
-                let productPrice = ev.currentTarget.getAttribute('data-product-price-value');
-
-                console.log(productPrice)
-                let quantity = parseFloat($('.quantity-value').text());
-                quantity++;
-
-                $('.quantity-value').text(quantity);
-
-                let newPrice = productPrice * quantity;
-                $('.product-order-price').text(newPrice.toFixed(2) + " лв.");
-
-            })
-
+           
+            deceraseBtn();
+            increaseBtn();
+            addToCart();
+        })
+        function deceraseBtn() {
             $('.glyphicon-minus-sign').click((ev) => {
 
                 let evTarget = $(ev.currentTarget);
                 let productPrice = ev.currentTarget.getAttribute('data-product-price-value');
-
                 let quantity = parseFloat($('.quantity-value').text());
-                if (quantity > 1)
-                {
+                if (quantity > 1) {
                     quantity--;
-                    console.log(productPrice)
                     $('.quantity-value').text(quantity)
-
                     let newPrice = productPrice * quantity;
                     $('.product-order-price').text(newPrice.toFixed(2) + " лв.");
-                }               
+                }
             })
-        })
+        }
+
+        function increaseBtn() {
+            $('.glyphicon-plus-sign').click((ev) => {
+
+                let price = $('.product-order-price');
+                let evTarget = $(ev.currentTarget);
+                let productPrice = ev.currentTarget.getAttribute('data-product-price-value');
+                let quantity = parseFloat($('.quantity-value').text());
+                quantity++;
+                $('.quantity-value').text(quantity);
+                let newPrice = productPrice * quantity;
+                $('.product-order-price').text(newPrice.toFixed(2) + " лв.");
+
+            })
+        }
+
+        function addToCart() {
+            $('#add-to-cart').click((ev) => {
+
+                
+
+                ev.preventDefault();
+
+              
+                let evTarget = $(ev.currentTarget);
+                let productId = ev.currentTarget.getAttribute('data-product-id-value');
+                let quantity = parseFloat($('.quantity-value').text());
+                let productName = ev.currentTarget.getAttribute('data-product-name-value');
+                let productPrice = ev.currentTarget.getAttribute('data-product-price-value');
+                let newPrice = productPrice * quantity;
+                let orderProduct = {
+                        id: productId,
+                        name: productName,
+                        price: newPrice,
+                        quantity: quantity  
+                };
+                addOrderProductToCart(orderProduct)
+            })
+        }
+
+         function addOrderProductToCart(orderProduct) {
+            let shoppingCart = sessionStorage.getItem('shoppingCart');
+
+            if (!shoppingCart) {
+                sessionStorage.setItem('shoppingCart', JSON.stringify([]));
+                shoppingCart = sessionStorage.getItem('shoppingCart');
+            }
+
+            shoppingCart = JSON.parse(shoppingCart);
+            shoppingCart.push(orderProduct);
+
+            sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+            if (shoppingCart.length >= 1) $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
+           
+
+            console.log(shoppingCart)
+        }
+
+        function removeOrderProductByProductId(productId) {
+            let shoppingCart = JSON.parse(sessionStorage.getItem('shoppingCart'));
+
+            let orderProductToRemoveIndex;
+            for (let i = 0; i < shoppingCart.length; i++) {
+                if (shoppingCart[i].productId === productId) {
+                    orderProductToRemoveIndex = i;
+                    break;
+                }
+            }
+
+            shoppingCart.splice(orderProductToRemoveIndex, 1);
+            sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+        }
+
+        function increaseOrderProductQuantity() {
+
+        }
+
+        function orderList() {
+            console.log('order')
+            let list = JSON.stringify(shoppingCart)
+            var controllerUrl = "@Url.Action("ShopingCartList", "Orders")"            
+            $.ajax({
+                type: "POST",
+                url: controllerUrl,
+                data: list,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    alert(msg);
+                }
+            });
+
+        }
     </script>
 }
