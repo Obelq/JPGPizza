@@ -14,11 +14,10 @@
         </div>
         <div class="col-sm-4 col-sm-push-4" style="left: 39.333333%;">
             <input type="text" name="search-text" value="@Model.SearchText" hidden id="search-text-hidden" />
-            <input autofocus type="text" name="SearchText" value="" id="search-text" placeholder="Търси" class="form-control form-control-custom" style="width:75%;border-color: #d80a2b;" />
+            <input type="text" name="SearchText" value="" id="search-text" placeholder="Търси" class="form-control form-control-custom" style="width:75%;" />
             <a href="" class="btn btn-default" id="search-btn">Търси</a>
         </div>
     </div>
-    <hr />
     <div class="row">
         @{ var productsByType = Model.Products.OrderBy(p => p.Type).GroupBy(p => p.Type); }
         @if (productsByType.Count() == 0)
