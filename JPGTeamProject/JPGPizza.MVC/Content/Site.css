@@ -119,3 +119,37 @@ textarea {
 .shopping-cart {
     font-size: 22px;    
 }
+
+.product-detail-container{
+    padding-top: 30px;
+}
+
+.quantity-btn {
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.quantity-value {
+    font-size: 25px;
+    padding: 10px;
+    font-weight: 900;
+    padding-bottom: 5px;
+}
+
+.product-order-price {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.pd-ingredients {
+    color: #2e353d;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: lowercase;
+}
+
+.quantity-text {
+    font-size: 20px;
+    font-weight: 700;
+}

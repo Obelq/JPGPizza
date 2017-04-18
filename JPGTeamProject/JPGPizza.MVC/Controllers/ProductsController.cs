@@ -78,6 +78,29 @@
             return RedirectToAction("Products", "Administrators");
         }
 
+        
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = _productsRepository.GetById((int)id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            var model = new OrderProduct
+            {
+                Product = product,
+                ProductId = product.Id,
+                Quantity = 0
+            };
+
+            return View(model);
+        }
+
         [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
