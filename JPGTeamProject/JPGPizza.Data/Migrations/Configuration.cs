@@ -1,4 +1,4 @@
-namespace JPGPizza.Data.Migrations
+п»їnamespace JPGPizza.Data.Migrations
 {
     using JPGPizza.Models;
     using Microsoft.AspNet.Identity;
@@ -42,91 +42,91 @@ namespace JPGPizza.Data.Migrations
             if (!context.Products.Any())
             {
                 // Insert pizzas
-                CreateProduct(context, "Маргарита", "", 9.50m, "http://westport.tarrylodge.com/wp-content/uploads/sites/17/2015/08/Babbo_Boston_Food_703-740x380.jpg", ProductType.Pizza);
-                CreateProduct(context, "Пеперони", "", 13m, "http://balkan-pizza-doner.de/wp-content/uploads/2015/08/Pepperoni_1.jpg", ProductType.Pizza);
-                CreateProduct(context, "Гардън", "", 11m, "https://cdn.media.yp.ca/8621438/pcc-5649004053842719950-IMG-0072_r.JPG", ProductType.Pizza);
-                CreateProduct(context, "Американa", "", 12m, "http://www.silviocicchi.com/pizzachef/wp-content/uploads/2015/02/a-evid-672x372.jpg", ProductType.Pizza);
+                CreateProduct(context, "РњР°СЂРіР°СЂРёС‚Р°", "", 9.50m, "http://westport.tarrylodge.com/wp-content/uploads/sites/17/2015/08/Babbo_Boston_Food_703-740x380.jpg", ProductType.Pizza);
+                CreateProduct(context, "РџРµРїРµСЂРѕРЅРё", "", 13m, "http://balkan-pizza-doner.de/wp-content/uploads/2015/08/Pepperoni_1.jpg", ProductType.Pizza);
+                CreateProduct(context, "Р“Р°СЂРґСЉРЅ", "", 11m, "https://cdn.media.yp.ca/8621438/pcc-5649004053842719950-IMG-0072_r.JPG", ProductType.Pizza);
+                CreateProduct(context, "РђРјРµСЂРёРєР°РЅa", "", 12m, "http://www.silviocicchi.com/pizzachef/wp-content/uploads/2015/02/a-evid-672x372.jpg", ProductType.Pizza);
                 CreateProduct(context, "Meat Mania", "", 14.50m, "http://68.media.tumblr.com/3413204e7b24a9a690085326cab23e41/tumblr_o6ijpa8Vjx1tg05wco1_1280.jpg", ProductType.Pizza);
-                CreateProduct(context, "Хавай", "", 11m, "https://s3.amazonaws.com/ODNUploads/53c7197f0d5d1hawaiian.jpg", ProductType.Pizza);
+                CreateProduct(context, "РҐР°РІР°Р№", "", 11m, "https://s3.amazonaws.com/ODNUploads/53c7197f0d5d1hawaiian.jpg", ProductType.Pizza);
 
                 // Insert drinks
                 CreateProduct(context, "Coca Cola", "", 1.50m, "https://lh3.googleusercontent.com/-hC_vFNFAy2w/Vp5H1cct9AI/AAAAAAAADGc/Hfz2esqbQkYJ8cLMioumS1GatHfJ4EmwgCJoC/w610-h610/CokeRedDisc.JPG", ProductType.Drink);
                 CreateProduct(context, "Coca Cola Zero", "", 1.50m, "http://www.coca-colaproductfacts.com/content/dam/productfacts/us/productDetails/BrandLogos/BL_CokeZero.png", ProductType.Drink);
                 CreateProduct(context, "Fanta", "", 1.50m, "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Fanta_logo_global.svg/1200px-Fanta_logo_global.svg.png", ProductType.Drink);
-                CreateProduct(context, "Минерална вода", "", 1m, "http://www.bankia.bg/content/dam/GO/bonaqua/bulgaria/brand-logos/Bankia_Logo.jpg", ProductType.Drink);
+                CreateProduct(context, "РњРёРЅРµСЂР°Р»РЅР° РІРѕРґР°", "", 1m, "http://www.bankia.bg/content/dam/GO/bonaqua/bulgaria/brand-logos/Bankia_Logo.jpg", ProductType.Drink);
                 CreateProduct(context, "Nestea", "", 2m, "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Nestea_logo.svg/1200px-Nestea_logo.svg.png", ProductType.Drink);
                 CreateProduct(context, "Sprite", "", 2m, "https://www.sprite.com/content/dam/sprite2016/sprite_logo_green2.png", ProductType.Drink);
-                CreateProduct(context, "Загорка", "", 2m, "http://zagorkacompany.bg/uploads/portfolio/zagorkalogowhite.jpg", ProductType.Drink);
+                CreateProduct(context, "Р—Р°РіРѕСЂРєР°", "", 2m, "http://zagorkacompany.bg/uploads/portfolio/zagorkalogowhite.jpg", ProductType.Drink);
 
                 // Insert salads
-                CreateProduct(context, "Салата риба тон", "", 4.50m, "http://www.az-jenata.bg/media/az-jenata/files/articles/528x396/5466ce477114fe649d9f5be129fe601a.jpg", ProductType.Salad);
-                CreateProduct(context, "Салата цезар с пиле", "", 5.50m, "http://recipes.dahapna.co.uk/wp-content/uploads/2016/01/%D0%A1%D0%B0%D0%BB%D0%B0%D1%82%D0%B0-%E2%80%9C%D0%A6%D0%B5%D0%B7%D0%B0%D1%80%E2%80%9D-%D1%81-%D0%BF%D0%B8%D0%BB%D0%B5.png", ProductType.Salad);
-                CreateProduct(context, "Салата цезар с бекон", "", 5.50m, "http://tago.bg/wp-content/uploads/2016/03/%D0%A1%D0%B0%D0%BB%D0%B0%D1%82%D0%B0-%D0%A6%D0%B5%D0%B7%D0%B0%D1%80-1-1280x852.jpg", ProductType.Salad);
-                CreateProduct(context, "Зелева салата за ракия", "", 4.50m, "http://recepti.gotvach.bg/files/lib/600x350/salata-mayo-corn-cabbage.jpg", ProductType.Salad);
-                CreateProduct(context, "Свежа салата с рукола и цвекло", "", 3.50m, "http://recepti.gotvach.bg/files/lib/600x350/salata-rukula-cveklo1.jpg", ProductType.Salad);
-                CreateProduct(context, "Салата пролет", "", 4.00m, "http://recepti.gotvach.bg/files/lib/600x350/salata-prolet.jpg", ProductType.Salad);
-                CreateProduct(context, "Многослойна салата", "", 5.00m, "http://recepti.gotvach.bg/files/lib/600x350/mnogosloina-salata.JPG", ProductType.Salad);
+                CreateProduct(context, "РЎР°Р»Р°С‚Р° СЂРёР±Р° С‚РѕРЅ", "", 4.50m, "http://www.az-jenata.bg/media/az-jenata/files/articles/528x396/5466ce477114fe649d9f5be129fe601a.jpg", ProductType.Salad);
+                CreateProduct(context, "РЎР°Р»Р°С‚Р° С†РµР·Р°СЂ СЃ РїРёР»Рµ", "", 5.50m, "http://recipes.dahapna.co.uk/wp-content/uploads/2016/01/%D0%A1%D0%B0%D0%BB%D0%B0%D1%82%D0%B0-%E2%80%9C%D0%A6%D0%B5%D0%B7%D0%B0%D1%80%E2%80%9D-%D1%81-%D0%BF%D0%B8%D0%BB%D0%B5.png", ProductType.Salad);
+                CreateProduct(context, "РЎР°Р»Р°С‚Р° С†РµР·Р°СЂ СЃ Р±РµРєРѕРЅ", "", 5.50m, "http://tago.bg/wp-content/uploads/2016/03/%D0%A1%D0%B0%D0%BB%D0%B0%D1%82%D0%B0-%D0%A6%D0%B5%D0%B7%D0%B0%D1%80-1-1280x852.jpg", ProductType.Salad);
+                CreateProduct(context, "Р—РµР»РµРІР° СЃР°Р»Р°С‚Р° Р·Р° СЂР°РєРёСЏ", "", 4.50m, "http://recepti.gotvach.bg/files/lib/600x350/salata-mayo-corn-cabbage.jpg", ProductType.Salad);
+                CreateProduct(context, "РЎРІРµР¶Р° СЃР°Р»Р°С‚Р° СЃ СЂСѓРєРѕР»Р° Рё С†РІРµРєР»Рѕ", "", 3.50m, "http://recepti.gotvach.bg/files/lib/600x350/salata-rukula-cveklo1.jpg", ProductType.Salad);
+                CreateProduct(context, "РЎР°Р»Р°С‚Р° РїСЂРѕР»РµС‚", "", 4.00m, "http://recepti.gotvach.bg/files/lib/600x350/salata-prolet.jpg", ProductType.Salad);
+                CreateProduct(context, "РњРЅРѕРіРѕСЃР»РѕР№РЅР° СЃР°Р»Р°С‚Р°", "", 5.00m, "http://recepti.gotvach.bg/files/lib/600x350/mnogosloina-salata.JPG", ProductType.Salad);
 
                 // Insert sandwiches
-                CreateProduct(context, "Сандвич с овче сирене, спанак и пилешко", "", 4.00m, "http://recepti.gotvach.bg/files/lib/600x350/sanvich-pile-spanak2.jpg", ProductType.Sandwich);
-                CreateProduct(context, "Вегетариански бургери с бял боб", "", 3.00m, "http://recepti.gotvach.bg/files/lib/600x350/vegan-mushroom-burger.jpg", ProductType.Sandwich);
-                CreateProduct(context, "Мексикански бургер с боб", "", 4.00m, "http://recepti.gotvach.bg/files/lib/600x350/mexico-burger-bob.jpg", ProductType.Sandwich);
-                CreateProduct(context, "Буритос с картофи и авокадо", "", 5.00m, "http://recepti.gotvach.bg/files/lib/600x350/guacamole-burrito-chicken.jpg", ProductType.Sandwich);
-                CreateProduct(context, "Пълнозърнести студени сандвичи", "", 2.50m, "http://recepti.gotvach.bg/files/lib/600x350/sandvichi-salam.jpg", ProductType.Sandwich);
-                CreateProduct(context, "Тостерни филийки с кашкавал", "", 1.50m, "http://recepti.gotvach.bg/files/lib/600x350/tosterni-filii-kashkaval.jpg", ProductType.Sandwich);
-                CreateProduct(context, "Парти сандвичи", "", 3.50m, "http://recepti.gotvach.bg/files/lib/600x350/parti-sandvichi2456.jpg", ProductType.Sandwich);
+                CreateProduct(context, "РЎР°РЅРґРІРёС‡ СЃ РѕРІС‡Рµ СЃРёСЂРµРЅРµ, СЃРїР°РЅР°Рє Рё РїРёР»РµС€РєРѕ", "", 4.00m, "http://recepti.gotvach.bg/files/lib/600x350/sanvich-pile-spanak2.jpg", ProductType.Sandwich);
+                CreateProduct(context, "Р’РµРіРµС‚Р°СЂРёР°РЅСЃРєРё Р±СѓСЂРіРµСЂРё СЃ Р±СЏР» Р±РѕР±", "", 3.00m, "http://recepti.gotvach.bg/files/lib/600x350/vegan-mushroom-burger.jpg", ProductType.Sandwich);
+                CreateProduct(context, "РњРµРєСЃРёРєР°РЅСЃРєРё Р±СѓСЂРіРµСЂ СЃ Р±РѕР±", "", 4.00m, "http://recepti.gotvach.bg/files/lib/600x350/mexico-burger-bob.jpg", ProductType.Sandwich);
+                CreateProduct(context, "Р‘СѓСЂРёС‚РѕСЃ СЃ РєР°СЂС‚РѕС„Рё Рё Р°РІРѕРєР°РґРѕ", "", 5.00m, "http://recepti.gotvach.bg/files/lib/600x350/guacamole-burrito-chicken.jpg", ProductType.Sandwich);
+                CreateProduct(context, "РџСЉР»РЅРѕР·СЉСЂРЅРµСЃС‚Рё СЃС‚СѓРґРµРЅРё СЃР°РЅРґРІРёС‡Рё", "", 2.50m, "http://recepti.gotvach.bg/files/lib/600x350/sandvichi-salam.jpg", ProductType.Sandwich);
+                CreateProduct(context, "РўРѕСЃС‚РµСЂРЅРё С„РёР»РёР№РєРё СЃ РєР°С€РєР°РІР°Р»", "", 1.50m, "http://recepti.gotvach.bg/files/lib/600x350/tosterni-filii-kashkaval.jpg", ProductType.Sandwich);
+                CreateProduct(context, "РџР°СЂС‚Рё СЃР°РЅРґРІРёС‡Рё", "", 3.50m, "http://recepti.gotvach.bg/files/lib/600x350/parti-sandvichi2456.jpg", ProductType.Sandwich);
             }
 
             // Seed Ingredients
             if (!context.Ingredinets.Any())
             {
                 // Add ingredients to pizzas
-                AddIngretientsToProduct(context, "Маргарита", "Доматен сос", "Моцарела");
-                AddIngretientsToProduct(context, "Пеперони", "Доматен сос", "Моцарела", "Пеперони");
-                AddIngretientsToProduct(context, "Гардън", "Доматен сос", "Моцарела", "Лук", "Зелени чушки", "Домати", "Черни маслини", "Гъби");
-                AddIngretientsToProduct(context, "Американa", "Доматен сос", "Моцарела", "Пеперони", "Люти чушки", "Лук");
-                AddIngretientsToProduct(context, "Meat Mania", "Доматен сос", "Моцарела", "Чоризо", "Пикантно телешко", "Пушен бекон", "Пиле", "Пушена шунка");
-                AddIngretientsToProduct(context, "Хавай", "Доматен сос", "Моцарела", "Пушена шунка", "Ананас");
+                AddIngretientsToProduct(context, "РњР°СЂРіР°СЂРёС‚Р°", "Р”РѕРјР°С‚РµРЅ СЃРѕСЃ", "РњРѕС†Р°СЂРµР»Р°");
+                AddIngretientsToProduct(context, "РџРµРїРµСЂРѕРЅРё", "Р”РѕРјР°С‚РµРЅ СЃРѕСЃ", "РњРѕС†Р°СЂРµР»Р°", "РџРµРїРµСЂРѕРЅРё");
+                AddIngretientsToProduct(context, "Р“Р°СЂРґСЉРЅ", "Р”РѕРјР°С‚РµРЅ СЃРѕСЃ", "РњРѕС†Р°СЂРµР»Р°", "Р›СѓРє", "Р—РµР»РµРЅРё С‡СѓС€РєРё", "Р”РѕРјР°С‚Рё", "Р§РµСЂРЅРё РјР°СЃР»РёРЅРё", "Р“СЉР±Рё");
+                AddIngretientsToProduct(context, "РђРјРµСЂРёРєР°РЅa", "Р”РѕРјР°С‚РµРЅ СЃРѕСЃ", "РњРѕС†Р°СЂРµР»Р°", "РџРµРїРµСЂРѕРЅРё", "Р›СЋС‚Рё С‡СѓС€РєРё", "Р›СѓРє");
+                AddIngretientsToProduct(context, "Meat Mania", "Р”РѕРјР°С‚РµРЅ СЃРѕСЃ", "РњРѕС†Р°СЂРµР»Р°", "Р§РѕСЂРёР·Рѕ", "РџРёРєР°РЅС‚РЅРѕ С‚РµР»РµС€РєРѕ", "РџСѓС€РµРЅ Р±РµРєРѕРЅ", "РџРёР»Рµ", "РџСѓС€РµРЅР° С€СѓРЅРєР°");
+                AddIngretientsToProduct(context, "РҐР°РІР°Р№", "Р”РѕРјР°С‚РµРЅ СЃРѕСЃ", "РњРѕС†Р°СЂРµР»Р°", "РџСѓС€РµРЅР° С€СѓРЅРєР°", "РђРЅР°РЅР°СЃ");
 
                 // Add ingredients to salads
-                AddIngretientsToProduct(context, "Салата риба тон", "Айсберг", "Риба тон", "Царевица", "Маслини", "Лимон", "Зехтин");
-                AddIngretientsToProduct(context, "Салата цезар с пиле", "Айсберг", "Пиле", "Царевица", "Крутони", "Пармезан", "Цезар сос");
-                AddIngretientsToProduct(context, "Салата цезар с бекон", "Айсберг", "Бекон", "Царевица", "Крутони", "Пармезан", "Цезар сос");
-                AddIngretientsToProduct(context, "Зелева салата за ракия", "Зеле", "Морков", "Краставица", "Царевица", "Майонеза");
-                AddIngretientsToProduct(context, "Свежа салата с рукола и цвекло", "Рукола", "Цвекло", "Морков", "Зехтин", "Лимон");
-                AddIngretientsToProduct(context, "Салата пролет", "Домати", "Краставица", "Листни зеленчуци", "Ленено семе", "Чушка", "Семена от чия", "Зелен лук", "Зелени маслини", "Маслини", "Сирене", "Зехтин", "Оцет");
-                AddIngretientsToProduct(context, "Многослойна салата", "Яйца", "Домати", "Грах", "Царевица", "Маслини", "Майонеза", "Кисело мляко", "Кашкавал");
+                AddIngretientsToProduct(context, "РЎР°Р»Р°С‚Р° СЂРёР±Р° С‚РѕРЅ", "РђР№СЃР±РµСЂРі", "Р РёР±Р° С‚РѕРЅ", "Р¦Р°СЂРµРІРёС†Р°", "РњР°СЃР»РёРЅРё", "Р›РёРјРѕРЅ", "Р—РµС…С‚РёРЅ");
+                AddIngretientsToProduct(context, "РЎР°Р»Р°С‚Р° С†РµР·Р°СЂ СЃ РїРёР»Рµ", "РђР№СЃР±РµСЂРі", "РџРёР»Рµ", "Р¦Р°СЂРµРІРёС†Р°", "РљСЂСѓС‚РѕРЅРё", "РџР°СЂРјРµР·Р°РЅ", "Р¦РµР·Р°СЂ СЃРѕСЃ");
+                AddIngretientsToProduct(context, "РЎР°Р»Р°С‚Р° С†РµР·Р°СЂ СЃ Р±РµРєРѕРЅ", "РђР№СЃР±РµСЂРі", "Р‘РµРєРѕРЅ", "Р¦Р°СЂРµРІРёС†Р°", "РљСЂСѓС‚РѕРЅРё", "РџР°СЂРјРµР·Р°РЅ", "Р¦РµР·Р°СЂ СЃРѕСЃ");
+                AddIngretientsToProduct(context, "Р—РµР»РµРІР° СЃР°Р»Р°С‚Р° Р·Р° СЂР°РєРёСЏ", "Р—РµР»Рµ", "РњРѕСЂРєРѕРІ", "РљСЂР°СЃС‚Р°РІРёС†Р°", "Р¦Р°СЂРµРІРёС†Р°", "РњР°Р№РѕРЅРµР·Р°");
+                AddIngretientsToProduct(context, "РЎРІРµР¶Р° СЃР°Р»Р°С‚Р° СЃ СЂСѓРєРѕР»Р° Рё С†РІРµРєР»Рѕ", "Р СѓРєРѕР»Р°", "Р¦РІРµРєР»Рѕ", "РњРѕСЂРєРѕРІ", "Р—РµС…С‚РёРЅ", "Р›РёРјРѕРЅ");
+                AddIngretientsToProduct(context, "РЎР°Р»Р°С‚Р° РїСЂРѕР»РµС‚", "Р”РѕРјР°С‚Рё", "РљСЂР°СЃС‚Р°РІРёС†Р°", "Р›РёСЃС‚РЅРё Р·РµР»РµРЅС‡СѓС†Рё", "Р›РµРЅРµРЅРѕ СЃРµРјРµ", "Р§СѓС€РєР°", "РЎРµРјРµРЅР° РѕС‚ С‡РёСЏ", "Р—РµР»РµРЅ Р»СѓРє", "Р—РµР»РµРЅРё РјР°СЃР»РёРЅРё", "РњР°СЃР»РёРЅРё", "РЎРёСЂРµРЅРµ", "Р—РµС…С‚РёРЅ", "РћС†РµС‚");
+                AddIngretientsToProduct(context, "РњРЅРѕРіРѕСЃР»РѕР№РЅР° СЃР°Р»Р°С‚Р°", "РЇР№С†Р°", "Р”РѕРјР°С‚Рё", "Р“СЂР°С…", "Р¦Р°СЂРµРІРёС†Р°", "РњР°СЃР»РёРЅРё", "РњР°Р№РѕРЅРµР·Р°", "РљРёСЃРµР»Рѕ РјР»СЏРєРѕ", "РљР°С€РєР°РІР°Р»");
 
                 // Add ingredients to sandwiches
-                AddIngretientsToProduct(context, "Сандвич с овче сирене, спанак и пилешко", "Пълнозърнест хляб", "Яйца", "Масло", "Чесън", "Мащерка", "Спанак", "Маруля", "Овче сирене", "Пилешко филе", "Пресен лук", "Черен пипер");
-                AddIngretientsToProduct(context, "Вегетариански бургери с бял боб", "Зехтин", "Лук", "Моркови", "Доматено пюре", "Боб", "Галета", "Чадър", "Магданоз", "Черен пипер");
-                AddIngretientsToProduct(context, "Мексикански бургер с боб", "Боб", "Кайма", "Кимион", "Риган", "Чесън", "Сирене", "Лук", "Масло", "Домат", "Пържени картофи", "Олио");
-                AddIngretientsToProduct(context, "Буритос с картофи и авокадо", "Картофи", "Бекон", "Авокадо", "Маруля", "Майонеза", "Кашкавал", "Тортия", "Олио", "Черен пипер", "Кориандър");
-                AddIngretientsToProduct(context, "Пълнозърнести студени сандвичи", "Салам", "Кашкавал", "Крема сирене", "Маруля", "Краставици");
-                AddIngretientsToProduct(context, "Тостерни филийки с кашкавал", "Кашкавал", "Масло");
-                AddIngretientsToProduct(context, "Парти сандвичи", "Крема сирене", "Шунка", "Маруля", "Домат", "Маслини");
+                AddIngretientsToProduct(context, "РЎР°РЅРґРІРёС‡ СЃ РѕРІС‡Рµ СЃРёСЂРµРЅРµ, СЃРїР°РЅР°Рє Рё РїРёР»РµС€РєРѕ", "РџСЉР»РЅРѕР·СЉСЂРЅРµСЃС‚ С…Р»СЏР±", "РЇР№С†Р°", "РњР°СЃР»Рѕ", "Р§РµСЃСЉРЅ", "РњР°С‰РµСЂРєР°", "РЎРїР°РЅР°Рє", "РњР°СЂСѓР»СЏ", "РћРІС‡Рµ СЃРёСЂРµРЅРµ", "РџРёР»РµС€РєРѕ С„РёР»Рµ", "РџСЂРµСЃРµРЅ Р»СѓРє", "Р§РµСЂРµРЅ РїРёРїРµСЂ");
+                AddIngretientsToProduct(context, "Р’РµРіРµС‚Р°СЂРёР°РЅСЃРєРё Р±СѓСЂРіРµСЂРё СЃ Р±СЏР» Р±РѕР±", "Р—РµС…С‚РёРЅ", "Р›СѓРє", "РњРѕСЂРєРѕРІРё", "Р”РѕРјР°С‚РµРЅРѕ РїСЋСЂРµ", "Р‘РѕР±", "Р“Р°Р»РµС‚Р°", "Р§Р°РґСЉСЂ", "РњР°РіРґР°РЅРѕР·", "Р§РµСЂРµРЅ РїРёРїРµСЂ");
+                AddIngretientsToProduct(context, "РњРµРєСЃРёРєР°РЅСЃРєРё Р±СѓСЂРіРµСЂ СЃ Р±РѕР±", "Р‘РѕР±", "РљР°Р№РјР°", "РљРёРјРёРѕРЅ", "Р РёРіР°РЅ", "Р§РµСЃСЉРЅ", "РЎРёСЂРµРЅРµ", "Р›СѓРє", "РњР°СЃР»Рѕ", "Р”РѕРјР°С‚", "РџСЉСЂР¶РµРЅРё РєР°СЂС‚РѕС„Рё", "РћР»РёРѕ");
+                AddIngretientsToProduct(context, "Р‘СѓСЂРёС‚РѕСЃ СЃ РєР°СЂС‚РѕС„Рё Рё Р°РІРѕРєР°РґРѕ", "РљР°СЂС‚РѕС„Рё", "Р‘РµРєРѕРЅ", "РђРІРѕРєР°РґРѕ", "РњР°СЂСѓР»СЏ", "РњР°Р№РѕРЅРµР·Р°", "РљР°С€РєР°РІР°Р»", "РўРѕСЂС‚РёСЏ", "РћР»РёРѕ", "Р§РµСЂРµРЅ РїРёРїРµСЂ", "РљРѕСЂРёР°РЅРґСЉСЂ");
+                AddIngretientsToProduct(context, "РџСЉР»РЅРѕР·СЉСЂРЅРµСЃС‚Рё СЃС‚СѓРґРµРЅРё СЃР°РЅРґРІРёС‡Рё", "РЎР°Р»Р°Рј", "РљР°С€РєР°РІР°Р»", "РљСЂРµРјР° СЃРёСЂРµРЅРµ", "РњР°СЂСѓР»СЏ", "РљСЂР°СЃС‚Р°РІРёС†Рё");
+                AddIngretientsToProduct(context, "РўРѕСЃС‚РµСЂРЅРё С„РёР»РёР№РєРё СЃ РєР°С€РєР°РІР°Р»", "РљР°С€РєР°РІР°Р»", "РњР°СЃР»Рѕ");
+                AddIngretientsToProduct(context, "РџР°СЂС‚Рё СЃР°РЅРґРІРёС‡Рё", "РљСЂРµРјР° СЃРёСЂРµРЅРµ", "РЁСѓРЅРєР°", "РњР°СЂСѓР»СЏ", "Р”РѕРјР°С‚", "РњР°СЃР»РёРЅРё");
             }
 
             // Insert feedback for product by user
             if (!context.Feedbacks.Any())
             {
                 // Add feedbacks for pizzas.
-                CreateFeedbackForProduct(context, "Маргарита", "yani", "Беше много вкусна и нямам търпение да си взема пак.");
-                CreateFeedbackForProduct(context, "Маргарита", "petio", "Не мислех, че ще ми хареса, но ми хареса #k.");
-                CreateFeedbackForProduct(context, "Пеперони", "petio", "Баси яката пица. Поръчайте си поне две!");
-                CreateFeedbackForProduct(context, "Пеперони", "yani", "Пръснах се от ядене. Мега вкусната пица!");
-                CreateFeedbackForProduct(context, "Пеперони", "joro", "Много ми хареса! Няма да сгрешите, ако си я поръчате.");
-                CreateFeedbackForProduct(context, "Гардън", "joro", "Доста вкусна. Поръчвайте!");
-                CreateFeedbackForProduct(context, "Американa", "yani", "Ако не броим лютите чушки, които не лютяха беше доста добра.");
-                CreateFeedbackForProduct(context, "Meat Mania", "petio", "Месото беше уникално, но доматения сос беше малко.");
-                CreateFeedbackForProduct(context, "Хавай", "yani", "Очаквах да е по-вкусна отколото беше...");
-                CreateFeedbackForProduct(context, "Meat Mania", "pesho", "Става.");
-                CreateFeedbackForProduct(context, "Хавай", "pesho", "Не става.");
-                CreateFeedbackForProduct(context, "Гардън", "pesho", "Пръснах се.");
+                CreateFeedbackForProduct(context, "РњР°СЂРіР°СЂРёС‚Р°", "yani", "Р‘РµС€Рµ РјРЅРѕРіРѕ РІРєСѓСЃРЅР° Рё РЅСЏРјР°Рј С‚СЉСЂРїРµРЅРёРµ РґР° СЃРё РІР·РµРјР° РїР°Рє.");
+                CreateFeedbackForProduct(context, "РњР°СЂРіР°СЂРёС‚Р°", "petio", "РќРµ РјРёСЃР»РµС…, С‡Рµ С‰Рµ РјРё С…Р°СЂРµСЃР°, РЅРѕ РјРё С…Р°СЂРµСЃР° #k.");
+                CreateFeedbackForProduct(context, "РџРµРїРµСЂРѕРЅРё", "petio", "Р‘Р°СЃРё СЏРєР°С‚Р° РїРёС†Р°. РџРѕСЂСЉС‡Р°Р№С‚Рµ СЃРё РїРѕРЅРµ РґРІРµ!");
+                CreateFeedbackForProduct(context, "РџРµРїРµСЂРѕРЅРё", "yani", "РџСЂСЉСЃРЅР°С… СЃРµ РѕС‚ СЏРґРµРЅРµ. РњРµРіР° РІРєСѓСЃРЅР°С‚Р° РїРёС†Р°!");
+                CreateFeedbackForProduct(context, "РџРµРїРµСЂРѕРЅРё", "joro", "РњРЅРѕРіРѕ РјРё С…Р°СЂРµСЃР°! РќСЏРјР° РґР° СЃРіСЂРµС€РёС‚Рµ, Р°РєРѕ СЃРё СЏ РїРѕСЂСЉС‡Р°С‚Рµ.");
+                CreateFeedbackForProduct(context, "Р“Р°СЂРґСЉРЅ", "joro", "Р”РѕСЃС‚Р° РІРєСѓСЃРЅР°. РџРѕСЂСЉС‡РІР°Р№С‚Рµ!");
+                CreateFeedbackForProduct(context, "РђРјРµСЂРёРєР°РЅa", "yani", "РђРєРѕ РЅРµ Р±СЂРѕРёРј Р»СЋС‚РёС‚Рµ С‡СѓС€РєРё, РєРѕРёС‚Рѕ РЅРµ Р»СЋС‚СЏС…Р° Р±РµС€Рµ РґРѕСЃС‚Р° РґРѕР±СЂР°.");
+                CreateFeedbackForProduct(context, "Meat Mania", "petio", "РњРµСЃРѕС‚Рѕ Р±РµС€Рµ СѓРЅРёРєР°Р»РЅРѕ, РЅРѕ РґРѕРјР°С‚РµРЅРёСЏ СЃРѕСЃ Р±РµС€Рµ РјР°Р»РєРѕ.");
+                CreateFeedbackForProduct(context, "РҐР°РІР°Р№", "yani", "РћС‡Р°РєРІР°С… РґР° Рµ РїРѕ-РІРєСѓСЃРЅР° РѕС‚РєРѕР»РѕС‚Рѕ Р±РµС€Рµ...");
+                CreateFeedbackForProduct(context, "Meat Mania", "pesho", "РЎС‚Р°РІР°.");
+                CreateFeedbackForProduct(context, "РҐР°РІР°Р№", "pesho", "РќРµ СЃС‚Р°РІР°.");
+                CreateFeedbackForProduct(context, "Р“Р°СЂРґСЉРЅ", "pesho", "РџСЂСЉСЃРЅР°С… СЃРµ.");
 
                 // Add feedbacks for salads.
-                CreateFeedbackForProduct(context, "Салата риба тон", "yani", "Униканлна!!!");
-                CreateFeedbackForProduct(context, "Салата цезар с пиле", "petio", "Баси яката. здр кп :)");
+                CreateFeedbackForProduct(context, "РЎР°Р»Р°С‚Р° СЂРёР±Р° С‚РѕРЅ", "yani", "РЈРЅРёРєР°РЅР»РЅР°!!!");
+                CreateFeedbackForProduct(context, "РЎР°Р»Р°С‚Р° С†РµР·Р°СЂ СЃ РїРёР»Рµ", "petio", "Р‘Р°СЃРё СЏРєР°С‚Р°. Р·РґСЂ РєРї :)");
             }
 
             // Insert orders for users 

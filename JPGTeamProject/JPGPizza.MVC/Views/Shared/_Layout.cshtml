@@ -65,10 +65,13 @@
                     <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="shopping-cart-list">
-                        MODAL SHOPPING CART TEXT
+                    <div id="shopping-cart-list">
+                        <span>
+                            MODAL SHOPPING CART TEXT
+                        </span>
+
                     </div>
-                   
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Затвори</button>
@@ -128,12 +131,43 @@
 
     <script>
         //TODO
-        //$(document).ready(() => {
-        //    $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
-        //    $('#logout-btn').click((ev) => {
-        //        sessionStorage.setItem('shoppingCart', JSON.stringify([]));
-        //    });
-        //});
+        $(document).ready(() => {
+            let shoppingCart = JSON.parse(sessionStorage.getItem('shoppingCart'));
+            let productsInCart = ``
+            if (shoppingCart.length > 0) {
+                $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
+                             
+                for (let orderProduct of shoppingCart) {
+                    productsInCart += 
+
+                        `<div class="row">
+                            <div class="col-sm-3">
+                                <span class="quantity-text">`+orderProduct.name+`</span>
+                            </div>
+                            <div class="col-sm-5" style="padding-left: 20px;">`
+                                        + orderProduct.quantity +
+                            `</div>
+                             <div class="col-sm-4">`
+                             + orderProduct.price +
+                             `</div>
+                        </div>` 
+
+                }
+                $('#shopping-cart-list span').append(productsInCart);
+
+
+
+            }
+
+            $('#logout-btn').click((ev) => {
+                sessionStorage.setItem('shoppingCart', JSON.stringify([]));
+            });
+            
+            
+            
+
+        });
+
     </script>
 
 </body>
