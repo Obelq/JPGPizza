@@ -55,6 +55,11 @@ namespace JPGPizza.MVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            if (!User.IsInRole("Administrator"))
+            {
+                return View("Error");
+            }
+
             var ingredientEntity = _ingredientsRepository.GetById(viewModel.Id);
 
             ingredientEntity.Name = viewModel.Name;
@@ -77,6 +82,34 @@ namespace JPGPizza.MVC.Controllers
 
             this.AddNotification("Съставката е променена.", NotificationType.SUCCESS);
             return RedirectToAction("Index", new { page = viewModel.CurrentPage, searchText = viewModel.SearchText});
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Delete(DeleteIngredientViewModel viewModel)
+        {
+            if (viewModel == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var ingredient = _ingredientsRepository.GetById((int)viewModel.Id);
+
+            if (ingredient == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            _ingredientsRepository.Remove(ingredient);
+
+            if (!_ingredientsRepository.Save())
+            {
+                this.AddNotification("Грешка при опти за изтриване на съставката.", NotificationType.ERROR);
+                return RedirectToAction("Index", new { page = viewModel.CurrentPage, searchText = viewModel.SearchText });
+            }
+
+            this.AddNotification("Съставката е изтрита.", NotificationType.SUCCESS);
+            return RedirectToAction("Index", new { page = viewModel.CurrentPage, searchText = viewModel.SearchText });
         }
 
         // GET: Ingredients

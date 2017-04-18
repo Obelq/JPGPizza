@@ -228,6 +228,7 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsIndexViewModel.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsProductsViewModel.cs" />
+    <Compile Include="ViewModels\Ingredients\DeleteIngredientViewModel.cs" />
     <Compile Include="ViewModels\Ingredients\EditIngredientViewModel.cs" />
     <Compile Include="ViewModels\Ingredients\IngredientsIndexViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />

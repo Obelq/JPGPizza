@@ -63,6 +63,11 @@
             _context.Entry(ingredient).State = EntityState.Modified;
         }
 
+        public void Remove(Ingredient ingredient)
+        {
+            _context.Ingredinets.Remove(ingredient);
+        }
+
         public bool Save()
         {
             try
