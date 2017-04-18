@@ -242,8 +242,12 @@
     <Content Include="Content\Administrators.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\category-drinks.jpg" />
+    <Content Include="Content\Images\category-pizza.jpg" />
+    <Content Include="Content\Images\category-salad.jpg" />
     <Content Include="Content\Images\default_product.png" />
     <Content Include="Content\Images\delivery.png" />
+    <Content Include="Content\Images\category-sandwich.jpg" />
     <Content Include="Content\Images\shop.png" />
     <Content Include="Content\Images\test-background3.jpg" />
     <Content Include="favicon.ico" />
