@@ -32,7 +32,8 @@
 
         public ActionResult List(ProductType category)
         {
-            var items = _context.Products.Where(p => p.Type == category).Include("Ingredients").ToList();
+            var items = _productsRepository.GetByType(category);
+
             return View(items);
         }
 
@@ -72,7 +73,7 @@
             AddIngredientsToProduct(productEntity, viewModel.Ingredients);
 
             _productsRepository.Add(productEntity);
-            _productsRepository.SaveChanges();
+            _productsRepository.Save();
 
             this.AddNotification("Продуктът е създаден успешно.", NotificationType.SUCCESS);
             return RedirectToAction("Products", "Administrators");
@@ -227,22 +228,11 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            _productsRepository.Remove(product);
+            product.IsDeleted = true;
 
-            if (!_productsRepository.SaveChanges())
+            if (!_productsRepository.Save())
             {
-                var viewModel = new DeleteProductViewModel()
-                {
-                    Id = product.Id,
-                    ImageUrl = product.ImageUrl,
-                    Ingredients = product.Ingredients.ToList(),
-                    Name = product.Name,
-                    Price = product.Price,
-                    Type = product.Type
-                };
-
-                this.AddNotification("Грешка при опти за изтриване. Продуктът не беше намерен.", NotificationType.ERROR);
-                return View(viewModel);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             this.AddNotification("Продуктът е изтрит успешно.", NotificationType.SUCCESS);

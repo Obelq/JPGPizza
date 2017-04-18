@@ -9,17 +9,26 @@ using System.Web.Mvc;
 using JPGPizza.Data;
 using JPGPizza.Models;
 using JPGPizza.MVC.ViewModels.Orders;
+using JPGPizza.MVC.Services;
 
 namespace JPGPizza.MVC.Controllers
 {
     public class OrdersController : Controller
     {
-        private JPGPizzaDbContext db = new JPGPizzaDbContext();
+        private readonly JPGPizzaDbContext _context;
+        private readonly ProductsRepository _productsRepository;
+        private readonly OrdersRepository _ordersRepository;
+
+        public OrdersController()
+        {
+            _context = new JPGPizzaDbContext();
+            _productsRepository = new ProductsRepository(_context);
+        }
 
         // GET: Orders
         public ActionResult Index()
         {
-            return View(db.Orders.ToList());
+            return View(_ordersRepository.GetAll());
         }
         public ActionResult Delivery()
         {
@@ -29,7 +38,7 @@ namespace JPGPizza.MVC.Controllers
 
         public ActionResult CarryOut()
         {
-            var products = db.Products.ToList();
+            var products = _productsRepository.GetAll().ToList();
             var types = Enum.GetValues(typeof(ProductType)).Cast<ProductType>().ToList();
             var model = new OrderProductsViewModel()
             {
@@ -56,11 +65,13 @@ namespace JPGPizza.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            Order order = _ordersRepository.GetById((int)id);
+
             if (order == null)
             {
                 return HttpNotFound();
             }
+
             return View(order);
         }
 
@@ -79,8 +90,13 @@ namespace JPGPizza.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
-                db.SaveChanges();
+                _ordersRepository.Add(order);
+
+                if (!_ordersRepository.Save())
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -94,11 +110,14 @@ namespace JPGPizza.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+
+            Order order = _ordersRepository.GetById((int)id);
+
             if (order == null)
             {
                 return HttpNotFound();
             }
+
             return View(order);
         }
 
@@ -109,10 +128,23 @@ namespace JPGPizza.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Date")] Order order)
         {
+            if (order == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var orderEntity = _ordersRepository.GetById(order.Id);
+
+            if (orderEntity == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             if (ModelState.IsValid)
             {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
+                _ordersRepository.Update(order);
+                _ordersRepository.Save();
+
                 return RedirectToAction("Index");
             }
             return View(order);
@@ -125,11 +157,14 @@ namespace JPGPizza.MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+
+            Order order = _ordersRepository.GetById((int)id);
+
             if (order == null)
             {
                 return HttpNotFound();
             }
+
             return View(order);
         }
 
@@ -138,9 +173,10 @@ namespace JPGPizza.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
-            db.SaveChanges();
+            Order order = _ordersRepository.GetById((int)id);
+            _ordersRepository.Remove(order);
+            _ordersRepository.Save();
+
             return RedirectToAction("Index");
         }
 
@@ -148,7 +184,7 @@ namespace JPGPizza.MVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _context.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -58,8 +58,10 @@
                 {
                     Name = p.Name,
                     Price = p.Price,
+                    IsDeleted = p.IsDeleted,
                     TotalOrders = p.OrderProducts.Select(op => op.Order.Id).Distinct().Count()
                 })
+                .Where(p => p.IsDeleted == false)
                 .OrderByDescending(p => p.TotalOrders)
                 .Take(10);
 

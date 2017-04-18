@@ -2,6 +2,7 @@
 {
     using JPGPizza.Data;
     using JPGPizza.Models;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
@@ -17,7 +18,18 @@
 
         public IQueryable<Product> GetAll()
         {
-            return _context.Products.OrderBy(p => p.Name);
+            return _context.Products
+                .Include(p => p.Ingredients)
+                .Where(p => p.IsDeleted == false)
+                .OrderBy(p => p.Name);
+        }
+
+        public IEnumerable<Product> GetByType(ProductType type)
+        {
+            return _context.Products
+                .Include(p => p.Ingredients)
+                .Where(p => p.IsDeleted == false && p.Type == type)
+                .OrderBy(p => p.Name);
         }
 
         public void Add(Product product)
@@ -27,7 +39,10 @@
 
         public Product GetById(int productId)
         {
-            return _context.Products.Include(p => p.Ingredients).FirstOrDefault(p => p.Id == productId);
+            return _context.Products
+                .Include(p => p.Ingredients)
+                .FirstOrDefault(p => p.Id == productId && 
+                                p.IsDeleted  == false);
         }
 
         public void Remove(Product product)
@@ -35,7 +50,7 @@
             _context.Products.Remove(product);
         }
 
-        public bool SaveChanges()
+        public bool Save()
         {
             try
             {

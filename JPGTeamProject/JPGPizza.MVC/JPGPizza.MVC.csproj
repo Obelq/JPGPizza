@@ -219,13 +219,17 @@
     </Compile>
     <Compile Include="Services\AdministratorsRepository.cs" />
     <Compile Include="Services\IngredientsRepository.cs" />
+    <Compile Include="Services\OrdersRepository.cs" />
     <Compile Include="Services\ProductsRepository.cs" />
     <Compile Include="Utility\AutoMapperConfig.cs" />
     <Compile Include="Utility\ImageHelper.cs" />
+    <Compile Include="Utility\Pager.cs" />
     <Compile Include="Utility\ProductTypeHelper.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsIndexViewModel.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsProductsViewModel.cs" />
+    <Compile Include="ViewModels\Ingredients\EditIngredientViewModel.cs" />
+    <Compile Include="ViewModels\Ingredients\IngredientsIndexViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -315,10 +319,11 @@
     <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Shared\_Notifications.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Ingredients\Index.cshtml" />
+    <Content Include="Views\Shared\_Pagination.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Ingredients\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
