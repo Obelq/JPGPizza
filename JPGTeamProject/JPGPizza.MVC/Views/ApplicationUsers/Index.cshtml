@@ -1,0 +1,61 @@
+﻿@model IEnumerable<JPGPizza.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{ Html.RenderPartial("_AdministratorsSidebar"); }
+
+<div class="row" style="padding-top: 50px;">
+    <div class="col-sm-10 col-sm-push-2 box-shadow-container">
+        @*<div class="" >Потребители</div>*@
+        <div class="row">
+            <div class="cols-sm-12" style="color: #d80a2b;text-transform: uppercase; font-weight: 700;font-size: 20px;padding: 5px 15px;">
+                Потребители
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Потребителско име
+                </th>
+                <th>
+                    Имейл
+                </th>
+                <th>
+                    Име
+                </th>
+                <th>
+                    Фамилия
+                </th>
+                <th style="width: 23%;"></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.UserName
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @Html.ActionLink("Промени", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Детайли", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Изтрий", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>
