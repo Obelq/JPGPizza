@@ -9,8 +9,10 @@
 
         public DateTime Date { get; set; }
 
+        public string CustomerId { get; set; }
+
         public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new HashSet<OrderProduct>();
 
-        public virtual ICollection<ApplicationUser> Customers { get; set; } = new HashSet<ApplicationUser>();
+        public virtual ApplicationUser Customer { get; set; }
     }
 }

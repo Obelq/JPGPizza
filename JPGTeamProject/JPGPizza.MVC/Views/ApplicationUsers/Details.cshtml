@@ -1,146 +1,104 @@
-﻿@model JPGPizza.Models.ApplicationUser
+﻿@using Microsoft.AspNet.Identity
+@model JPGPizza.MVC.ViewModels.ApplicationUser.ApplicationUserDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@{ Html.RenderPartial("_AdministratorsSidebar"); }
 
-<div>
-    <h4>ApplicationUser</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+<div class="row" style="margin-top: 50px;">
+    <div class="col-sm-10 col-sm-push-2 box-shadow-container">
+        <div class="row">
+            <div class="col-sm-12" style="font-weight: 700; font-size: 25px;">
+                Обща информация
+            </div>
+        </div>
+        <div class="row">
+            @if (User.IsInRole("Administrator") || User.Identity?.GetUserId() == Model.User.Id)
+            {
+                <div class="col-sm-3" style="width: 200px;">
+                    <a href="#" class="btn btn-default btn-secondary" style="font-size: 13px;">История на поръчките</a>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RegisteredOn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RegisteredOn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmailConfirmed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PasswordHash)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SecurityStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SecurityStamp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumberConfirmed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TwoFactorEnabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LockoutEndDateUtc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LockoutEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LockoutEnabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessFailedCount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-    </dl>
+                <div class="col-sm-3">
+                    <a href="/applicationusers/edit/@Model.User.Id" class="btn btn-default btn-secondary"  style="font-size: 13px;">
+                        Редактиране на информацията
+                    </a>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="details-info-heading">
+                    Потребителско име:
+                </div>
+                <div class="details-info">
+                    @Model.User.UserName
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="details-info-heading">
+                    Имайл:
+                </div>
+                <div class="details-info">
+                    @Model.User.Email
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="details-info-heading">
+                    Име:
+                </div>
+                <div class="details-info">
+                    @Model.User.FirstName
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="details-info-heading">
+                    Фамилия:
+                </div>
+                <div class="details-info">
+                    @Model.User.LastName
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="details-info-heading">
+                    Години:
+                </div>
+                <div class="details-info">
+                    @Model.User.Age
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="details-info-heading">
+                    Пол:
+                </div>
+                <div class="details-info">
+                    @Model.User.Gender
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="details-info-heading">
+                    Общо поръчки:
+                </div>
+                <div class="details-info">
+                    @Model.TotalOrders
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="details-info-heading">
+                    Стойност на всички поръчки:
+                </div>
+                <div class="details-info">
+                    @Model.OrdersTotalCost лв.
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

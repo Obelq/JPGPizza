@@ -22,13 +22,8 @@
             // Set relationships.
             this.HasMany(c => c.Feedbacks).WithRequired(f => f.Customer).WillCascadeOnDelete(true);
             this.HasMany(c => c.Orders)
-                .WithMany(o => o.Customers)
-                .Map(co => 
-                {
-                    co.MapLeftKey("CustomerId");
-                    co.MapRightKey("OrderId");
-                    co.ToTable("CustomerOrders");
-                });
+                .WithRequired(o => o.Customer)
+                .WillCascadeOnDelete(true);
         }
     }
 }

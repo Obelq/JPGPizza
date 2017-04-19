@@ -29,13 +29,11 @@
             if (!context.Roles.Any())
             {
                 CreateRole(context, "Administrator");
-                CreateRole(context, "User");
 
                 // Seed Roles To Users
                 AddUserToRole(context, "yani", "Administrator");
                 AddUserToRole(context, "petio", "Administrator");
                 AddUserToRole(context, "joro", "Administrator");
-                AddUserToRole(context, "pesho", "User");
             }
 
             // Seed Products

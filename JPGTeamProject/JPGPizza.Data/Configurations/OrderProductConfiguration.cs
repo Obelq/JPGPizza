@@ -16,7 +16,7 @@
             // Set relationships.
             this.HasRequired(od => od.Order)
                 .WithMany(o => o.OrderProducts)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             this.HasRequired(od => od.Product)
                 .WithMany(p => p.OrderProducts)

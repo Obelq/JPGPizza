@@ -6,86 +6,163 @@
     using System.Web.Mvc;
     using JPGPizza.Data;
     using JPGPizza.Models;
+    using JPGPizza.MVC.ViewModels.ApplicationUser;
+    using JPGPizza.MVC.Services;
+    using JPGPizza.MVC.Utility;
+    using System.Linq;
+    using AutoMapper;
+    using JPGPizza.MVC.Dtos;
 
     public class ApplicationUsersController : Controller
     {
-        private JPGPizzaDbContext db = new JPGPizzaDbContext();
+        private readonly JPGPizzaDbContext _context;
+        private readonly ApplicationUsersRepository _applicationUserRepository;
+
+        public ApplicationUsersController()
+        {
+            _context = new JPGPizzaDbContext();
+            _applicationUserRepository = new ApplicationUsersRepository(_context);
+        }
 
         // GET: ApplicationUsers
-        public async Task<ActionResult> Index()
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult> Index(string searchText, int? page)
         {
-            return View(await db.Users.ToListAsync());
+            var totalUsers = await _applicationUserRepository.GetTotalCountAsync();
+
+            Pager pager = new Pager(totalUsers, page);
+
+            var users = _applicationUserRepository.GetAll(searchText)
+                .Skip((pager.CurrentPage - 1) * pager.PageSize)
+                .Take(pager.PageSize)
+                .Select(u => new ApplicationUserDto()
+                {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email
+                });
+
+            var viewModel = new ApplicationUserIndexViewModel()
+            {
+                Users = users,
+                Pager = pager,
+                SearchText = searchText
+            };
+
+            return View(viewModel);
         }
 
         // GET: ApplicationUsers/Details/5
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            ApplicationUser applicationUser = await _applicationUserRepository.GetByIdAsync(id);
+
             if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(applicationUser);
+
+            var viewModel = new ApplicationUserDetailsViewModel()
+            {
+                User = Mapper.Map<ApplicationUserDto>(applicationUser),
+                TotalOrders = await _applicationUserRepository.GetToalOrdersByIdAsync(applicationUser.Id),
+                OrdersTotalCost = await _applicationUserRepository.GetTotalOrdersCostByIdAsync(applicationUser.Id)
+            };
+
+            return View(viewModel);
         }
 
         // GET: ApplicationUsers/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
+            ApplicationUser applicationUser = _applicationUserRepository.GetById(id);
+
             if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(applicationUser);
+
+            var viewModel = Mapper.Map<EditApplicationUserViewModel>(applicationUser);
+
+            return View(viewModel);
         }
 
         // POST: ApplicationUsers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,RegisteredOn,Age,Gender,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "Id,Email,FirstName,LastName,Age,Gender,PhoneNumber")]
+            EditApplicationUserViewModel user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(applicationUser).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                var userEntity = _applicationUserRepository.GetById(user.Id);
+
+                Mapper.Map(user, userEntity);
+
+                _applicationUserRepository.Update(userEntity);
+
+                if (!_applicationUserRepository.Save())
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                return RedirectToAction("Details", "ApplicationUsers", new { id = userEntity.Id });
             }
-            return View(applicationUser);
+
+            return View(user);
         }
 
         // GET: ApplicationUsers/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            ApplicationUser applicationUser = _applicationUserRepository.GetById(id);
+
             if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(applicationUser);
+
+            var viewModel = Mapper.Map<DeleteApplicationUserViewModel>(applicationUser);
+
+            return View(viewModel);
         }
 
         // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            ApplicationUser applicationUser = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
-            db.Users.Remove(applicationUser);
-            await db.SaveChangesAsync();
+            ApplicationUser user = _applicationUserRepository.GetById(id);
+            _applicationUserRepository.Remove(user);
+
+            if (!_applicationUserRepository.Save())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -93,7 +170,7 @@
         {
             if (disposing)
             {
-                db.Dispose();
+                _context.Dispose();
             }
             base.Dispose(disposing);
         }
