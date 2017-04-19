@@ -17,9 +17,6 @@
         public virtual Product Product { get; set; }
 
         public virtual Order Order { get; set; }
-
-        public OrderType Type { get; set; }
-
-        public string Adress { get; set; }
+        
     }
 }

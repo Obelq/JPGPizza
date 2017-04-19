@@ -26,8 +26,8 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <a href="../../orders/carryout" class="btn btn-default btn-secondary">Назад</a>
-                <a href="#" class="btn btn-default pull-right" id="add-to-cart" data-product-price-value="@Model.Product.Price" data-product-id-value="@Model.ProductId" data-product-name-value="@Model.Product.Name">Добави към количката</a>
+                <a href="/orders/carryout" class="btn btn-default btn-secondary">Назад</a>
+                <a class="btn btn-default pull-right" id="add-to-cart" data-product-price-value="@Model.Product.Price" data-product-id-value="@Model.ProductId" data-product-name-value="@Model.Product.Name">Добави към количката</a>
             </div>
         </div>
     </div>
@@ -96,6 +96,7 @@
                     price: newPrice,
                     quantity: quantity
                 };
+                document.location = '/orders/carryout';
                 addOrderProductToCart(orderProduct);
             });
         }
