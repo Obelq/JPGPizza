@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5, h6 {
 input,
 select,
 textarea {
-    max-width: 400px;
+    max-width: 500px;
     font-size: 13px;
 }
 
@@ -220,4 +220,14 @@ textarea {
     background-color: #999;
     border-radius: 20px;
     margin-top: -15px;
+}
+
+.details-info-heading {
+    color: #666;
+    font-size: 13px;
+}
+
+.details-info {
+    font-weight: 900;
+    font-size: 13px;
 }

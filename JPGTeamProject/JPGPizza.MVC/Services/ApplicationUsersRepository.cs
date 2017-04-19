@@ -38,6 +38,19 @@
             return users;
         }
 
+        public async Task<int> GetToalOrdersByIdAsync(string id)
+        {
+            return await _context.Orders.CountAsync(o => o.CustomerId == id);
+        }
+
+        public async Task<decimal> GetTotalOrdersCostByIdAsync(string id)
+        {
+            return await _context.Orders
+                .Where(o => o.CustomerId == id)
+                .Select(o => o.OrderProducts.Sum(op => op.Quantity * op.Product.Price))
+                .SumAsync();
+        }
+
         public void Update(ApplicationUser user)
         {
             _context.Entry(user).State = EntityState.Modified;
@@ -48,6 +61,11 @@
             return _context.Users.FirstOrDefault(u => u.Id == id);
         }
 
+        public async Task<ApplicationUser> GetByIdAsync(string id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
         public async Task<int> GetTotalCountAsync()
         {
             return await _context.Users.CountAsync();
@@ -55,20 +73,22 @@
 
         public void Remove(ApplicationUser user)
         {
+            var ordersForDelete = _context.Orders.Where(o => o.CustomerId == user.Id).ToList();
+            _context.Orders.RemoveRange(ordersForDelete);
             _context.Users.Remove(user);
         }
 
         public bool Save()
         {
-            try
-            {
+            //try
+            //{
                 _context.SaveChanges();
                 return true;
-            }
-            catch
-            {
-                return false;
-            }
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
         }
     }
 }

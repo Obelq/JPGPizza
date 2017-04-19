@@ -209,6 +209,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Dtos\ApplicationUserDto.cs" />
     <Compile Include="Dtos\FeedbackForAdminDto.cs" />
     <Compile Include="Dtos\IngredientDto.cs" />
     <Compile Include="Dtos\MostUsedIngredientDto.cs" />
@@ -231,7 +232,10 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsIndexViewModel.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsProductsViewModel.cs" />
+    <Compile Include="ViewModels\ApplicationUser\ApplicationUserDetailsViewModel.cs" />
     <Compile Include="ViewModels\ApplicationUser\ApplicationUserIndexViewModel.cs" />
+    <Compile Include="ViewModels\ApplicationUser\DeleteApplicationUserViewModel.cs" />
+    <Compile Include="ViewModels\ApplicationUser\EditApplicationUserViewModel.cs" />
     <Compile Include="ViewModels\Ingredients\DeleteIngredientViewModel.cs" />
     <Compile Include="ViewModels\Ingredients\EditIngredientViewModel.cs" />
     <Compile Include="ViewModels\Ingredients\IngredientsIndexViewModel.cs" />
