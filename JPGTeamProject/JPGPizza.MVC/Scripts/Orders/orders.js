@@ -117,9 +117,9 @@ function finishOrder() {
         data: shoppingCart,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function (msg) {
+        success: function (orderId) {
             sessionStorage.setItem('shoppingCart', JSON.stringify([]));
-            document.location = '/manage';
+            document.location = '/orders/details/' + orderId;
         },
         error: function (msg) {
             appendRegisterPermission();
@@ -128,7 +128,7 @@ function finishOrder() {
 }
 
 function appendRegisterPermission() {
-    let permission = `<div>Трябва да сте регистиран потребител</div>`
+    let permission = `<div class="text-danger text-center">Трябва да сте регистиран потребител</div>`
     $('#shopping-cart-list').append(permission);
 }
 

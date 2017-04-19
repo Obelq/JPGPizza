@@ -264,3 +264,25 @@ textarea {
 .preview-heading-row {
     margin-bottom: 0!important;
 }
+
+
+.order-row {
+    cursor: pointer;
+}
+
+.order-row:hover {
+    color: #fff;
+    background-color: #d80a2b;
+}
+
+.product-name {
+    padding: 10px;
+}
+
+.quantity {
+    padding: 10px;
+}
+
+.total-cost {
+    font-weight: 900;
+}

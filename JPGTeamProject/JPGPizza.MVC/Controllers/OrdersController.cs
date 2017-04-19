@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using JPGPizza.Data;
-using JPGPizza.Models;
-using JPGPizza.MVC.ViewModels.Orders;
-using JPGPizza.MVC.Services;
-using JPGPizza.MVC.Dtos;
-
-namespace JPGPizza.MVC.Controllers
+﻿namespace JPGPizza.MVC.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+    using JPGPizza.Data;
+    using JPGPizza.Models;
+    using JPGPizza.MVC.ViewModels.Orders;
+    using JPGPizza.MVC.Services;
+    using JPGPizza.MVC.Dtos;
+    using System.Threading.Tasks;
+
     public class OrdersController : Controller
     {
         private readonly JPGPizzaDbContext _context;
@@ -32,11 +31,6 @@ namespace JPGPizza.MVC.Controllers
         {
             return View(_ordersRepository.GetAll());
         }
-        public ActionResult Delivery()
-        {
-            Console.WriteLine();
-            return null;
-        }
 
         public ActionResult CarryOut()
         {
@@ -51,8 +45,7 @@ namespace JPGPizza.MVC.Controllers
             return View("CarryOut", model);
         }
 
-        [HttpPost] 
-        [Authorize]
+        [HttpPost]
         public ActionResult ShopingCartList(List<OrderProductDto> orderProducts)
         {
             if (orderProducts == null)
@@ -67,7 +60,7 @@ namespace JPGPizza.MVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            user.Orders.Add(new Order()
+            var order = new Order()
             {
                 Date = DateTime.Now,
                 OrderProducts = orderProducts.Select(op => new OrderProduct()
@@ -76,20 +69,24 @@ namespace JPGPizza.MVC.Controllers
                     Quantity = op.quantity
                 })
                 .ToList()
-            });
+            };
 
-            return this.Json(true, JsonRequestBehavior.AllowGet);
+            user.Orders.Add(order);
+
+            _context.SaveChanges();
+
+            return this.Json(order.Id, JsonRequestBehavior.AllowGet);
         }
 
 
         // GET: Orders/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = _ordersRepository.GetById((int)id);
+            Order order = await _ordersRepository.GetByIdAsync((int)id);
 
             if (order == null)
             {
@@ -100,109 +97,109 @@ namespace JPGPizza.MVC.Controllers
         }
 
         // GET: Orders/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: Orders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Date")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                _ordersRepository.Add(order);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,Date")] Order order)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _ordersRepository.Add(order);
 
-                if (!_ordersRepository.Save())
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+        //        if (!_ordersRepository.Save())
+        //        {
+        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //        }
 
-                return RedirectToAction("Index");
-            }
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(order);
-        }
+        //    return View(order);
+        //}
 
         // GET: Orders/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            Order order = _ordersRepository.GetById((int)id);
+        //    Order order = _ordersRepository.GetById((int)id);
 
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (order == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            return View(order);
-        }
+        //    return View(order);
+        //}
 
         // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Date")] Order order)
-        {
-            if (order == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "Id,Date")] Order order)
+        //{
+        //    if (order == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            var orderEntity = _ordersRepository.GetById(order.Id);
+        //    var orderEntity = _ordersRepository.GetById(order.Id);
 
-            if (orderEntity == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //    if (orderEntity == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                _ordersRepository.Update(order);
-                _ordersRepository.Save();
+        //    if (ModelState.IsValid)
+        //    {
+        //        _ordersRepository.Update(order);
+        //        _ordersRepository.Save();
 
-                return RedirectToAction("Index");
-            }
-            return View(order);
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(order);
+        //}
 
-        // GET: Orders/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //// GET: Orders/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            Order order = _ordersRepository.GetById((int)id);
+        //    Order order = _ordersRepository.GetById((int)id);
 
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (order == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            return View(order);
-        }
+        //    return View(order);
+        //}
 
-        // POST: Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Order order = _ordersRepository.GetById((int)id);
-            _ordersRepository.Remove(order);
-            _ordersRepository.Save();
+        //// POST: Orders/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Order order = _ordersRepository.GetById((int)id);
+        //    _ordersRepository.Remove(order);
+        //    _ordersRepository.Save();
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

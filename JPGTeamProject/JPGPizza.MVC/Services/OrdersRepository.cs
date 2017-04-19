@@ -5,6 +5,7 @@
     using JPGPizza.Models;
     using System.Data.Entity;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class OrdersRepository
     {
@@ -15,9 +16,16 @@
             _context = context;
         }
 
+        public async Task<Order> GetByIdAsync(int id)
+        {
+            return await _context.Orders
+                .Include(o => o.OrderProducts.Select(op => op.Product))
+                .FirstOrDefaultAsync(o => o.Id == id);
+        }
+
         public Order GetById(int id)
         {
-            return _context.Orders.Find(id);
+            return _context.Orders.FirstOrDefault(o => o.Id == id);
         }
 
         public IQueryable<Order> GetAll()
