@@ -76,7 +76,7 @@
                                 @foreach (var feedback in Model.Feedbacks)
                                 {
                                     <li class="@rowBackground[row % rowBackground.Length]">
-                                        <a href="#">
+                                        <a href="/products/details/@feedback.ProductId">
                                             <div style="font-size: 15px;font-weight: bold;">
                                                 @feedback.ProductName
                                             </div>
@@ -109,7 +109,7 @@
                                                 }
                                             </span> от 
                                             <span style="font-weight: 900;">
-                                                <a href="#">
+                                                <a href="/applicationusers/details/@feedback.CustomerId">
                                                     @feedback.UserName
                                                 </a>
                                             </span>
