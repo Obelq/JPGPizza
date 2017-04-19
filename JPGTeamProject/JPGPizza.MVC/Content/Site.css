@@ -40,9 +40,8 @@ textarea {
 }
 
 .form-control {
-    border: 2px solid #eee;
+    border: 2px solid rgba(58, 58, 58, 0.81);
 }
-
 
 .form-control:focus {
     border: 2px solid #d80a2b;
@@ -230,4 +229,25 @@ textarea {
 .details-info {
     font-weight: 900;
     font-size: 13px;
+}
+
+.product-preview-heading {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #d80a2b;
+}
+
+.preview-container {
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+}
+
+.preview-heading-row {
+    margin-bottom: 0!important;
 }

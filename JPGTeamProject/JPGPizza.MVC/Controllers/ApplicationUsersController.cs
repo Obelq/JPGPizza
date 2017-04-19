@@ -12,16 +12,21 @@
     using System.Linq;
     using AutoMapper;
     using JPGPizza.MVC.Dtos;
+    using Microsoft.AspNet.Identity;
+    using JPGPizza.MVC.ViewModels.Orders;
 
+    [Authorize]
     public class ApplicationUsersController : Controller
     {
         private readonly JPGPizzaDbContext _context;
         private readonly ApplicationUsersRepository _applicationUserRepository;
+        private readonly OrdersRepository _ordersRepository;
 
         public ApplicationUsersController()
         {
             _context = new JPGPizzaDbContext();
             _applicationUserRepository = new ApplicationUsersRepository(_context);
+            _ordersRepository = new OrdersRepository(_context);
         }
 
         // GET: ApplicationUsers
@@ -55,7 +60,6 @@
         }
 
         // GET: ApplicationUsers/Details/5
-        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Details(string id)
         {
             if (id == null)
@@ -81,14 +85,19 @@
         }
 
         // GET: ApplicationUsers/Edit/5
-        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             ApplicationUser applicationUser = _applicationUserRepository.GetById(id);
+
+            if (applicationUser.Id != User.Identity.GetUserId() && !User.IsInRole("Administrator"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             if (applicationUser == null)
             {
@@ -104,7 +113,6 @@
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Email,FirstName,LastName,Age,Gender,PhoneNumber")]
             EditApplicationUserViewModel user)
@@ -112,6 +120,11 @@
             if (ModelState.IsValid)
             {
                 var userEntity = _applicationUserRepository.GetById(user.Id);
+
+                if (userEntity.Id != User.Identity.GetUserId() && !User.IsInRole("Administrator"))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
 
                 Mapper.Map(user, userEntity);
 
@@ -139,12 +152,56 @@
 
             ApplicationUser applicationUser = _applicationUserRepository.GetById(id);
 
+            if (applicationUser.Id != User.Identity.GetUserId() && !User.IsInRole("Administrator"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (applicationUser == null)
             {
                 return HttpNotFound();
             }
 
             var viewModel = Mapper.Map<DeleteApplicationUserViewModel>(applicationUser);
+
+            return View(viewModel);
+        }
+
+        public async Task<ActionResult> Orders(string id, int? page)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var totalOrders = await _ordersRepository.GetAll()
+                   .Where(o => o.CustomerId == id)
+                   .OrderByDescending(o => o.Date)
+                   .CountAsync();
+
+            var pager = new Pager(totalOrders, page, 15);
+
+            var orders = await _ordersRepository.GetAll()
+                .Select(o => new OrderDto()
+                {
+                    Id = o.Id,
+                    Date = o.Date,
+                    CustomerId = o.CustomerId,
+                    TotalCost = o.OrderProducts.Sum(op => op.Quantity * op.Product.Price),
+                    NumberOfProducts = o.OrderProducts.Count()
+                })
+                .Where(o => o.CustomerId == id)
+                .OrderByDescending(o => o.Date)
+                .Skip((pager.CurrentPage - 1) * pager.PageSize)
+                .Take(pager.PageSize)
+                .ToListAsync();
+
+            var viewModel = new OrderHistoryViewModel()
+            {
+                Orders = orders,
+                CustomerId = id,
+                Pager = pager
+            };
 
             return View(viewModel);
         }
@@ -156,6 +213,7 @@
         public ActionResult DeleteConfirmed(string id)
         {
             ApplicationUser user = _applicationUserRepository.GetById(id);
+
             _applicationUserRepository.Remove(user);
 
             if (!_applicationUserRepository.Save())

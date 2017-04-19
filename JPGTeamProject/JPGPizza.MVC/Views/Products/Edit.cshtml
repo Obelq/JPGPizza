@@ -90,18 +90,17 @@
     </div>
 
 
-    @* Pizza, Sandwich, Salad preview container *@
-    @if (Model.Type == ProductType.Drink)
-    {
+  
+
         @* Drink preview container *@
         <div class="col-sm-3 col-sm-push-2 sticky" id="drink-preview-container">
-            <div class="row">
-                <div class="col-sm-12" style="font-size: 20px; font-weight: 700; text-transform: uppercase;color: #d80a2b">
+            <div class="row preview-heading-row">
+                <div class="col-sm-12 product-preview-heading">
                     Преглед
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12 acp-product-container">
+                <div class="col-sm-12 acp-product-container preview-container">
                     <div class="acp-product-price-container">
                         <span class="product-price">@Model.Price лв.</span>
                     </div>
@@ -117,36 +116,34 @@
                 </div>
             </div>
         </div>
-    }
-    else
-    {
-        <div class="col-sm-3 col-sm-push-3 sticky" id="pss-preview-container">
-            <div class="row">
-                <div class="col-sm-12" style="font-size: 20px; font-weight: 700; text-transform: uppercase;color: #d80a2b">
-                    Преглед
-                </div>
+
+    @* Pizza, Sandwich, Salad preview container *@
+    <div class="col-sm-3 col-sm-push-3 sticky" id="pss-preview-container">
+        <div class="row preview-heading-row">
+            <div class="col-sm-12 product-preview-heading">
+                Преглед
             </div>
-            <div class="row">
-                <div class="col-sm-12 acp-product-container">
-                    <div class="acp-product-price-container">
-                        <span class="product-price">@Model.Price лв.</span>
-                    </div>
-                    <div class="acp-product-img-container dvPreview">
-                        <img class="img-responsive acp-product-img" src="@Model.ImageUrl" alt="Снимка на продукта" />
-                    </div>
-                    <div class="acp-product-name">
-                        @Model.Name
-                    </div>
-                    <div class="acp-product-ingredients">
+        </div>
+        <div class="row">
+            <div class="col-sm-12 acp-product-container preview-container">
+                <div class="acp-product-price-container">
+                    <span class="product-price">@Model.Price лв.</span>
+                </div>
+                <div class="acp-product-img-container dvPreview">
+                    <img class="img-responsive acp-product-img" src="@Model.ImageUrl" alt="Снимка на продукта" />
+                </div>
+                <div class="acp-product-name">
+                    @Model.Name
+                </div>
+                <div class="acp-product-ingredients">
 
-                    </div>
-                    <div class="acp-product-actions">
+                </div>
+                <div class="acp-product-actions">
 
-                    </div>
                 </div>
             </div>
         </div>
-    }
+    </div>
 
 </div>
 @section Scripts {

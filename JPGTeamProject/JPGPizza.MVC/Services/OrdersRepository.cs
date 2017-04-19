@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using JPGPizza.Models;
     using System.Data.Entity;
+    using System.Linq;
 
     public class OrdersRepository
     {
@@ -14,14 +15,14 @@
             _context = context;
         }
 
-        public IEnumerable<Order> GetAll()
-        {
-            return _context.Orders;
-        }
-
         public Order GetById(int id)
         {
             return _context.Orders.Find(id);
+        }
+
+        public IQueryable<Order> GetAll()
+        {
+            return _context.Orders.AsQueryable();
         }
 
         public void Add(Order order)

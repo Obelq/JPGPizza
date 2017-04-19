@@ -1,0 +1,62 @@
+﻿@model JPGPizza.MVC.ViewModels.Orders.OrderHistoryViewModel
+
+@if (User.IsInRole("Administrator"))
+{
+    Html.RenderPartial("_AdministratorsSidebar");
+    <div class="row" style="margin-top: 50px;">
+        <div class="col-sm-9 col-sm-push-2 box-shadow-container" style="padding-bottom: 10px;">
+            <div style="font-weight: 700; font-size: 20px; margin-bottom: 25px;">История на поръчки</div>
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Брой продукти</th>
+                        <th>Стойност</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.Orders)
+                {
+                        <tr>
+                            <td>@order.Date</td>
+                            <td>@order.NumberOfProducts</td>
+                            <td>@order.TotalCost.ToString("F2") лв.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a href="/applicationusers/details/@Model.CustomerId" class="btn btn-default btn-secondary">Назад</a>
+            @{ Html.RenderPartial("_Pagination", Model.Pager); }
+        </div>
+    </div>
+
+                }
+                else
+                {
+                    <div class="row" style="margin-top: 50px;">
+                        <div class="col-sm-12 box-shadow-container" style="padding-bottom: 10px;">
+                            <div style="font-weight: 700; font-size: 20px; margin-bottom: 25px;">История на поръчки</div>
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Дата</th>
+                                        <th>Брой продукти</th>
+                                        <th>Стойност</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model.Orders)
+                {
+                                        <tr>
+                                            <td>@order.Date</td>
+                                            <td>@order.NumberOfProducts</td>
+                                            <td>@order.TotalCost.ToString("F2") лв.</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <a href="/applicationusers/details/@Model.CustomerId" class="btn btn-default btn-secondary">Назад</a>
+                            @{ Html.RenderPartial("_Pagination", Model.Pager); }
+                        </div>
+                    </div>
+                                }

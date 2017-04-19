@@ -25,15 +25,15 @@
 
     attachEvents() {
         this._productTypeSelectlist.change((ev) => {
-            let type = $(ev.currentTarget).find(":selected").text();
+            let type = $(ev.currentTarget).find(":selected").text().trim();
 
             if (type === 'Пици' || type === 'Сандвичи' || type === 'Салати') {
-                this._pssPreviewContainer.show();
                 this._drinkPreviewContainer.hide();
+                this._pssPreviewContainer.show();
                 ingredientsContainer.show();
             } else if (type === 'Напитки') {
-                this._drinkPreviewContainer.show();
                 this._pssPreviewContainer.hide();
+                this._drinkPreviewContainer.show();
                 ingredientsContainer.hide();
             } else {
                 this.drinkPreviewContainer.hide();

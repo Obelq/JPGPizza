@@ -213,7 +213,10 @@
     <Compile Include="Dtos\FeedbackForAdminDto.cs" />
     <Compile Include="Dtos\IngredientDto.cs" />
     <Compile Include="Dtos\MostUsedIngredientDto.cs" />
+    <Compile Include="Dtos\OrderDto.cs" />
     <Compile Include="Dtos\OrderProductDto.cs" />
+    <Compile Include="Dtos\OrderProductHistoryDto.cs" />
+    <Compile Include="Dtos\ProductDto.cs" />
     <Compile Include="Dtos\TopSellingProductDto.cs" />
     <Compile Include="Dtos\TopUserDto.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
@@ -242,6 +245,7 @@
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Orders\OrderHistoryViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderProductsViewModel.cs" />
     <Compile Include="ViewModels\Products\CreateProductViewModel.cs" />
     <Compile Include="ViewModels\Products\DeleteProductViewModel.cs" />
@@ -339,6 +343,7 @@
     <Content Include="Views\ApplicationUsers\Details.cshtml" />
     <Content Include="Views\ApplicationUsers\Edit.cshtml" />
     <Content Include="Views\ApplicationUsers\Index.cshtml" />
+    <Content Include="Views\ApplicationUsers\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
