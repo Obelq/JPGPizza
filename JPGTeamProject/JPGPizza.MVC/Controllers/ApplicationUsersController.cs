@@ -179,7 +179,7 @@
                    .OrderByDescending(o => o.Date)
                    .CountAsync();
 
-            var pager = new Pager(totalOrders, page, 15);
+            var pager = new Pager(totalOrders, page, 10);
 
             var orders = await _ordersRepository.GetAll()
                 .Select(o => new OrderDto()
@@ -191,7 +191,7 @@
                     NumberOfProducts = o.OrderProducts.Count()
                 })
                 .Where(o => o.CustomerId == id)
-                .OrderByDescending(o => o.Date)
+                .OrderBy(o => o.Date)
                 .Skip((pager.CurrentPage - 1) * pager.PageSize)
                 .Take(pager.PageSize)
                 .ToListAsync();

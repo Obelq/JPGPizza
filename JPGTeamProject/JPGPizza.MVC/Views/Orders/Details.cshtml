@@ -4,23 +4,44 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@if (User.IsInRole("Administrator"))
+{
+    Html.RenderPartial("_AdministratorsSidebar");
+}
 
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
+<div class="row" style="margin-top: 50px;">
+    <div class="box-shadow-container col-sm-7 col-sm-push-2" style="padding: 20px;">
+        <h2>Детайли за поръчка номер: @Model.Id</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
+        @foreach (var orderProduct in Model.OrderProducts)
+        {
+            <div class="row" style="border-bottom: 2px solid #eee;">
 
-    </dl>
+                <div class="col-sm-12">
+                    <span class="product-name">
+                        @orderProduct.Product.Name
+                    </span>
+                    <span>x</span>
+                    <span class="quantity" style="font-weight: 900;">
+                        @orderProduct.Quantity
+                    </span>
+                    <span class="total-cost pull-right">
+                        @{ int quantity = orderProduct.Quantity; }
+                        @{ decimal price = orderProduct.Product.Price; }
+                        @{ string totalCostFormatted = $"{quantity * price:F2} лв."; }
+                        @totalCostFormatted
+                    </span>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-sm-5 pull-right text-right total-cost">
+                @{ string totalOrderCost = $"{Model.OrderProducts.Sum(op => op.Quantity * op.Product.Price):F2} лв.";}
+                Обща сума: @totalOrderCost
+            </div>
+        </div>
+
+        <a class="btn btn-default btn-secondary" href="/applicationusers/orders/@Model.CustomerId">Назад</a>
+    </div>
+
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

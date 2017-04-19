@@ -68,39 +68,42 @@ function appendToShoppingCart() {
     if (shoppingCart.length >= 0) {
         let total = 0;
         productsInCart += `<div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-6">
                                 <span>`+ "Продукт" + `</span>
                             </div>
-                            <div class="col-sm-3" style="padding-left: 20px;">`
+                            <div class="col-sm-2" style="padding-left: 20px;">`
             + "Количество" +
             `</div>
-                             <div class="col-sm-3">`
+                             <div class="col-sm-3 text-right">`
             + "Цена" +
             `</div>
+<div class="col-sm-1"></div>
                         </div>
                         <hr/>`
         for (let orderProduct of shoppingCart) {
             total += orderProduct.price;
             productsInCart +=
                 `<div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-6">
                                 <span>`+ orderProduct.name + `</span>
                             </div>
-                            <div class="col-sm-3" style="padding-left: 20px;">`
+                            <div class="col-sm-2 text-center">`
                 + orderProduct.quantity + " бр." +
                 `</div>
-                                 <div class="col-sm-3">`
+                                 <div class="col-sm-3  text-right">`
                 + orderProduct.price.toFixed(2) + " лв." +
                 `</div>
-                             <div class="col-sm-3">
+                             <div class="col-sm-1 pull-right text-right">
                                 <a class="removeFromCart" data-product-id-value=`+ orderProduct.id + `><span class="glyphicon glyphicon-remove"></span></a>
                             </div>
                         </div>                        
                         <hr/>`;
         }
         productsInCart += `<div class="row">
-                                     <span class="col-sm-5">`+ "Общо: " + `</span>
-                                     <span class="col-sm-5">`+ total.toFixed(2) + " лв." + `</span>
+<div class="col-sm-12 text-right">
+    <span>`+ "Общо: " + `</span>
+    <span>`+ total.toFixed(2) + " лв." + `</span>
+</div>
                                    </div>`
 
         $('#shopping-cart-list span').empty();
@@ -117,9 +120,9 @@ function finishOrder() {
         data: shoppingCart,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function (msg) {
+        success: function (orderId) {
             sessionStorage.setItem('shoppingCart', JSON.stringify([]));
-            document.location = '/manage';
+            document.location = '/orders/details/' + orderId;
         },
         error: function (msg) {
             appendRegisterPermission();
