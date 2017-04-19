@@ -219,6 +219,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Services\AdministratorsRepository.cs" />
+    <Compile Include="Services\ApplicationUsersRepository.cs" />
     <Compile Include="Services\IngredientsRepository.cs" />
     <Compile Include="Services\OrdersRepository.cs" />
     <Compile Include="Services\ProductsRepository.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsIndexViewModel.cs" />
     <Compile Include="ViewModels\Administrators\AdministratorsProductsViewModel.cs" />
+    <Compile Include="ViewModels\ApplicationUser\ApplicationUserIndexViewModel.cs" />
     <Compile Include="ViewModels\Ingredients\DeleteIngredientViewModel.cs" />
     <Compile Include="ViewModels\Ingredients\EditIngredientViewModel.cs" />
     <Compile Include="ViewModels\Ingredients\IngredientsIndexViewModel.cs" />

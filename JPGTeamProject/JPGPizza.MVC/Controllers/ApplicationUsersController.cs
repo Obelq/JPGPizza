@@ -6,25 +6,51 @@
     using System.Web.Mvc;
     using JPGPizza.Data;
     using JPGPizza.Models;
+    using JPGPizza.MVC.ViewModels.ApplicationUser;
+    using JPGPizza.MVC.Services;
+    using JPGPizza.MVC.Utility;
+    using System.Linq;
 
     public class ApplicationUsersController : Controller
     {
-        private JPGPizzaDbContext db = new JPGPizzaDbContext();
+        private readonly JPGPizzaDbContext _context;
+        private readonly ApplicationUsersRepository _applicationUserRepository;
+
+        public ApplicationUsersController()
+        {
+            _context = new JPGPizzaDbContext();
+            _applicationUserRepository = new ApplicationUsersRepository(_context);
+        }
 
         // GET: ApplicationUsers
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string searchText, int? page)
         {
-            return View(await db.Users.ToListAsync());
+            var totalUsers = await _applicationUserRepository.GetTotalCountAsync();
+
+            Pager pager = new Pager(totalUsers, page);
+
+            var users = _applicationUserRepository.GetAll(searchText)
+                .Skip((pager.CurrentPage - 1) * pager.PageSize)
+                .Take(pager.PageSize);
+
+            var viewModel = new ApplicationUserIndexViewModel()
+            {
+                Users = users,
+                Pager = pager,
+                SearchText = searchText
+            };
+
+            return View(viewModel);
         }
 
         // GET: ApplicationUsers/Details/5
-        public async Task<ActionResult> Details(string id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
+            ApplicationUser applicationUser = _applicationUserRepository.GetById(id);
             if (applicationUser == null)
             {
                 return HttpNotFound();
@@ -33,13 +59,13 @@
         }
 
         // GET: ApplicationUsers/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
+            ApplicationUser applicationUser = _applicationUserRepository.GetById(id);
             if (applicationUser == null)
             {
                 return HttpNotFound();
@@ -52,25 +78,31 @@
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,LastName,RegisteredOn,Age,Gender,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Age,Gender,Email,PhoneNumber,UserName")] ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(applicationUser).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                _applicationUserRepository.Update(user);
+
+                if (!_applicationUserRepository.Save())
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
                 return RedirectToAction("Index");
             }
-            return View(applicationUser);
+
+            return View(user);
         }
 
         // GET: ApplicationUsers/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
+            ApplicationUser applicationUser = _applicationUserRepository.GetById(id);
             if (applicationUser == null)
             {
                 return HttpNotFound();
@@ -81,11 +113,16 @@
         // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            ApplicationUser applicationUser = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
-            db.Users.Remove(applicationUser);
-            await db.SaveChangesAsync();
+            ApplicationUser user = _applicationUserRepository.GetById(id);
+            _applicationUserRepository.Remove(user);
+
+            if (!_applicationUserRepository.Save())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -93,7 +130,7 @@
         {
             if (disposing)
             {
-                db.Dispose();
+                _context.Dispose();
             }
             base.Dispose(disposing);
         }

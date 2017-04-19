@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JPGPizza.Models.ApplicationUser>
+﻿@model JPGPizza.MVC.ViewModels.ApplicationUser.ApplicationUserIndexViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -10,8 +10,12 @@
     <div class="col-sm-10 col-sm-push-2 box-shadow-container">
         @*<div class="" >Потребители</div>*@
         <div class="row">
-            <div class="cols-sm-12" style="color: #d80a2b;text-transform: uppercase; font-weight: 700;font-size: 20px;padding: 5px 15px;">
+            <div class="cols-sm-3" style="color: #d80a2b;text-transform: uppercase; font-weight: 700;font-size: 20px;padding: 5px 15px;">
                 Потребители
+            </div>
+            <div class="col-sm-6 pull-right">
+                <input class="form-control" style="width: 83%;display: inline-block;" type="text" name="searchText" value="@Model.SearchText" id="search-textbox" />
+                <a href="#" class="btn btn-default pull-right" id="search-btn">Търси</a>
             </div>
         </div>
 
@@ -32,7 +36,7 @@
                 <th style="width: 23%;"></th>
             </tr>
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.Users)
             {
                 <tr>
                     <td>
@@ -48,14 +52,47 @@
                         @item.LastName
                     </td>
                     <td>
-                        @Html.ActionLink("Промени", "Edit", new { id = item.Id }) |
                         @Html.ActionLink("Детайли", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Изтрий", "Delete", new { id = item.Id })
+                        @Html.ActionLink("Промени", "Edit", new { id = item.Id }) |
+                        @if (!(item.UserName == User.Identity.Name))
+                        {
+                             @Html.ActionLink("Изтрий", "Delete", new { id = item.Id })
+                        }
                     </td>
                 </tr>
             }
 
         </table>
-
     </div>
 </div>
+
+@section Scripts {
+    <script>
+
+        let searchBtn = $('#search-btn');
+        let searchTextField = $('#search-textbox');
+
+        searchBtn.click((ev) => {
+            let btn = $(ev.currentTarget);
+            let searchText = searchTextField.val().trim();
+            let href = `/applicationusers?page=1&searchText=${searchTextField.val().trim()}`;
+
+            if (!searchText) {
+                $(ev.currentTarget).attr('href', `/applicationusers?page=1`);
+                window.location = $(ev.currentTarget).attr('href');
+            } else {
+                $(ev.currentTarget).attr('href', `/applicationusers?page=1&searchText=${searchText}`);
+                window.location = $(ev.currentTarget).attr('href');
+            }
+        });
+
+        searchTextField.keyup((ev) => {
+            let code = (ev.keyCode ? ev.keyCode : ev.which);
+
+            if (code == 13) { //Enter keycode
+                searchBtn.click();
+            }
+        });
+
+    </script>
+}
