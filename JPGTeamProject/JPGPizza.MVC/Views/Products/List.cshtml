@@ -7,7 +7,7 @@
 <div class="row" style="margin-top: 50px;">
     @foreach (var product in Model)
     {
-        <div class="col-sm-3 col-sm-push-2 acp-product-container grow">
+        <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
             @{Html.RenderPartial("_Product", product);}
         </div>
     }

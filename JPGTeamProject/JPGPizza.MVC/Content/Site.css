@@ -159,7 +159,7 @@ textarea {
 }
 
 .ingredients-table {
-    font-size: 13px;
+    font-size: 15px;
     margin-bottom: 15px;
 }
 
@@ -226,6 +226,12 @@ textarea {
     background-color:#eeeeee;
     font-size: 15px;
     font-style: italic;
+}
+
+.about-us {
+    background-color: #eeeeee;
+    font-size: 18px;
+    word-wrap: break-word;
 }
 
 .details-info-heading {
