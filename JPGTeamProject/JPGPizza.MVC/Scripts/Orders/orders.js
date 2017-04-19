@@ -10,6 +10,7 @@ $(document).ready(() => {
     })
     $('#empyShoppingCart').click((ev) => {
         sessionStorage.setItem('shoppingCart', JSON.stringify([]));
+        $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
         appendToShoppingCart();
     })
     $('#logout-btn').click((ev) => {
@@ -18,8 +19,15 @@ $(document).ready(() => {
     $('#finish-Order').click((ev) => {
         finishOrder();
     });
-    deceraseBtn();
-    increaseBtn();
+
+    $('.glyphicon-plus-sign').click((ev) => {
+        increaseBtn(ev);
+    })
+
+    $('.glyphicon-minus-sign').click((ev) => {
+        deceraseBtn(ev);
+    })
+
     addToCart();
 });
 
@@ -52,7 +60,6 @@ function removeOrderProductByProductId(productId) {
     shoppingCart.splice(orderProductToRemoveIndex, 1);
     sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
 }
-
 
 function appendToShoppingCart() {
 
@@ -103,8 +110,7 @@ function appendToShoppingCart() {
 }
 
 function finishOrder() {
-    let shoppingCart = sessionStorage.getItem('shoppingCart');
-    //var controllerUrl = '@Url.Action("ShopingCartList", "Orders")'            
+    let shoppingCart = sessionStorage.getItem('shoppingCart');         
     $.ajax({
         type: "POST",
         url: "/Orders/ShopingCartList",
@@ -113,11 +119,17 @@ function finishOrder() {
         dataType: "json",
         success: function (msg) {
             sessionStorage.setItem('shoppingCart', JSON.stringify([]));
-            document.location = '/manage'
-
-
+            document.location = '/manage';
+        },
+        error: function (msg) {
+            appendRegisterPermission();
         }
     });
+}
+
+function appendRegisterPermission() {
+    let permission = `<div>Трябва да сте регистиран потребител</div>`
+    $('#shopping-cart-list').append(permission);
 }
 
 function removeFromCart(shoppingCart) {
@@ -131,8 +143,10 @@ function removeFromCart(shoppingCart) {
             sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
         }
         appendToShoppingCart();
+        $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
     });
 }
+
 function getIndexById(shoppingCart, productId) {
     for (var i = 0; i < shoppingCart.length; i++) {
         if (shoppingCart[i].id === productId) {
@@ -142,9 +156,7 @@ function getIndexById(shoppingCart, productId) {
     return null;
 }
 
-function deceraseBtn() {
-    $('.glyphicon-minus-sign').click((ev) => {
-
+function deceraseBtn(ev) {    
         let evTarget = $(ev.currentTarget);
         let productPrice = ev.currentTarget.getAttribute('data-product-price-value');
         let quantity = parseFloat($('.quantity-value').text());
@@ -154,22 +166,20 @@ function deceraseBtn() {
             let newPrice = productPrice * quantity;
             $('.product-order-price').text(newPrice.toFixed(2) + " лв.");
         }
-    })
 }
 
-function increaseBtn() {
-    $('.glyphicon-plus-sign').click((ev) => {
-
+function increaseBtn(ev) {
+    
         let price = $('.product-order-price');
         let evTarget = $(ev.currentTarget);
         let productPrice = ev.currentTarget.getAttribute('data-product-price-value');
         let quantity = parseFloat($('.quantity-value').text());
         quantity++;
+               
         $('.quantity-value').text(quantity);
         let newPrice = productPrice * quantity;
         $('.product-order-price').text(newPrice.toFixed(2) + " лв.");
 
-    })
 }
 
 function addToCart() {
