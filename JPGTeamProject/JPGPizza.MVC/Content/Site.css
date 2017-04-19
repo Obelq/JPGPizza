@@ -265,24 +265,32 @@ textarea {
     margin-bottom: 0!important;
 }
 
-
-.order-row {
-    cursor: pointer;
+.permission{
+    color: red;
+    display:none;
 }
 
-.order-row:hover {
-    color: #fff;
-    background-color: #d80a2b;
+.home-page-col-md {
+    background-color: #ffffff;
+    border: 1px solid black;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    border-radius: 25px;
 }
 
-.product-name {
-    padding: 10px;
+.home-page-container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #ffffff;
+    border: 1px solid black;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    border-radius: 25px;
 }
-
-.quantity {
-    padding: 10px;
-}
-
-.total-cost {
-    font-weight: 900;
+.sub-text {
+    color: #aaa;
+    font-family: verdana;
+    font-size: 11px;
 }
