@@ -5,7 +5,7 @@
 }
 
 <div class="row" style="margin-top: 50px;">
-    <div class="col-md-5 col-sm-push-3 box-shadow-container">
+    <div class="col-md-4 col-sm-push-4 box-shadow-container">
         <div style="font-weight: 700; text-transform: uppercase; font-size: 20px;padding-bottom: 20px;">@ViewBag.Title</div>
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -36,16 +36,14 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="submit" value="Вход" class="btn btn-default" />
+                        <div>
+                            <input type="submit" value="Вход" class="btn btn-default" style="width: 100%;" />
+                        </div>
+                        <div>
+                            <a class="btn btn-default btn-secondary" style="width: 100%;" href="/account/register">Регистриране като нов потребител</a>
+                        </div>
                     </div>
                 </div>
-                <p>
-                    @Html.ActionLink("Регистриране като нов потребител", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
             }
         </section>
     </div>
