@@ -15,11 +15,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-2">
-                <a href="#" class="btn btn-default btn-secondary" style="font-size: 13px;">Моите поръчки</a>
-            </div>
             @if (User.IsInRole("Administrator") || User.Identity?.GetUserId() == Model.User.Id)
             {
+                <div class="col-sm-3" style="width: 200px;">
+                    <a href="#" class="btn btn-default btn-secondary" style="font-size: 13px;">История на поръчките</a>
+                </div>
+
                 <div class="col-sm-3">
                     <a href="/applicationusers/edit/@Model.User.Id" class="btn btn-default btn-secondary"  style="font-size: 13px;">
                         Редактиране на информацията
