@@ -180,11 +180,11 @@ textarea {
     padding: 5px 5px;
 }
 
-    .page-link:hover, .page-link:focus, .page-link:active {
-        background-color: #d80a2b !important;
-        border: 1px solid #d80a2b !important;
-        color: #fff !important;
-    }
+.page-link:hover, .page-link:focus, .page-link:active {
+    background-color: #d80a2b !important;
+    border: 1px solid #d80a2b !important;
+    color: #fff !important;
+}
 
 .page-link-word {
     color: #d80a2b !important;
@@ -220,4 +220,10 @@ textarea {
     background-color: #999;
     border-radius: 20px;
     margin-top: -15px;
+}
+
+.contacts-address {
+    background-color:#eeeeee;
+    font-size: 15px;
+    font-style: italic;
 }
