@@ -44,14 +44,14 @@
 </div>
 
 @section Scripts {
-    <script>
-        $(document).ready(function () {
+    <script src="~/Scripts/Orders/orders.js">
+        //$(document).ready(function () {
            
-            deceraseBtn();
-            increaseBtn();
-            addToCart();
-        })
-        function deceraseBtn() {
+        //    deceraseBtn();
+        //    increaseBtn();
+        //    addToCart();
+        //})
+        @*function deceraseBtn() {
             $('.glyphicon-minus-sign').click((ev) => {
 
                 let evTarget = $(ev.currentTarget);
@@ -167,6 +167,6 @@
                 }
             });
 
-        }
+        }*@
     </script>
 }
