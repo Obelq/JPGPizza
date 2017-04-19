@@ -51,12 +51,34 @@ namespace JPGPizza.MVC.Controllers
             return View("CarryOut", model);
         }
 
-        [HttpPost]
+        [HttpPost] 
+        [Authorize]
         public ActionResult ShopingCartList(List<OrderProductDto> orderProducts)
         {
-            Console.WriteLine(orderProducts);
-            Console.WriteLine();
-            return null;
+            if (orderProducts == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var user = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            user.Orders.Add(new Order()
+            {
+                Date = DateTime.Now,
+                OrderProducts = orderProducts.Select(op => new OrderProduct()
+                {
+                    ProductId = op.id,
+                    Quantity = op.quantity
+                })
+                .ToList()
+            });
+
+            return this.Json(true, JsonRequestBehavior.AllowGet);
         }
 
 

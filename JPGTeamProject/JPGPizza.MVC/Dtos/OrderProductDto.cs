@@ -7,8 +7,8 @@ namespace JPGPizza.MVC.Dtos
 {
     public class OrderProductDto
     {
-        public int Id { get; set; }
-        public int Quantity { get; set; }
+        public int id { get; set; }
+        public int quantity { get; set; }
         
     }
 }

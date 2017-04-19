@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5, h6 {
 input,
 select,
 textarea {
-    max-width: 400px;
+    max-width: 500px;
     font-size: 13px;
 }
 
@@ -222,8 +222,20 @@ textarea {
     margin-top: -15px;
 }
 
+
 .contacts-address {
     background-color:#eeeeee;
     font-size: 15px;
     font-style: italic;
 }
+
+.details-info-heading {
+    color: #666;
+    font-size: 13px;
+}
+
+.details-info {
+    font-weight: 900;
+    font-size: 13px;
+}
+
