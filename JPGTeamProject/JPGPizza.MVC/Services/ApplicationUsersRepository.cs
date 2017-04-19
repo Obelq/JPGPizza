@@ -80,15 +80,15 @@
 
         public bool Save()
         {
-            //try
-            //{
+            try
+            {
                 _context.SaveChanges();
                 return true;
-            //}
-            //catch
-            //{
-            //    return false;
-            //}
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

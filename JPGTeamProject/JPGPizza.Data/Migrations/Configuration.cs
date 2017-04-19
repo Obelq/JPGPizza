@@ -12,6 +12,7 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(JPGPizzaDbContext context)
@@ -171,7 +172,8 @@
 
             var order = new Order()
             {
-                Date = DateTime.Now.AddDays(orderDateRandom.Next(-50, 0)).AddMinutes(orderDateRandom.Next(-800, 0))
+                Date = DateTime.Now.AddDays(orderDateRandom.Next(-50, 0)).AddMinutes(orderDateRandom.Next(-800, 0)),
+                CustomerId = targetUser.Id
             };
 
             var rnd = new Random();
