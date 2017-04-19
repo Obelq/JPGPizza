@@ -4,20 +4,11 @@
     ViewBag.Title = "Products";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>@Model.FirstOrDefault()?.Type</title>
-</head>
-<body>
-    <div class="container">
-        @foreach (var product in Model)
-        {
-            <div class="col-sm-3 col-sm-push-2 acp-product-container grow">
-                @{Html.RenderPartial("_Product", product);}
-            </div>
-        }
-    </div>
-</body>
-</html>
+<div class="row" style="margin-top: 50px;">
+    @foreach (var product in Model)
+    {
+        <div class="col-sm-3 col-sm-push-2 acp-product-container grow">
+            @{Html.RenderPartial("_Product", product);}
+        </div>
+    }
+</div>

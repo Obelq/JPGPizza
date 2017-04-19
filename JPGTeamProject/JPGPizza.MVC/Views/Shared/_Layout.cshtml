@@ -26,17 +26,10 @@
                     <li>@Html.ActionLink("Категории", "Categories", "Products")</li>
                     <li>@Html.ActionLink("За нас", "About", "Home")</li>
                     <li>@Html.ActionLink("Контакти", "Contact", "Home")</li>
-
                     @if (User.IsInRole("Administrator"))
                     {
                         <li>@Html.ActionLink("Управление", "Index", "Administrators")</li>
                     }
-                    <li>
-                        <a href="@Url.Action("CarryOut", "Orders")">
-                            Поръчай сега
-                        </a>
-                          
-                    </li>
                     <li>
                         <a class="shopping-cart" href="#" data-toggle="modal" data-target="#shoppingCartModal" style="padding: 10px;">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
@@ -88,118 +81,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    <script src="~/Scripts/Orders/orders.js">
-        @*$(document).ready(() => {
-            if (sessionStorage.getItem('shoppingCart') != null) {
-                $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
-            }
-
-            $('.shopping-cart').click((ev) => {
-                appendToShoppingCart();
-            })
-            $('#empyShoppingCart').click((ev) => {
-                sessionStorage.setItem('shoppingCart', JSON.stringify([]));
-                appendToShoppingCart();
-            })
-            $('#logout-btn').click((ev) => {
-                sessionStorage.setItem('shoppingCart', JSON.stringify([]));
-            });
-            $('#finish-Order').click((ev) => {
-                finishOrder();
-            });
-        });
-
-        function appendToShoppingCart() {
-
-            let shoppingCart = JSON.parse(sessionStorage.getItem('shoppingCart'));
-            let productsInCart = ``;
-            if (shoppingCart.length >= 0) {
-                let total = 0;
-                productsInCart += `<div class="row">
-                            <div class="col-sm-3">
-                                <span>`+ "Продукт" + `</span>
-                            </div>
-                            <div class="col-sm-3" style="padding-left: 20px;">`
-                    + "Количество" +
-                    `</div>
-                             <div class="col-sm-3">`
-                    + "Цена" +
-                    `</div>
-                        </div>
-                        <hr/>`
-                for (let orderProduct of shoppingCart) {
-                    total += orderProduct.price;
-                    productsInCart +=
-                        `<div class="row">
-                            <div class="col-sm-3">
-                                <span>`+ orderProduct.name + `</span>
-                            </div>
-                            <div class="col-sm-3" style="padding-left: 20px;">`
-                            + orderProduct.quantity + " бр." +
-                            `</div>
-                                 <div class="col-sm-3">`
-                            + orderProduct.price.toFixed(2) + " лв." +
-                            `</div>
-                             <div class="col-sm-3">
-                                <a class="removeFromCart" data-product-id-value=`+ orderProduct.id +`><span class="glyphicon glyphicon-remove"></span></a>
-                            </div>
-                        </div>
-                        <hr/>`;
-                }
-                productsInCart += `<div class="row">
-                                     <span class="col-sm-5">`+ "Общо: " + `</span>
-                                     <span class="col-sm-5">`+ total.toFixed(2) + " лв." + `</span>
-                                   </div>`
-
-                $('#shopping-cart-list span').empty();
-                $('#shopping-cart-list span').append(productsInCart);
-                removeFromCart(shoppingCart);
-            }
-        }
-
-        function finishOrder() {
-            let shoppingCart = sessionStorage.getItem('shoppingCart');
-            var controllerUrl = "@Url.Action("ShopingCartList", "Orders")"
-            $.ajax({
-                type: "POST",
-                url: controllerUrl,
-                data: shoppingCart,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (msg) {
-                    sessionStorage.setItem('shoppingCart', JSON.stringify([]));
-                    document.location = '/manage'
-
-
-                }
-            });
-        }
-
-        function removeFromCart(shoppingCart) {
-            $('.removeFromCart').click((ev) => {
-
-                let evTarget = $(ev.currentTarget);
-                let productId = ev.currentTarget.getAttribute('data-product-id-value');
-                let index = getIndexById(shoppingCart, productId);
-                if (index != null) {
-                    shoppingCart.splice(index, 1);
-                    sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
-                }
-                appendToShoppingCart();
-            });
-        }
-        function getIndexById(shoppingCart, productId) {
-            for (var i = 0; i < shoppingCart.length; i++) {
-                if (shoppingCart[i].id === productId) {
-                    return i;
-                }
-            }
-            return null;
-        }*@
-
-
-
-    </script>
+    <script src="~/Scripts/Orders/orders.js"></script>
 
 </body>
 </html>
