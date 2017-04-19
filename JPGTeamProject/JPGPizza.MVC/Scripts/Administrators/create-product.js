@@ -30,15 +30,12 @@
             if (type === 'Пици' || type === 'Сандвичи' || type === 'Салати') {
                 this._drinkPreviewContainer.hide();
                 this._pssPreviewContainer.show();
-                ingredientsContainer.show();
             } else if (type === 'Напитки') {
                 this._pssPreviewContainer.hide();
                 this._drinkPreviewContainer.show();
-                ingredientsContainer.hide();
             } else {
                 this.drinkPreviewContainer.hide();
                 this.pssPreviewContainer.hide();
-                ingredientsContainer.hide();
             }
         });
 
