@@ -228,6 +228,12 @@ textarea {
     font-style: italic;
 }
 
+.about-us {
+    background-color: #eeeeee;
+    font-size: 18px;
+    word-wrap: break-word;
+}
+
 .details-info-heading {
     color: #666;
     font-size: 13px;
