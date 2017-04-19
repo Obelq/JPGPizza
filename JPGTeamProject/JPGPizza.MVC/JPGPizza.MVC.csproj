@@ -211,6 +211,7 @@
     <Compile Include="Dtos\FeedbackForAdminDto.cs" />
     <Compile Include="Dtos\IngredientDto.cs" />
     <Compile Include="Dtos\MostUsedIngredientDto.cs" />
+    <Compile Include="Dtos\OrderProductDto.cs" />
     <Compile Include="Dtos\TopSellingProductDto.cs" />
     <Compile Include="Dtos\TopUserDto.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />

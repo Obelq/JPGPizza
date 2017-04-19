@@ -83,12 +83,7 @@
 
         function addToCart() {
             $('#add-to-cart').click((ev) => {
-
-                
-
                 ev.preventDefault();
-
-              
                 let evTarget = $(ev.currentTarget);
                 let productId = ev.currentTarget.getAttribute('data-product-id-value');
                 let quantity = parseFloat($('.quantity-value').text());
@@ -96,13 +91,13 @@
                 let productPrice = ev.currentTarget.getAttribute('data-product-price-value');
                 let newPrice = productPrice * quantity;
                 let orderProduct = {
-                        id: productId,
-                        name: productName,
-                        price: newPrice,
-                        quantity: quantity  
+                    id: productId,
+                    name: productName,
+                    price: newPrice,
+                    quantity: quantity
                 };
-                addOrderProductToCart(orderProduct)
-            })
+                addOrderProductToCart(orderProduct);
+            });
         }
 
          function addOrderProductToCart(orderProduct) {
@@ -114,14 +109,28 @@
             }
 
             shoppingCart = JSON.parse(shoppingCart);
-            shoppingCart.push(orderProduct);
+
+            let orderProductFromCart = getOrderProductById(orderProduct.id, shoppingCart);
+
+             if (orderProductFromCart === null) {
+                 shoppingCart.push(orderProduct);
+             } else {
+                 orderProductFromCart.quantity += orderProduct.quantity;
+             }
 
             sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
-            if (shoppingCart.length >= 1) $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
-           
-
-            console.log(shoppingCart)
+            if (shoppingCart.length >= 1) $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);                       
         }
+
+         function getOrderProductById(id, orderProducts) {
+             for (let orderProduct of orderProducts) {
+                 if (orderProduct.id === id) {
+                     return orderProduct;
+                 }
+             }
+
+             return null;
+         }
 
         function removeOrderProductByProductId(productId) {
             let shoppingCart = JSON.parse(sessionStorage.getItem('shoppingCart'));

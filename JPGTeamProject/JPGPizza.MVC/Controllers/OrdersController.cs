@@ -10,6 +10,7 @@ using JPGPizza.Data;
 using JPGPizza.Models;
 using JPGPizza.MVC.ViewModels.Orders;
 using JPGPizza.MVC.Services;
+using JPGPizza.MVC.Dtos;
 
 namespace JPGPizza.MVC.Controllers
 {
@@ -23,6 +24,7 @@ namespace JPGPizza.MVC.Controllers
         {
             _context = new JPGPizzaDbContext();
             _productsRepository = new ProductsRepository(_context);
+            _ordersRepository = new OrdersRepository(_context);
         }
 
         // GET: Orders
@@ -50,9 +52,9 @@ namespace JPGPizza.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult ShopingCartList(int[] productsId)
+        public ActionResult ShopingCartList(List<OrderProductDto> orderProducts)
         {
-            Console.WriteLine(productsId);
+            Console.WriteLine(orderProducts);
             Console.WriteLine();
             return null;
         }

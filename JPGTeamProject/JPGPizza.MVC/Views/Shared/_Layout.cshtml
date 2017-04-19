@@ -73,8 +73,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Затвори</button>
-                    <button type="button" class="btn btn-primary">Завърши поръчката</button>
+                    <a class="btn btn-default btn-secondary pull-left" id="empyShoppingCart">Изчисти количката</a>
+                    <button type="button" class="btn btn-primary" id="finish-Order">Завърши поръчката</button>
                 </div>
             </div>
         </div>
@@ -129,62 +129,111 @@
     <script>
         //TODO
         $(document).ready(() => {
+            $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);            
+
+            $('.shopping-cart').click((ev) => {
+                appendToShoppingCart();
+            })
+            $('#empyShoppingCart').click((ev) => {
+                sessionStorage.setItem('shoppingCart', JSON.stringify([]));
+                appendToShoppingCart();
+            })
+            $('#logout-btn').click((ev) => {
+                sessionStorage.setItem('shoppingCart', JSON.stringify([]));
+            });
+            $('#finish-Order').click((ev) => {
+                finishOrder(shoppingCart)
+            });
+        });
+
+        function appendToShoppingCart() {
             let shoppingCart = JSON.parse(sessionStorage.getItem('shoppingCart'));
-            let productsInCart = ``
-            if (shoppingCart.length > 0) {
+            let productsInCart = ``;
+            if (shoppingCart.length >= 0) {
                 $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
                 let total = 0;
                 productsInCart += `<div class="row">
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <span>`+ "Продукт" + `</span>
                             </div>
                             <div class="col-sm-3" style="padding-left: 20px;">`
                     + "Количество" +
                     `</div>
-                             <div class="col-sm-5">`
+                             <div class="col-sm-3">`
                     + "Цена" +
                     `</div>
                         </div>
                         <hr/>`
                 for (let orderProduct of shoppingCart) {
                     total += orderProduct.price;
-                    productsInCart += 
-
+                    productsInCart +=
                         `<div class="row">
                             <div class="col-sm-3">
-                                <span>`+orderProduct.name+`</span>
+                                <span>`+ orderProduct.name + `</span>
                             </div>
                             <div class="col-sm-3" style="padding-left: 20px;">`
-                                        + orderProduct.quantity + " бр." +
+                            + orderProduct.quantity + " бр." +
                             `</div>
-                             <div class="col-sm-5">`
-                             + orderProduct.price.toFixed(2) + " лв." +
-                             `</div>
-                        </div>
-                            <hr/>`
-                    console.log(total)
-
+                                 <div class="col-sm-3">`
+                            + orderProduct.price.toFixed(2) + " лв." +
+                            `</div>
+                             <div class="col-sm-3">
+                                <a class="removeFromCart" data-product-id-value=`+ orderProduct.id +`><span class="glyphicon glyphicon-remove"></span></a>
+                            </div>
+                        </div>                        
+                        <hr/>`;
                 }
                 productsInCart += `<div class="row">
-                                     <span class="col-sm-5">`+"Общо: "+`</span>
-                                     <span class="col-sm-5">`+ total.toFixed(2)+ " лв." +`</span>
+                                     <span class="col-sm-5">`+ "Общо: " + `</span>
+                                     <span class="col-sm-5">`+ total.toFixed(2) + " лв." + `</span>
                                    </div>`
 
                 $('#shopping-cart-list span').empty();
                 $('#shopping-cart-list span').append(productsInCart);
-
-
-
+                removeFromCart(shoppingCart);
             }
+        }
 
-            $('#logout-btn').click((ev) => {
-                sessionStorage.setItem('shoppingCart', JSON.stringify([]));
+        function finishOrder(shoppingCart) {
+
+            let list = JSON.stringify(shoppingCart)
+            var controllerUrl = "@Url.Action("ShopingCartList", "Orders")"
+            console.log(list)
+            $.ajax({
+                type: "POST",
+                url: controllerUrl,
+                data: list,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    alert(msg);
+                }
             });
-            
-            
-            
+        }
 
-        });
+        function removeFromCart(shoppingCart) {
+            $('.removeFromCart').click((ev) => {
+
+                let evTarget = $(ev.currentTarget);
+                let productId = ev.currentTarget.getAttribute('data-product-id-value');
+                let index = getIndexById(shoppingCart, productId);
+                if (index != null) {
+                    shoppingCart.splice(index, 1);
+                    sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+                }
+                appendToShoppingCart();
+            });
+        }
+        function getIndexById(shoppingCart, productId) {
+            for (var i = 0; i < shoppingCart.length; i++) {
+                if (shoppingCart[i].id === productId) {
+                    return i;
+                }                
+            }
+            return null;
+        }
+
+        
 
     </script>
 
