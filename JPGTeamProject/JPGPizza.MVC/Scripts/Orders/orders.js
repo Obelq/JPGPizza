@@ -128,8 +128,10 @@ function finishOrder() {
 }
 
 function appendRegisterPermission() {
-    let permission = `<div>Трябва да сте регистиран потребител</div>`
-    $('#shopping-cart-list').append(permission);
+    
+    $('#permissionTxt').fadeIn("slow");
+    $('#permissionTxt').fadeOut(3000);
+   
 }
 
 function removeFromCart(shoppingCart) {

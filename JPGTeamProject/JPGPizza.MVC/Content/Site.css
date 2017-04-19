@@ -264,3 +264,8 @@ textarea {
 .preview-heading-row {
     margin-bottom: 0!important;
 }
+
+.permission{
+    color: red;
+    display:none;
+}
