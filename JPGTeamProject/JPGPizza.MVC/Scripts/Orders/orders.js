@@ -1,7 +1,7 @@
 ﻿var shoppingCart = []; 
 
 $(document).ready(() => {
-    if (sessionStorage.getItem('shoppingCart') != null) {
+    if (sessionStorage.getItem('shoppingCart') !== null) {
         $('.badge').text(JSON.parse(sessionStorage.getItem('shoppingCart')).length);
     }
 
@@ -143,7 +143,7 @@ function removeFromCart(shoppingCart) {
         let evTarget = $(ev.currentTarget);
         let productId = ev.currentTarget.getAttribute('data-product-id-value');
         let index = getIndexById(shoppingCart, productId);
-        if (index != null) {
+        if (index !== null) {
             shoppingCart.splice(index, 1);
             sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
         }

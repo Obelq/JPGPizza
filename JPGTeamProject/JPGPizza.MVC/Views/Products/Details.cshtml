@@ -1,4 +1,5 @@
-﻿@model JPGPizza.Models.OrderProduct
+﻿@using Microsoft.AspNet.Identity
+@model JPGPizza.Models.OrderProduct
 
 @{
     ViewBag.Title = "Details";
@@ -32,15 +33,124 @@
         </div>
     </div>
     <div class="col-md-4 col-sm-push-2 box-shadow-container">
-        <h1>Мнения</h1>
-        @foreach (var feedback in Model.Product.Feedbacks)
-        {
-            <p>@feedback.Customer.FirstName</p>
-            <p>@feedback.CreatedOn</p>
-            <p>@feedback.Content</p>
-        }
-        
+        <input type="text" name="ProductId" value="@Model.ProductId" hidden id="product-id" />
+        <input type="text" name="CustomerId" value="@User.Identity.GetUserId()" hidden id="user-id" />
+        <h1>Коментари</h1>
+        <div id="feedbacks-container" style="border-top: 2px solid #d80a2b;overflow-y: scroll; max-height: 240px;">
+            @if (Model.Product.Feedbacks.Count() == 0)
+            {
+                <p style="font-size: 20px; font-weight: 700;padding-top: 10px;padding-bottom: 10px;">Няма коментари</p>
+            }
+            @foreach (var feedback in Model.Product.Feedbacks)
+            {
+                <div data-feedback-id="@feedback.Id" style="border-bottom: 1px solid #333;">
+                    <p>
+                        <span style="font-size: 14px; font-weight: 700;">
+                            <a href="/applicationusers/details/@feedback.Customer.Id">@feedback.Customer.UserName</a>
+                        </span> - 
+                        <span style="font-size: 12px; font-weight: 200;">
+                            @feedback.CreatedOn
+                        </span>
+                        @if (User.IsInRole("Administrator") || User.Identity.GetUserId() == feedback.CustomerId)
+                        {
+                            <span class="glyphicon glyphicon-remove delete-comment-btn pull-right" data-comment-id="@feedback.Id" style="color: #333;padding-right: 5px;"></span>
+                        }
+                    </p>
+                    <p class="feedback-@feedback.Id">@feedback.Content</p>
+                </div>
+            }
+        </div>
+        <div id="add-feedback-container" style="padding-top: 10px;padding-bottom: 10px;">
+            <textarea rows="2" class="form-control" id="new-feedback-content"></textarea>
+            <button class="btn btn-default" id="add-feedback-btn">
+                Добави коментар
+            </button>
+        </div>
     </div>
 </div>
 
-@section Scripts {}
+@section Scripts {
+
+<script>
+
+    function attachDeleteCommentEvent() {
+        $('.delete-comment-btn').unbind('click').click((ev) => {
+            let feedbackId = ev.currentTarget.getAttribute('data-comment-id');
+
+            let feedbackData = {
+                id: feedbackId
+            };
+
+            $.ajax({
+                method: 'POST',
+                url: '/Feedbacks/Delete',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(feedbackData),
+                success: (data) => {
+                    $(ev.currentTarget).parent().parent().remove();
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+        });
+    }
+
+    $(document).ready((ev) => {
+        let userId = $('#user-id').val();
+        let productId = $('#product-id').val();
+
+        let feedbacksContainer = $('#feedbacks-container');
+        let addFeedbackContainer = $('#add-feedback-container');
+        let addFeedbackBtn = $('#add-feedback-btn');
+        
+        attachDeleteCommentEvent();
+
+        addFeedbackBtn.click((ev) => {
+            let newFeedbackContet = $('#new-feedback-content').val().trim();
+
+            if (!newFeedbackContet) {
+                return;
+            }
+
+            let feedbackEntity = {
+                content: newFeedbackContet,
+                productId: productId,
+                customerId: userId
+            };
+
+            $.ajax({
+                method: 'POST',
+                url: '/Feedbacks/Create',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(feedbackEntity),
+                success: (feedback) => {
+                    $('#new-feedback-content').val('');
+                    let commentToAdd = `<div data-feedback-id="${feedback.Id}" style="border-bottom: 1px solid #333;">
+                    <p>
+                        <span style="font-size: 14px; font-weight: 700;">
+                            <a href="/applicationusers/details/${feedback.CustomerId}">${feedback.CustomerName}</a>
+                        </span> -
+                        <span style="font-size: 12px; font-weight: 200;">
+                            ${feedback.Date}
+                        </span>
+                        <span class="glyphicon glyphicon-remove delete-comment-btn pull-right" data-comment-id="${feedback.Id}" style="color: #333;padding-right: 5px;"></span>
+                    </p>
+                    <p class="feedback-${feedback.Id}">${feedback.Content}</p>
+                </div>`;
+
+                    feedbacksContainer.append(commentToAdd);
+                    attachDeleteCommentEvent();
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+        });
+    });
+
+</script>
+    
+}

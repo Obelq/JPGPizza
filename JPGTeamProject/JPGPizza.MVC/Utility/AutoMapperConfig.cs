@@ -19,6 +19,8 @@ namespace JPGPizza.MVC.Utility
                 cfg.CreateMap<ApplicationUser, EditApplicationUserViewModel>();
                 cfg.CreateMap<ApplicationUser, DeleteApplicationUserViewModel>();
                 cfg.CreateMap<ApplicationUser, ApplicationUserDto>();
+                cfg.CreateMap<FeedbackDto, Feedback>();
+                cfg.CreateMap<Feedback, FeedbackDto>();
             });
         }
     }

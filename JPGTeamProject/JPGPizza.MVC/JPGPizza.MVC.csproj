@@ -204,12 +204,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministratorsController.cs" />
     <Compile Include="Controllers\ApplicationUsersController.cs" />
+    <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngredientsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Dtos\ApplicationUserDto.cs" />
+    <Compile Include="Dtos\FeedbackDto.cs" />
     <Compile Include="Dtos\FeedbackForAdminDto.cs" />
     <Compile Include="Dtos\IngredientDto.cs" />
     <Compile Include="Dtos\MostUsedIngredientDto.cs" />
