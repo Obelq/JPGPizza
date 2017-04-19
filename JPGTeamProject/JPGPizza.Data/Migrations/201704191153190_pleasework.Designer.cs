@@ -7,13 +7,13 @@ namespace JPGPizza.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class FixedOrdersRelationships : IMigrationMetadata
+    public sealed partial class pleasework : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FixedOrdersRelationships));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(pleasework));
         
         string IMigrationMetadata.Id
         {
-            get { return "201704191029137_FixedOrdersRelationships"; }
+            get { return "201704191153190_pleasework"; }
         }
         
         string IMigrationMetadata.Source
