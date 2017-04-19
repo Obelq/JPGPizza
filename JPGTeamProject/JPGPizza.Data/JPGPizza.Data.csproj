@@ -100,13 +100,13 @@
     <Compile Include="Migrations\201704180558344_AddIsDeletedFieldToProducts.Designer.cs">
       <DependentUpon>201704180558344_AddIsDeletedFieldToProducts.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704191029137_FixedOrdersRelationships.cs" />
-    <Compile Include="Migrations\201704191029137_FixedOrdersRelationships.Designer.cs">
-      <DependentUpon>201704191029137_FixedOrdersRelationships.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201704190841573_EraseAdressAndTypeFromOrderProduct.cs" />
     <Compile Include="Migrations\201704190841573_EraseAdressAndTypeFromOrderProduct.Designer.cs">
       <DependentUpon>201704190841573_EraseAdressAndTypeFromOrderProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704191153190_pleasework.cs" />
+    <Compile Include="Migrations\201704191153190_pleasework.Designer.cs">
+      <DependentUpon>201704191153190_pleasework.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,8 +146,8 @@
     <EmbeddedResource Include="Migrations\201704190841573_EraseAdressAndTypeFromOrderProduct.resx">
       <DependentUpon>201704190841573_EraseAdressAndTypeFromOrderProduct.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704191029137_FixedOrdersRelationships.resx">
-      <DependentUpon>201704191029137_FixedOrdersRelationships.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704191153190_pleasework.resx">
+      <DependentUpon>201704191153190_pleasework.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
