@@ -239,6 +239,7 @@
     <Compile Include="ViewModels\ApplicationUser\ApplicationUserIndexViewModel.cs" />
     <Compile Include="ViewModels\ApplicationUser\DeleteApplicationUserViewModel.cs" />
     <Compile Include="ViewModels\ApplicationUser\EditApplicationUserViewModel.cs" />
+    <Compile Include="ViewModels\Homepage\IndexViewModel.cs" />
     <Compile Include="ViewModels\Ingredients\DeleteIngredientViewModel.cs" />
     <Compile Include="ViewModels\Ingredients\EditIngredientViewModel.cs" />
     <Compile Include="ViewModels\Ingredients\IngredientsIndexViewModel.cs" />
@@ -261,6 +262,7 @@
     <Content Include="Content\Images\default_product.png" />
     <Content Include="Content\Images\delivery.png" />
     <Content Include="Content\Images\category-sandwich.jpg" />
+    <Content Include="Content\Images\home-page-img.jpg" />
     <Content Include="Content\Images\shop.png" />
     <Content Include="Content\Images\test-background3.jpg" />
     <Content Include="favicon.ico" />
