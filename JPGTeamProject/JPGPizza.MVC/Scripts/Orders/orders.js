@@ -72,12 +72,12 @@ function appendToShoppingCart() {
                                 <span>`+ "Продукт" + `</span>
                             </div>
                             <div class="col-sm-2" style="padding-left: 20px;">`
-            + "Количество" +
-            `</div>
-                             <div class="col-sm-3 text-right">`
-            + "Цена" +
-            `</div>
-<div class="col-sm-1"></div>
+                                        + "Количество" +
+                                        `</div>
+                                <div class="col-sm-3 text-right">`
+                                        + "Цена" +
+                                        `</div>
+                            <div class="col-sm-1"></div>
                         </div>
                         <hr/>`
         for (let orderProduct of shoppingCart) {
@@ -195,6 +195,8 @@ function addToCart() {
         let quantity = parseFloat($('.quantity-value').text());
         let productName = ev.currentTarget.getAttribute('data-product-name-value');
         let productPrice = ev.currentTarget.getAttribute('data-product-price-value');
+        let productType = ev.currentTarget.getAttribute('data-product-type-value');
+        
         let newPrice = productPrice * quantity;
         let orderProduct = {
             id: productId,
@@ -202,7 +204,9 @@ function addToCart() {
             price: newPrice,
             quantity: quantity
         };
-        document.location = '/orders/carryout';
+        
+        document.location = `/products/list?category=` + productType;
+        
         addOrderProductToCart(orderProduct);
     });
 }

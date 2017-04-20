@@ -5,10 +5,20 @@
 }
 
 <div class="row" style="margin-top: 50px;">
+    <div class="row" style="text-align:center">
+
+        <a href="/products/list?category=Pizza" class="btn btn-danger">Пица</a>
+        <a href="/products/list?category=Salad" class="btn btn-danger">Салати</a>
+        <a href="/products/list?category=Sandwich" class="btn btn-danger">Сандвичи</a>
+        <a href="/products/list?category=Drink" class="btn btn-danger">Напитки</a>
+
+       
+
+    </div>
     @foreach (var product in Model)
     {
         <div class="col-sm-3 col-sm-push-1 acp-product-container grow">
             @{Html.RenderPartial("_Product", product);}
         </div>
-    }
+                }
 </div>

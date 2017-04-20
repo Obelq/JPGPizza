@@ -27,8 +27,8 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <a href="/orders/carryout" class="btn btn-default btn-secondary">Назад</a>
-                <a class="btn btn-default pull-right" id="add-to-cart" data-product-price-value="@Model.Product.Price" data-product-id-value="@Model.ProductId" data-product-name-value="@Model.Product.Name">Добави към количката</a>
+                <a href="/products/list?category=@Model.Product.Type" class="btn btn-default btn-secondary">Назад</a>
+                <a class="btn btn-default pull-right" id="add-to-cart" data-product-type-value="@Model.Product.Type" data-product-price-value="@Model.Product.Price" data-product-id-value="@Model.ProductId" data-product-name-value="@Model.Product.Name">Добави към количката</a>
             </div>
         </div>
     </div>
