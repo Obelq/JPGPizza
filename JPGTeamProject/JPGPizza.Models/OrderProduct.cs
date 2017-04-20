@@ -11,6 +11,7 @@
         public virtual Product Product { get; set; }
 
         public virtual Order Order { get; set; }
+
         public int Type { get; set; }
     }
 }

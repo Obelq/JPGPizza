@@ -36,6 +36,7 @@
         <input type="text" name="ProductId" value="@Model.ProductId" hidden id="product-id" />
         <input type="text" name="CustomerId" value="@User.Identity.GetUserId()" hidden id="user-id" />
         <h1>Коментари</h1>
+        <div id="errorMsgFeedback" style="display:none; color:#d80a2b">За да оставите коментар е необходимо да сте регистриран потребител</div>
         <div id="feedbacks-container" style="border-top: 2px solid #d80a2b;overflow-y: scroll; max-height: 240px;">
             @if (Model.Product.Feedbacks.Count() == 0)
             {
@@ -145,11 +146,15 @@
                     attachDeleteCommentEvent();
                 },
                 error: (error) => {
-                    console.log(error);
+                    feedbackErrorMsg();
                 }
             });
         });
     });
+
+    function feedbackErrorMsg() {
+        $('#errorMsgFeedback').fadeIn('slow');
+    }
 
 </script>
     

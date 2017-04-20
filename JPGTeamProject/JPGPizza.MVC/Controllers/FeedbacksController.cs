@@ -25,6 +25,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create(FeedbackDto feedback)
         {
             if (feedback == null)
