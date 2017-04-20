@@ -90,10 +90,14 @@
     </div>
 
 
-  
+        @{ string drinkDisplayClass = string.Empty;}
+        @if (Model.Type != ProductType.Drink)
+        {
+            drinkDisplayClass = "none";
+        }
 
         @* Drink preview container *@
-        <div class="col-sm-3 col-sm-push-2 sticky" id="drink-preview-container">
+        <div class="col-sm-3 col-sm-push-2 sticky" id="drink-preview-container" style="display: @drinkDisplayClass;">
             <div class="row preview-heading-row">
                 <div class="col-sm-12 product-preview-heading text-center">
                     Преглед
@@ -117,8 +121,14 @@
             </div>
         </div>
 
+
+    @{ string pizzaDisplayClass = string.Empty;}
+    @if (Model.Type == ProductType.Drink)
+    {
+        pizzaDisplayClass = "none";
+    }
     @* Pizza, Sandwich, Salad preview container *@
-    <div class="col-sm-3 col-sm-push-3 sticky" id="pss-preview-container">
+    <div class="col-sm-3 col-sm-push-3 sticky" id="pss-preview-container" style="display: @pizzaDisplayClass;">
         <div class="row preview-heading-row">
             <div class="col-sm-12 product-preview-heading text-center">
                 Преглед
