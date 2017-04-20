@@ -21,15 +21,18 @@
                 .Where(p => p.Type != Models.ProductType.Drink && p.IsDeleted == false)
                 .OrderByDescending(i => i.Id)
                 .ToList();
+
             var feedbacks = _context.Feedbacks
                 .OrderByDescending(f => f.CreatedOn)
                 .ToList()
                 .Take(5);
+
             var model = new IndexViewModel()
             {
                 Products = products.ToList(),   
                 Feedbacks = feedbacks.ToList()
             };
+
             return View(model);
         }
 

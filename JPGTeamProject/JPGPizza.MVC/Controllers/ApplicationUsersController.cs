@@ -152,14 +152,14 @@
 
             ApplicationUser applicationUser = _applicationUserRepository.GetById(id);
 
-            if (applicationUser.Id != User.Identity.GetUserId() && !User.IsInRole("Administrator"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             if (applicationUser == null)
             {
                 return HttpNotFound();
+            }
+
+            if (applicationUser.Id != User.Identity.GetUserId() && !User.IsInRole("Administrator"))
+            {
+                return RedirectToAction("Index", "Home");
             }
 
             var viewModel = Mapper.Map<DeleteApplicationUserViewModel>(applicationUser);
