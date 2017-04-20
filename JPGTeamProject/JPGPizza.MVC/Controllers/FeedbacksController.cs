@@ -4,6 +4,7 @@
     using JPGPizza.Data;
     using JPGPizza.Models;
     using JPGPizza.MVC.Dtos;
+    using Microsoft.AspNet.Identity;
     using System;
     using System.Linq;
     using System.Net;
@@ -60,40 +61,45 @@
             return this.Json(feedbackToReturn, JsonRequestBehavior.AllowGet);
         }
 
+        //[HttpPost]
+        //public ActionResult Edit(FeedbackDto feedback)
+        //{
+        //    if (feedback == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+
+        //    var feedbackEntity = _context.Feedbacks.Find(feedback.Id);
+
+        //    if (feedbackEntity == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+
+        //    feedbackEntity.Content = feedback.Content;
+        //    feedbackEntity.CreatedOn = DateTime.Now;
+        //    _context.Entry(feedbackEntity).State = System.Data.Entity.EntityState.Modified;
+        //    _context.SaveChanges();
+
+        //    return this.Json(true, JsonRequestBehavior.AllowGet);
+        //}
+
         [HttpPost]
-        public ActionResult Edit(FeedbackDto feedback)
-        {
-            if (feedback == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var feedbackEntity = _context.Feedbacks.Find(feedback.Id);
-
-            if (feedbackEntity == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            feedbackEntity.Content = feedback.Content;
-            feedbackEntity.CreatedOn = DateTime.Now;
-            _context.Entry(feedbackEntity).State = System.Data.Entity.EntityState.Modified;
-            _context.SaveChanges();
-
-            return this.Json(true, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             var feedback = _context.Feedbacks.Find(id);
 
             if (feedback == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (!User.IsInRole("Administrator") && User.Identity.GetUserId() != feedback.CustomerId)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
