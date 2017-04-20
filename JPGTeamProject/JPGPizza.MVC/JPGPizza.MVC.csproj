@@ -227,6 +227,7 @@
     </Compile>
     <Compile Include="Services\AdministratorsRepository.cs" />
     <Compile Include="Services\ApplicationUsersRepository.cs" />
+    <Compile Include="Services\FeedbacksRepository.cs" />
     <Compile Include="Services\IngredientsRepository.cs" />
     <Compile Include="Services\OrdersRepository.cs" />
     <Compile Include="Services\ProductsRepository.cs" />

@@ -4,6 +4,7 @@
     using JPGPizza.Data;
     using JPGPizza.Models;
     using JPGPizza.MVC.Dtos;
+    using JPGPizza.MVC.Services;
     using Microsoft.AspNet.Identity;
     using System;
     using System.Linq;
@@ -13,10 +14,16 @@
     public class FeedbacksController : Controller
     {
         private readonly JPGPizzaDbContext _context;
+        private readonly FeedbacksRepository _feedbacksRepository;
+        private readonly ProductsRepository _productsRepository;
+        private readonly ApplicationUsersRepository _applicationUsersRepository;
 
         public FeedbacksController()
         {
             _context = new JPGPizzaDbContext();
+            _feedbacksRepository = new FeedbacksRepository(_context);
+            _productsRepository = new ProductsRepository(_context);
+            _applicationUsersRepository = new ApplicationUsersRepository(_context);
         }
 
         // GET: Feedbacks
@@ -34,14 +41,14 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var product = _context.Products.FirstOrDefault(p => p.Id == feedback.ProductId);
+            var product = _productsRepository.GetById(feedback.ProductId);
 
             if (product == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var customer = _context.Users.FirstOrDefault(u => u.Id == feedback.CustomerId);
+            var customer = _applicationUsersRepository.GetById(feedback.CustomerId);
 
             if (customer == null)
             {
@@ -49,40 +56,17 @@
             }
 
             var feedbackEntity = Mapper.Map<Feedback>(feedback);
-
             feedbackEntity.CreatedOn = DateTime.Now;
-            _context.Feedbacks.Add(feedbackEntity);
-            _context.SaveChanges();
+
+            _feedbacksRepository.Add(feedbackEntity);
+            _feedbacksRepository.Save();
 
             var feedbackToReturn = Mapper.Map<FeedbackDto>(feedbackEntity);
-            feedbackToReturn.CustomerName = _context.Users.FirstOrDefault(u => u.Id == feedbackToReturn.CustomerId)?.UserName;
+            feedbackToReturn.CustomerName = User.Identity.Name;
             feedbackToReturn.Date = feedbackEntity.CreatedOn.ToString();
 
             return this.Json(feedbackToReturn, JsonRequestBehavior.AllowGet);
         }
-
-        //[HttpPost]
-        //public ActionResult Edit(FeedbackDto feedback)
-        //{
-        //    if (feedback == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-
-        //    var feedbackEntity = _context.Feedbacks.Find(feedback.Id);
-
-        //    if (feedbackEntity == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-
-        //    feedbackEntity.Content = feedback.Content;
-        //    feedbackEntity.CreatedOn = DateTime.Now;
-        //    _context.Entry(feedbackEntity).State = System.Data.Entity.EntityState.Modified;
-        //    _context.SaveChanges();
-
-        //    return this.Json(true, JsonRequestBehavior.AllowGet);
-        //}
 
         [HttpPost]
         [Authorize]
@@ -92,7 +76,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var feedback = _context.Feedbacks.Find(id);
+            var feedback = _feedbacksRepository.GetById((int)id);
 
             if (feedback == null)
             {
@@ -104,8 +88,8 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            _context.Feedbacks.Remove(feedback);
-            _context.SaveChanges();
+            _feedbacksRepository.Remove(feedback);
+            _feedbacksRepository.Save();
 
             return this.Json(true, JsonRequestBehavior.AllowGet);
         }
