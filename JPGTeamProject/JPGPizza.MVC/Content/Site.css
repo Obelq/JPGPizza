@@ -294,3 +294,11 @@ textarea {
     font-family: verdana;
     font-size: 11px;
 }
+
+.img-circle {
+    border-radius: 50%;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-left: 20%;
+}

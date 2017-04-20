@@ -265,6 +265,8 @@
     <Content Include="Content\Images\delivery.png" />
     <Content Include="Content\Images\category-sandwich.jpg" />
     <Content Include="Content\Images\home-page-img.jpg" />
+    <Content Include="Content\Images\petio.jpg" />
+    <Content Include="Content\Images\qni.jpg" />
     <Content Include="Content\Images\shop.png" />
     <Content Include="Content\Images\test-background3.jpg" />
     <Content Include="favicon.ico" />
@@ -291,6 +293,7 @@
     <Content Include="Scripts\Orders\orders.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Content\Images\georgi.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
