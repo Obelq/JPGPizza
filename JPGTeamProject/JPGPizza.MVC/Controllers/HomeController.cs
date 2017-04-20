@@ -18,7 +18,7 @@
         public ActionResult Index()
         {
             var products = _context.Products.Include("Ingredients")
-                .Where(p => p.Type != Models.ProductType.Drink)
+                .Where(p => p.Type != Models.ProductType.Drink && p.IsDeleted == false)
                 .OrderByDescending(i => i.Id)
                 .ToList();
             var feedbacks = _context.Feedbacks
