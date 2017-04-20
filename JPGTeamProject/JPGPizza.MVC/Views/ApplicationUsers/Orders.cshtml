@@ -157,13 +157,24 @@
 <script>
 
     $(document).ready((ev) => {
+        let orderRows = $('.order-row');
+
+        orderRows.css('cursor', 'pointer');
+
+        orderRows.mouseover((ev) => {
+            let row = $(ev.currentTarget);
+            row.css('color', '#fff').css('background-color', '#d80a2b');
+        });
+
+        orderRows.mouseout((ev) => {
+            let row = $(ev.currentTarget);
+            row.css('color', 'black').css('background-color', '#fff');
+        });
+
         $('.order-row').click((ev) => {
             document.location = '/orders/details/' + ev.currentTarget.getAttribute('data-order-id');
         });
     });
-
-
-
 </script>
     
 }

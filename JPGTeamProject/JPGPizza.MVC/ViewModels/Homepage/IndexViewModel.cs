@@ -1,14 +1,11 @@
-﻿using JPGPizza.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace JPGPizza.MVC.ViewModels.Homepage
+﻿namespace JPGPizza.MVC.ViewModels.Homepage
 {
+    using JPGPizza.Models;
+    using System.Collections.Generic;
+
     public class IndexViewModel
     {
-        public List<Product> Products { get; set; }
-        public List<Feedback> Feedbacks { get; set; }
+        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Feedback> Feedbacks { get; set; }
     }
 }

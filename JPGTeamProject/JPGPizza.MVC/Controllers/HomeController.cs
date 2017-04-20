@@ -20,17 +20,16 @@
             var products = _context.Products.Include("Ingredients")
                 .Where(p => p.Type != Models.ProductType.Drink && p.IsDeleted == false)
                 .OrderByDescending(i => i.Id)
-                .ToList();
+                .Take(4);
 
             var feedbacks = _context.Feedbacks
                 .OrderByDescending(f => f.CreatedOn)
-                .ToList()
                 .Take(5);
 
             var model = new IndexViewModel()
             {
-                Products = products.ToList(),   
-                Feedbacks = feedbacks.ToList()
+                Products = products,
+                Feedbacks = feedbacks
             };
 
             return View(model);

@@ -35,7 +35,7 @@
         <div class="col-md-4">
             <h3>Нашите доволни клиенти!</h3>
                       
-               @foreach (var feedback in Model.Feedbacks)
+               @foreach (var feedback in Model.Feedbacks.ToList())
                {
                    <p>@feedback.Customer.FirstName : @feedback.Content
                        <span class="date sub-text">@feedback.CreatedOn</span>           
@@ -53,7 +53,7 @@
         <div class="col-lg-12">
             <h3 class="page-header">Най-новите ни вкусотии</h3>
         </div>
-        @foreach (var item in Model.Products.Take(4))
+        @foreach (var item in Model.Products.ToList())
         {
             <div class="col-sm-3 col-xs-6">
                 <a href="/products/details/@item.Id">
